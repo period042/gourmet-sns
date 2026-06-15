@@ -1,0 +1,32 @@
+name: Weekly Summary Post
+
+on:
+  schedule:
+    - cron: '0 1 * * 0'   # 毎週日曜 10:00 JST にキュー生成
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Generate summary queue item
+        run: python scripts/generate_summary_post.py
+
+      - name: Commit queue file
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add queue/
+          git diff --staged --quiet || (git pull --rebase origin main && git commit -m "summary: weekly summary queue $(date +%Y%m%d)" && git push)

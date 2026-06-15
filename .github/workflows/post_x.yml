@@ -1,0 +1,61 @@
+name: X Auto Post (5/day)
+
+on:
+  schedule:
+    # 1日5件: 8:00, 10:30, 13:00, 17:00, 20:00 JST (UTC-9)
+    - cron: '0 23 * * *'   # 8:00 JST
+    - cron: '30 1 * * *'   # 10:30 JST
+    - cron: '0 4 * * *'    # 13:00 JST
+    - cron: '0 8 * * *'    # 17:00 JST
+    - cron: '0 11 * * *'   # 20:00 JST
+  workflow_dispatch:
+
+concurrency:
+  group: x-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install tweepy requests
+
+      - name: Post to X
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY_GOURMET }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET_GOURMET }}
+          X_ACCESS_TOKEN_GOURMET: ${{ secrets.X_ACCESS_TOKEN_GOURMET }}
+          X_ACCESS_TOKEN_SECRET_GOURMET: ${{ secrets.X_ACCESS_TOKEN_SECRET_GOURMET }}
+        run: python scripts/post_x.py
+
+      - name: Commit posted files
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add posted/ queue/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "post: X auto post $(date +%Y%m%d_%H%M%S)"
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt"
+            if git push; then
+              echo "Push succeeded"
+              exit 0
+            fi
+            git pull --rebase origin main
+            sleep $((attempt * 5))
+          done
+          echo "ERROR: Push failed after 3 attempts"
+          exit 1

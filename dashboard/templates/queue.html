@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>投稿キュー</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Hiragino Kaku Gothic ProN","Meiryo",sans-serif; background: #f5f5f5; }
+header { background: #1a1a2e; color: #fff; padding: 14px 24px; display: flex; align-items: center; gap: 12px; }
+header a { color: #aaa; text-decoration: none; font-size: 14px; }
+header h1 { flex: 1; }
+main { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+
+.item { background: #fff; border-radius: 10px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+.item-main { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: start; }
+.thumb { width: 90px; height: 90px; object-fit: cover; border-radius: 8px; cursor: pointer; }
+.thumb-ph { width: 90px; height: 90px; border-radius: 8px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.meta { font-size: 12px; color: #888; margin-bottom: 4px; }
+.name { font-weight: bold; font-size: 15px; }
+.caption-preview { font-size: 13px; color: #555; margin-top: 6px; white-space: pre-wrap; max-height: 60px; overflow: hidden; }
+.badge { padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+.badge-ig { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
+
+.actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.btn { border-radius: 8px; padding: 6px 12px; font-size: 13px; cursor: pointer; white-space: nowrap; transition: all .15s; }
+.btn-delete { background: none; border: 1.5px solid #e5e7eb; color: #9ca3af; }
+.btn-delete:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
+.btn-edit { background: none; border: 1.5px solid #d1d5db; color: #374151; }
+.btn-edit:hover { background: #f3f4f6; }
+.btn-edit.active { background: #eff6ff; border-color: #93c5fd; color: #1d4ed8; }
+
+/* 編集パネル */
+.edit-panel { display: none; border-top: 1px solid #e5e7eb; margin-top: 14px; padding-top: 14px; }
+.edit-panel.open { display: block; }
+.edit-panel label { font-size: 12px; font-weight: bold; color: #374151; display: block; margin-bottom: 4px; }
+.caption-edit { width: 100%; height: 260px; font-size: 13px; font-family: inherit; border: 1.5px solid #d1d5db; border-radius: 8px; padding: 10px; resize: vertical; line-height: 1.6; }
+.caption-edit:focus { outline: none; border-color: #6366f1; }
+.edit-toolbar { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.btn-sub { background: none; border: 1.5px solid #d1d5db; color: #374151; border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+.btn-sub:hover { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+.btn-save { background: #22c55e; color: #fff; border: none; border-radius: 6px; padding: 5px 14px; font-size: 12px; cursor: pointer; font-weight: bold; margin-left: auto; }
+.btn-save:hover { background: #16a34a; }
+.btn-cancel { background: none; border: 1.5px solid #d1d5db; color: #6b7280; border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+
+.empty { text-align: center; color: #999; padding: 60px 0; font-size: 18px; }
+.toast { position: fixed; bottom: 24px; right: 24px; background: #22c55e; color: #fff; padding: 12px 20px; border-radius: 8px; font-weight: bold; display: none; z-index: 999; font-size: 14px; }
+.toast.err { background: #ef4444; }
+
+/* 画像モーダル */
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 100; align-items: center; justify-content: center; }
+.modal-bg.open { display: flex; }
+.modal-bg img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+</style>
+</head>
+<body>
+<header>
+  <a href="/">← 一覧</a>
+  <h1>投稿キュー (<span id="count">{{ items|length }}</span> 件)</h1>
+</header>
+<main id="list">
+  {% if items %}
+    {% for item in items %}
+    <div class="item" id="item-{{ item.id }}">
+      <div class="item-main">
+        {% if item.photo_urls %}
+        <img class="thumb" src="{{ item.photo_urls[0] }}" alt="" onclick="openModal('{{ item.photo_urls[0] }}')">
+        {% else %}
+        <div class="thumb-ph">📷</div>
+        {% endif %}
+        <div>
+          <div class="meta">
+            <span class="badge badge-ig">Instagram</span>
+            &nbsp;{{ item.created_at[:10] }}&nbsp; {{ item.photo_urls|length }}枚
+            {% if item.scheduled_at %}
+            &nbsp;|&nbsp; 投稿予定: <strong>{{ item.scheduled_at[:16].replace('T',' ') }}</strong>
+            {% else %}
+            &nbsp;|&nbsp; <span style="color:#e67e22">即時投稿可</span>
+            {% endif %}
+          </div>
+          <div class="name">{{ item.restaurant_name }} <small style="color:#888">{{ item.area }}</small></div>
+          <div class="caption-preview" id="preview-{{ item.id }}">{{ item.caption }}</div>
+        </div>
+        <div class="actions">
+          <a class="btn btn-edit" href="/restaurant/{{ item.restaurant_id }}" style="text-decoration:none;text-align:center">詳細</a>
+          <button class="btn btn-edit" id="editbtn-{{ item.id }}" onclick="toggleEdit('{{ item.id }}')">編集</button>
+          <button class="btn btn-delete" onclick="deleteItem('{{ item.id }}')">削除</button>
+        </div>
+      </div>
+
+      <!-- 編集パネル -->
+      <div class="edit-panel" id="edit-{{ item.id }}">
+        <label>キャプション</label>
+        <textarea class="caption-edit" id="ta-{{ item.id }}">{{ item.caption }}</textarea>
+        <div class="edit-toolbar">
+          <button class="btn-sub" id="sub-{{ item.id }}" onclick="removeImageSubcopy('{{ item.id }}')">画像のサブコピー削除</button>
+          <button class="btn-cancel" onclick="toggleEdit('{{ item.id }}')">キャンセル</button>
+          <button class="btn-save" onclick="saveItem('{{ item.id }}')">保存</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="empty" id="empty">キューは空です</div>
+  {% endif %}
+</main>
+
+<div class="toast" id="toast"></div>
+<div class="modal-bg" id="modal" onclick="this.classList.remove('open')">
+  <img id="modal-img" src="" alt="">
+</div>
+
+<script>
+function toggleEdit(id) {
+  const panel = document.getElementById(`edit-${id}`);
+  const btn   = document.getElementById(`editbtn-${id}`);
+  const isOpen = panel.classList.contains('open');
+  if (isOpen) {
+    panel.classList.remove('open');
+    btn.classList.remove('active');
+    btn.textContent = '編集';
+  } else {
+    panel.classList.add('open');
+    btn.classList.add('active');
+    btn.textContent = '閉じる';
+  }
+}
+
+async function removeImageSubcopy(id) {
+  const btn = document.getElementById(`sub-${id}`);
+  btn.textContent = '生成中…';
+  btn.disabled = true;
+  try {
+    const res = await fetch(`/api/queue/${id}/remove_image_subcopy`, { method: 'POST' });
+    const j = await res.json();
+    if (j.ok) {
+      // サムネイルと編集パネル内の画像を更新（キャッシュ回避のためタイムスタンプ付加）
+      const thumb = document.querySelector(`#item-${id} img.thumb`);
+      if (thumb) { thumb.src = j.url + '?t=' + Date.now(); thumb.onclick = () => openModal(j.url); }
+      showToast('画像のサブコピーを削除しました');
+    } else {
+      showToast('失敗: ' + (j.error || '不明'), true);
+    }
+  } finally {
+    btn.textContent = '画像のサブコピー削除';
+    btn.disabled = false;
+  }
+}
+
+async function saveItem(id) {
+  const caption = document.getElementById(`ta-${id}`).value;
+  const res = await fetch(`/api/queue/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ caption })
+  });
+  const j = await res.json();
+  if (j.ok) {
+    document.getElementById(`preview-${id}`).textContent = caption;
+    toggleEdit(id);
+    showToast('保存しました');
+  } else {
+    showToast('保存に失敗しました', true);
+  }
+}
+
+async function deleteItem(id) {
+  if (!confirm('このキューアイテムを削除しますか？')) return;
+  const res = await fetch(`/api/queue/${id}`, { method: 'DELETE' });
+  const j = await res.json();
+  if (j.ok) {
+    document.getElementById(`item-${id}`).remove();
+    const remaining = document.querySelectorAll('.item').length;
+    document.getElementById('count').textContent = remaining;
+    if (remaining === 0) {
+      document.getElementById('list').innerHTML = '<div class="empty">キューは空です</div>';
+    }
+    showToast('削除しました');
+  } else {
+    showToast('削除に失敗しました', true);
+  }
+}
+
+function openModal(url) {
+  document.getElementById('modal-img').src = url;
+  document.getElementById('modal').classList.add('open');
+}
+
+function showToast(msg, isErr = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isErr ? ' err' : '');
+  t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 2500);
+}
+</script>
+</body>
+</html>

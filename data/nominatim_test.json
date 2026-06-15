@@ -1,0 +1,97 @@
+{
+  "r0012": {
+    "place_id": 263365225,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 787790848,
+    "lat": "35.7462641",
+    "lon": "139.7203283",
+    "class": "highway",
+    "type": "unclassified",
+    "place_rank": 26,
+    "importance": 0.053419268329900016,
+    "addresstype": "road",
+    "name": "",
+    "display_name": "滝野川七丁目, 滝野川, 北区, 東京都, 114-0023, 日本",
+    "address": {
+      "neighbourhood": "滝野川七丁目",
+      "quarter": "滝野川",
+      "city": "北区",
+      "ISO3166-2-lvl4": "JP-13",
+      "postcode": "114-0023",
+      "country": "日本",
+      "country_code": "jp"
+    },
+    "boundingbox": [
+      "35.7455026",
+      "35.7463173",
+      "139.7201238",
+      "139.7205634"
+    ]
+  },
+  "r0014": {
+    "place_id": 265531936,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 142757180,
+    "lat": "35.6513900",
+    "lon": "139.7090114",
+    "class": "highway",
+    "type": "primary",
+    "place_rank": 26,
+    "importance": 0.053419268329900016,
+    "addresstype": "road",
+    "name": "明治通り",
+    "display_name": "明治通り, 東二丁目, 東, 渋谷区, 東京都, 150-0021, 日本",
+    "address": {
+      "road": "明治通り",
+      "neighbourhood": "東二丁目",
+      "quarter": "東",
+      "city": "渋谷区",
+      "ISO3166-2-lvl4": "JP-13",
+      "postcode": "150-0021",
+      "country": "日本",
+      "country_code": "jp"
+    },
+    "boundingbox": [
+      "35.6489219",
+      "35.6522582",
+      "139.7089037",
+      "139.7112676"
+    ]
+  },
+  "r0018": {
+    "place_id": 262336468,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 461361665,
+    "lat": "39.7174302",
+    "lon": "140.1220778",
+    "class": "amenity",
+    "type": "community_centre",
+    "place_rank": 30,
+    "importance": 5.000152590214416e-05,
+    "addresstype": "amenity",
+    "name": "にぎわい交流館AU",
+    "display_name": "にぎわい交流館AU, 1, 中通一丁目, 千秋明徳町, 渋坂, 秋田市, 秋田県, 010-0001, 日本",
+    "address": {
+      "amenity": "にぎわい交流館AU",
+      "house_number": "1",
+      "neighbourhood": "中通一丁目",
+      "quarter": "千秋明徳町",
+      "hamlet": "渋坂",
+      "city": "秋田市",
+      "province": "秋田県",
+      "ISO3166-2-lvl4": "JP-05",
+      "postcode": "010-0001",
+      "country": "日本",
+      "country_code": "jp"
+    },
+    "boundingbox": [
+      "39.7171156",
+      "39.7178099",
+      "140.1219184",
+      "140.1222682"
+    ]
+  }
+}

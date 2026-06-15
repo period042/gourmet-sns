@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>グルメ投稿ダッシュボード</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif; background: #f5f5f5; color: #333; }
+header { background: #1a1a2e; color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
+header h1 { font-size: 20px; }
+.stats { display: flex; gap: 12px; margin-left: auto; }
+.stat { background: rgba(255,255,255,0.15); border-radius: 8px; padding: 6px 14px; font-size: 13px; }
+.stat span { font-weight: bold; font-size: 18px; }
+main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+.toolbar { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; }
+.toolbar select, .toolbar input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); transition: transform .2s; }
+.card:hover { transform: translateY(-3px); }
+.card-thumb { width: 100%; height: 170px; object-fit: cover; background: #eee; }
+.card-thumb-placeholder { width: 100%; height: 170px; background: linear-gradient(135deg,#667eea,#764ba2); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 40px; }
+.card-body { padding: 14px; }
+.card-title { font-weight: bold; font-size: 15px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-meta { font-size: 12px; color: #888; margin-bottom: 10px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+.badge-pending { background: #fff3cd; color: #856404; }
+.badge-approved { background: #d1e7dd; color: #0f5132; }
+.badge-posted { background: #cff4fc; color: #055160; }
+.badge-rejected { background: #f8d7da; color: #842029; }
+.card-footer { border-top: 1px solid #f0f0f0; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #999; }
+.btn { display: inline-block; padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: bold; cursor: pointer; border: none; text-decoration: none; }
+.btn-primary { background: #4f46e5; color: #fff; }
+.btn-primary:hover { background: #3730a3; }
+.btn-danger { background: #ef4444; color: #fff; padding: 5px 10px; font-size: 12px; }
+.btn-danger:hover { background: #dc2626; }
+.btn-suggest { background: #f59e0b; color: #fff; padding: 5px 10px; font-size: 12px; border: none; cursor: pointer; border-radius: 6px; font-weight: bold; }
+.btn-suggest:hover { background: #d97706; }
+.suggest-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1000; align-items:center; justify-content:center; }
+.suggest-modal.open { display:flex; }
+.suggest-box { background:#fff; border-radius:12px; padding:24px; max-width:400px; width:90%; }
+.suggest-box h3 { margin-bottom:12px; }
+.suggest-item { display:block; width:100%; text-align:left; padding:8px 12px; margin:4px 0; border:1px solid #e5e7eb; border-radius:6px; background:#fff; cursor:pointer; font-size:14px; }
+.suggest-item:hover { background:#f3f4f6; }
+.suggest-actions { display:flex; gap:8px; margin-top:12px; }
+.toast { position:fixed; bottom:24px; right:24px; padding:10px 20px; border-radius:8px; font-size:14px; z-index:2000; display:none; }
+.toast.ok { background:#16a34a; color:#fff; }
+.toast.err { background:#dc2626; color:#fff; }
+.queue-banner { background: #4f46e5; color: #fff; padding: 12px 20px; border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+.queue-banner a { color: #fff; text-decoration: underline; }
+</style>
+</head>
+<body>
+<header>
+  <h1>グルメ投稿ダッシュボード</h1>
+  <div class="stats">
+    <div class="stat">全店舗 <span>{{ stats.total }}</span></div>
+    <div class="stat">レビュー待ち <span>{{ stats.pending }}</span></div>
+    <div class="stat">承認済 <span>{{ stats.approved }}</span></div>
+    <div class="stat">投稿済 <span>{{ stats.posted }}</span></div>
+  </div>
+</header>
+
+<main>
+  {% if queue_count > 0 %}
+  <div class="queue-banner">
+    <span>📤 投稿キューに {{ queue_count }} 件あります</span>
+    <a href="/queue">キューを確認 →</a>
+  </div>
+  {% endif %}
+
+  <div class="toolbar">
+    <select id="filter" onchange="applyFilter()">
+      <option value="all">すべて</option>
+      <option value="pending" selected>レビュー待ち</option>
+      <option value="approved">承認済</option>
+      <option value="posted">投稿済</option>
+    </select>
+    <input type="text" id="search" placeholder="店名で検索..." oninput="applyFilter()">
+  </div>
+
+  <div class="grid" id="grid">
+    {% for r in restaurants %}
+    <div class="card" data-status="{{ r.status }}" data-name="{{ r.name|lower }}">
+      {% set first = r.food_photos[0] if r.food_photos else None %}
+      {% if first %}
+      <img class="card-thumb" src="/photo/{{ first.filename }}" alt="{{ r.name }}" loading="lazy">
+      {% else %}
+      <div class="card-thumb-placeholder">🍽️</div>
+      {% endif %}
+      <div class="card-body">
+        <div class="card-title">{{ r.name if r.name else '（店名未設定）' }}</div>
+        {% set postable_count = (r.postable_photos if r.postable_photos is defined else [])|length %}
+        <div class="card-meta">{{ r.area or 'エリア未設定' }} ・ {{ r.date }} ・ 投稿可 {{ postable_count }}枚</div>
+        <span class="badge badge-{{ r.status }}">
+          {% if r.status == 'pending' %}レビュー待ち
+          {% elif r.status == 'approved' %}承認済
+          {% elif r.status == 'posted' %}投稿済
+          {% elif r.status == 'rejected' %}却下
+          {% else %}{{ r.status }}{% endif %}
+        </span>
+      </div>
+      <div class="card-footer">
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          {% if not r.name or r.name == '（店名未設定）' %}
+          <button class="btn-suggest" onclick="suggestName('{{ r.id }}')">店名照合</button>
+          {% endif %}
+          <button class="btn btn-danger" onclick="deleteRestaurant('{{ r.id }}', this)">削除</button>
+        </div>
+        <a href="/restaurant/{{ r.id }}" class="btn btn-primary">レビュー</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+
+<!-- 店名照合モーダル -->
+<div class="suggest-modal" id="suggest-modal">
+  <div class="suggest-box">
+    <h3>店名候補</h3>
+    <div id="suggest-body"></div>
+    <div class="suggest-actions">
+      <button onclick="document.getElementById('suggest-modal').classList.remove('open')" style="padding:7px 16px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer">閉じる</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+function applyFilter() {
+  const f = document.getElementById('filter').value;
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(c => {
+    const matchFilter = f === 'all' || c.dataset.status === f;
+    const matchSearch = !q || c.dataset.name.includes(q);
+    c.style.display = matchFilter && matchSearch ? '' : 'none';
+  });
+}
+applyFilter();
+
+function toast(msg, err=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast ' + (err ? 'err' : 'ok');
+  t.style.display = 'block'; setTimeout(() => t.style.display='none', 3000);
+}
+
+async function deleteRestaurant(rid, btn) {
+  if (!confirm('この店舗データを削除しますか？')) return;
+  const res = await fetch(`/api/restaurant/${rid}`, {method: 'DELETE'});
+  const j = await res.json();
+  if (j.ok) {
+    btn.closest('.card').remove();
+    toast('削除しました');
+  } else {
+    toast('削除失敗', true);
+  }
+}
+
+let _suggestRid = null;
+async function suggestName(rid) {
+  _suggestRid = rid;
+  const body = document.getElementById('suggest-body');
+  body.innerHTML = '<p style="color:#888">検索中...</p>';
+  document.getElementById('suggest-modal').classList.add('open');
+
+  const res = await fetch(`/api/restaurant/${rid}/suggest_name`);
+  const j = await res.json();
+  let html = '';
+
+  if (j.date) {
+    html += `<p style="font-size:12px;color:#888;margin-bottom:10px">📅 撮影日: ${j.date}</p>`;
+  }
+
+  if (j.candidates && j.candidates.length > 0) {
+    html += `<p style="font-size:12px;color:#888;margin-bottom:6px">食べログ「行った」(${j.date ? j.date.slice(0,7) : ''}) より候補:</p>`;
+    j.candidates.forEach(c => {
+      const safeName = c.name.replace(/'/g, "\\'");
+      html += `<button class="suggest-item" onclick="applyName('${rid}','${safeName}')">
+        <strong>${c.name}</strong>${c.area ? `<br><span style="font-size:11px;color:#888">${c.area}</span>` : ''}
+      </button>`;
+    });
+  } else if (j.date) {
+    html += `<p style="color:#f59e0b;font-size:13px">撮影月 (${j.date.slice(0,7)}) に一致する食べログ記録が見つかりませんでした</p>`;
+  }
+
+  html += `<div style="margin-top:14px;border-top:1px solid #f0f0f0;padding-top:12px">
+    <p style="font-size:12px;color:#888;margin-bottom:6px">店名を直接入力:</p>
+    <div style="display:flex;gap:6px">
+      <input id="manual-name-input" type="text" placeholder="例: 神保焼肉 花火" style="flex:1;padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:13px">
+      <button onclick="applyName('${rid}',document.getElementById('manual-name-input').value)" style="padding:7px 14px;background:#4f46e5;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:bold">設定</button>
+    </div></div>`;
+
+  if (!html) html = '<p style="color:#888">情報が取得できませんでした</p>';
+  body.innerHTML = html;
+}
+
+async function applyName(rid, name) {
+  if (!name || !name.trim()) { toast('店名を入力してください', true); return; }
+  name = name.trim();
+  const res = await fetch(`/api/restaurant/${rid}`, {
+    method: 'PATCH',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({name}),
+  });
+  const j = await res.json();
+  if (j.ok) {
+    const cardEl = document.querySelector(`.card button[onclick*="suggestName('${rid}')"]`)?.closest('.card')
+                || document.querySelector(`.card button[onclick*="deleteRestaurant('${rid}'"]`)?.closest('.card');
+    if (cardEl) {
+      cardEl.querySelector('.card-title').textContent = name;
+      cardEl.dataset.name = name.toLowerCase();
+      cardEl.querySelector('.btn-suggest')?.remove();
+    }
+    document.getElementById('suggest-modal').classList.remove('open');
+    toast(`店名を「${name}」に設定しました`);
+  } else {
+    toast('保存失敗', true);
+  }
+}
+</script>
+</body>
+</html>
