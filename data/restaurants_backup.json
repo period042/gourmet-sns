@@ -1,0 +1,1148 @@
+{
+  "restaurants": [
+    {
+      "id": "r0012",
+      "name": "赤尾",
+      "area": "東京都北区",
+      "date": "2023-02-17",
+      "gps": {
+        "lat": 35.74624722222222,
+        "lon": 139.72036666666668
+      },
+      "all_photos": [
+        {
+          "filename": "IMG_0006(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0006(1).HEIC",
+          "taken_at": "2023-02-17T19:46:59",
+          "gps": {
+            "lat": 35.74624722222222,
+            "lon": 139.72036666666668
+          },
+          "is_food": true,
+          "food_desc": "ほうれん草卵黄・和食"
+        },
+        {
+          "filename": "IMG_0007.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0007.HEIC",
+          "taken_at": "2023-02-17T19:56:28",
+          "gps": {
+            "lat": 35.74624722222222,
+            "lon": 139.72036666666668
+          },
+          "is_food": true,
+          "food_desc": "焼き鳥・ネギソース"
+        },
+        {
+          "filename": "IMG_0008(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0008(1).HEIC",
+          "taken_at": "2023-02-17T19:59:44",
+          "gps": {
+            "lat": 35.74624722222222,
+            "lon": 139.72036666666668
+          },
+          "is_food": true,
+          "food_desc": "焼き鳥・串焼き"
+        },
+        {
+          "filename": "IMG_0009.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0009.HEIC",
+          "taken_at": "2023-02-17T20:19:45",
+          "gps": {
+            "lat": 35.74624722222222,
+            "lon": 139.72036666666668
+          },
+          "is_food": true,
+          "food_desc": "焼き鳥・たれ焼き"
+        },
+        {
+          "filename": "IMG_0010.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0010.HEIC",
+          "taken_at": "2023-02-17T20:22:00",
+          "gps": {
+            "lat": 35.74624722222222,
+            "lon": 139.72036666666668
+          },
+          "is_food": true,
+          "food_desc": "もつ焼き串"
+        },
+        {
+          "filename": "IMG_0011(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0011(1).HEIC",
+          "taken_at": "2023-02-17T20:55:21",
+          "gps": {
+            "lat": 35.74624722222222,
+            "lon": 139.72036666666668
+          },
+          "is_food": true,
+          "food_desc": "牛串焼き・和牛"
+        }
+      ],
+      "food_photos": [
+        {
+          "filename": "IMG_0006(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0006(1).HEIC",
+          "taken_at": "2023-02-17T19:46:59",
+          "food_desc": "ほうれん草卵黄・和食",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0007.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0007.HEIC",
+          "taken_at": "2023-02-17T19:56:28",
+          "food_desc": "焼き鳥・ネギソース",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0008(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0008(1).HEIC",
+          "taken_at": "2023-02-17T19:59:44",
+          "food_desc": "焼き鳥・串焼き",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0009.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0009.HEIC",
+          "taken_at": "2023-02-17T20:19:45",
+          "food_desc": "焼き鳥・たれ焼き",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0010.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0010.HEIC",
+          "taken_at": "2023-02-17T20:22:00",
+          "food_desc": "もつ焼き串",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0011(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0011(1).HEIC",
+          "taken_at": "2023-02-17T20:55:21",
+          "food_desc": "牛串焼き・和牛",
+          "has_person": false
+        }
+      ],
+      "postable_photos": [
+        {
+          "filename": "IMG_0006(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0006(1).HEIC",
+          "taken_at": "2023-02-17T19:46:59",
+          "food_desc": "ほうれん草卵黄・和食"
+        },
+        {
+          "filename": "IMG_0007.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0007.HEIC",
+          "taken_at": "2023-02-17T19:56:28",
+          "food_desc": "焼き鳥・ネギソース"
+        },
+        {
+          "filename": "IMG_0008(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0008(1).HEIC",
+          "taken_at": "2023-02-17T19:59:44",
+          "food_desc": "焼き鳥・串焼き"
+        },
+        {
+          "filename": "IMG_0009.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0009.HEIC",
+          "taken_at": "2023-02-17T20:19:45",
+          "food_desc": "焼き鳥・たれ焼き"
+        },
+        {
+          "filename": "IMG_0010.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0010.HEIC",
+          "taken_at": "2023-02-17T20:22:00",
+          "food_desc": "もつ焼き串"
+        },
+        {
+          "filename": "IMG_0011(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0011(1).HEIC",
+          "taken_at": "2023-02-17T20:55:21",
+          "food_desc": "牛串焼き・和牛"
+        }
+      ],
+      "status": "approved",
+      "approved_posts": [
+        "20260611_134452_r0012_instagram",
+        "20260611_134452_r0012_x"
+      ],
+      "generated_posts": {
+        "instagram": "📍 赤尾 | 東京都北区\n\nこれは絶対に行ってほしいお店です！\n\nニラ玉・和食・焼き鳥・ネギソース・焼き鳥・串焼き・焼き鳥・たれ焼きと、どれも素材の旨みが際立つ一品。目で見ても美しく、食べても満足感が高いです。\n気になった方はぜひ行ってみてください。絶対後悔しませんよ！\n\nAuthentic yakitori with perfectly charred skewers\n\n━━━━━━━━━━━\n🏠 赤尾\n📍 東京都北区\n━━━━━━━━━━━\n\n#焼き鳥 #居酒屋グルメ #串焼き #グルメ #japanesefood",
+        "generated_at": "2026-06-11T10:52:50.780852",
+        "method": "template",
+        "x": ""
+      },
+      "catchphrase": "一串で虜になる夜"
+    },
+    {
+      "id": "r0014",
+      "name": "魚竹",
+      "area": "東京都渋谷区",
+      "date": "2023-02-18",
+      "gps": {
+        "lat": 35.65139722222222,
+        "lon": 139.70903055555556
+      },
+      "all_photos": [
+        {
+          "filename": "IMG_0024.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0024.HEIC",
+          "taken_at": "2023-02-18T18:45:13",
+          "gps": {
+            "lat": 35.65139722222222,
+            "lon": 139.70903055555556
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0025.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0025.HEIC",
+          "taken_at": "2023-02-18T18:48:11",
+          "gps": {
+            "lat": 35.651294444444446,
+            "lon": 139.70901388888888
+          },
+          "is_food": true,
+          "food_desc": "和食・お浸し・かつお節"
+        },
+        {
+          "filename": "IMG_0026(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0026(1).HEIC",
+          "taken_at": "2023-02-18T18:48:47",
+          "gps": {
+            "lat": 35.65129722222222,
+            "lon": 139.70909166666667
+          },
+          "is_food": true,
+          "food_desc": "刺身盛り・牡蠣・鮪"
+        },
+        {
+          "filename": "IMG_0027(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0027(1).HEIC",
+          "taken_at": "2023-02-18T18:52:55",
+          "gps": {
+            "lat": 35.65140833333333,
+            "lon": 139.70899999999997
+          },
+          "is_food": true,
+          "food_desc": "獺祭スパークリング・日本酒"
+        },
+        {
+          "filename": "IMG_0028(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0028(1).HEIC",
+          "taken_at": "2023-02-18T19:05:39",
+          "gps": {
+            "lat": 35.65147777777778,
+            "lon": 139.70898333333332
+          },
+          "is_food": true,
+          "food_desc": "焼きホタテ・ウニのせ"
+        },
+        {
+          "filename": "IMG_0029(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0029(1).HEIC",
+          "taken_at": "2023-02-18T19:06:42",
+          "gps": {
+            "lat": 35.651358333333334,
+            "lon": 139.70907499999998
+          },
+          "is_food": true,
+          "food_desc": "海鮮寿司盛り・イクラ"
+        },
+        {
+          "filename": "IMG_0030(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0030(1).HEIC",
+          "taken_at": "2023-02-18T19:47:18",
+          "gps": {
+            "lat": 35.651375,
+            "lon": 139.70903055555556
+          },
+          "is_food": true,
+          "food_desc": "銀鱈焼き・和食コース"
+        },
+        {
+          "filename": "IMG_0031(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0031(1).HEIC",
+          "taken_at": "2023-02-18T20:11:50",
+          "gps": {
+            "lat": 35.65141944444444,
+            "lon": 139.70898333333332
+          },
+          "is_food": true,
+          "food_desc": "天ぷら・海老天"
+        },
+        {
+          "filename": "IMG_0032.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0032.HEIC",
+          "taken_at": "2023-02-18T20:33:07",
+          "gps": {
+            "lat": 35.65125555555555,
+            "lon": 139.70912222222222
+          },
+          "is_food": true,
+          "food_desc": "素麺・和食コース"
+        },
+        {
+          "filename": "IMG_0033.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0033.HEIC",
+          "taken_at": "2023-02-18T21:25:11",
+          "gps": {
+            "lat": 35.75851111111111,
+            "lon": 139.71996944444444
+          },
+          "is_food": false,
+          "food_desc": ""
+        }
+      ],
+      "food_photos": [
+        {
+          "filename": "IMG_0025.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0025.HEIC",
+          "taken_at": "2023-02-18T18:48:11",
+          "food_desc": "和食・お浸し・かつお節",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0026(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0026(1).HEIC",
+          "taken_at": "2023-02-18T18:48:47",
+          "food_desc": "刺身盛り・牡蠣・鮪",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0027(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0027(1).HEIC",
+          "taken_at": "2023-02-18T18:52:55",
+          "food_desc": "獺祭スパークリング・日本酒",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0028(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0028(1).HEIC",
+          "taken_at": "2023-02-18T19:05:39",
+          "food_desc": "焼きホタテ・ウニのせ",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0029(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0029(1).HEIC",
+          "taken_at": "2023-02-18T19:06:42",
+          "food_desc": "海鮮寿司盛り・イクラ",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0030(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0030(1).HEIC",
+          "taken_at": "2023-02-18T19:47:18",
+          "food_desc": "銀鱈焼き・和食コース",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0031(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0031(1).HEIC",
+          "taken_at": "2023-02-18T20:11:50",
+          "food_desc": "天ぷら・海老天",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0032.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0032.HEIC",
+          "taken_at": "2023-02-18T20:33:07",
+          "food_desc": "素麺・和食コース",
+          "has_person": false
+        }
+      ],
+      "postable_photos": [
+        {
+          "filename": "IMG_0025.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0025.HEIC",
+          "taken_at": "2023-02-18T18:48:11",
+          "food_desc": "和食・お浸し・かつお節"
+        },
+        {
+          "filename": "IMG_0026(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0026(1).HEIC",
+          "taken_at": "2023-02-18T18:48:47",
+          "food_desc": "刺身盛り・牡蠣・鮪"
+        },
+        {
+          "filename": "IMG_0027(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0027(1).HEIC",
+          "taken_at": "2023-02-18T18:52:55",
+          "food_desc": "獺祭スパークリング・日本酒"
+        },
+        {
+          "filename": "IMG_0028(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0028(1).HEIC",
+          "taken_at": "2023-02-18T19:05:39",
+          "food_desc": "焼きホタテ・ウニのせ"
+        },
+        {
+          "filename": "IMG_0029(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0029(1).HEIC",
+          "taken_at": "2023-02-18T19:06:42",
+          "food_desc": "海鮮寿司盛り・イクラ"
+        },
+        {
+          "filename": "IMG_0030(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0030(1).HEIC",
+          "taken_at": "2023-02-18T19:47:18",
+          "food_desc": "銀鱈焼き・和食コース"
+        },
+        {
+          "filename": "IMG_0031(1).HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0031(1).HEIC",
+          "taken_at": "2023-02-18T20:11:50",
+          "food_desc": "天ぷら・海老天"
+        },
+        {
+          "filename": "IMG_0032.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0032.HEIC",
+          "taken_at": "2023-02-18T20:33:07",
+          "food_desc": "素麺・和食コース"
+        }
+      ],
+      "status": "approved",
+      "approved_posts": [
+        "20260611_134349_r0014_instagram",
+        "20260611_134349_r0014_x"
+      ],
+      "generated_posts": {
+        "instagram": "📍 魚竹 | 東京都渋谷区\n\nこれは絶対に行ってほしいお店です！\n\nいただいたのは和食・お浸し・かつお節・刺身盛り・牡蠣・鮪・獺祭スパークリング・日本酒・焼きホタテ・ウニのせ。どれも丁寧な仕事が感じられ、素材の個性が輝いていました。\n一緒に行った仲間も大満足。リピート確定です😋\n\nMulti-course dining experience at its finest\n\n━━━━━━━━━━━\n🏠 魚竹\n📍 東京都渋谷区\n━━━━━━━━━━━\n\n#海鮮 #シーフード #鮮魚 #グルメ #seafood",
+        "generated_at": "2026-06-11T10:52:50.780867",
+        "method": "template",
+        "x": ""
+      },
+      "catchphrase": "銘酒が誘う至福の時間"
+    },
+    {
+      "id": "r0017",
+      "name": "",
+      "area": "",
+      "date": "2023-08-27",
+      "gps": null,
+      "all_photos": [
+        {
+          "filename": "4920518599655229884.01987e6e842ac87d28b95b61aa380d02.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.01987e6e842ac87d28b95b61aa380d02.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "4920518599655229884.0db7214cb6089ba769c6fe5d13477451.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.0db7214cb6089ba769c6fe5d13477451.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "4920518599655229884.145c86216ceed7eb34f7d101b2f435ae.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.145c86216ceed7eb34f7d101b2f435ae.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "4920518599655229884.14d3352d19027818e86e73a5f5b4724f.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.14d3352d19027818e86e73a5f5b4724f.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": true,
+          "food_desc": "ウニ・シーフード"
+        },
+        {
+          "filename": "4920518599655229884.2972a4e99a31ca22a85e25ed99a01606.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.2972a4e99a31ca22a85e25ed99a01606.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "4920518599655229884.29eb5c1bae67c9c7f4390a43f036073d.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.29eb5c1bae67c9c7f4390a43f036073d.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "4920518599655229884.47d1417fb6e292bb9dbcc6c5358dc0f2.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.47d1417fb6e292bb9dbcc6c5358dc0f2.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": true,
+          "food_desc": "ウニ・生うに"
+        },
+        {
+          "filename": "4920518599655229884.558ed879d6e4ebe550051f7ba60a1360.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.558ed879d6e4ebe550051f7ba60a1360.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": true,
+          "food_desc": "マンゴー・トロピカルフルーツ"
+        },
+        {
+          "filename": "4920518599655229884.82036bb8260c69809c68829418bd5246.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.82036bb8260c69809c68829418bd5246.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": true,
+          "food_desc": "ウニ・海鮮盛り"
+        },
+        {
+          "filename": "4920518599655229884.c640c41e636fcae9a62df25cf4672127.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.c640c41e636fcae9a62df25cf4672127.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": true,
+          "food_desc": "フィリピン海鮮グリル料理"
+        },
+        {
+          "filename": "4920518599655229884.cee27c6c8c3da5e568dcb7b40472d2b4.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.cee27c6c8c3da5e568dcb7b40472d2b4.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "4920518599655229884.df4625cae80f931ce615a9b38a1bd9a5.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.df4625cae80f931ce615a9b38a1bd9a5.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "gps": null,
+          "is_food": true,
+          "food_desc": "ウニ・生うに"
+        }
+      ],
+      "food_photos": [
+        {
+          "filename": "4920518599655229884.14d3352d19027818e86e73a5f5b4724f.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.14d3352d19027818e86e73a5f5b4724f.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "ウニ・シーフード",
+          "has_person": true
+        },
+        {
+          "filename": "4920518599655229884.47d1417fb6e292bb9dbcc6c5358dc0f2.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.47d1417fb6e292bb9dbcc6c5358dc0f2.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "ウニ・生うに",
+          "has_person": false
+        },
+        {
+          "filename": "4920518599655229884.558ed879d6e4ebe550051f7ba60a1360.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.558ed879d6e4ebe550051f7ba60a1360.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "マンゴー・トロピカルフルーツ",
+          "has_person": true
+        },
+        {
+          "filename": "4920518599655229884.82036bb8260c69809c68829418bd5246.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.82036bb8260c69809c68829418bd5246.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "ウニ・海鮮盛り",
+          "has_person": false
+        },
+        {
+          "filename": "4920518599655229884.c640c41e636fcae9a62df25cf4672127.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.c640c41e636fcae9a62df25cf4672127.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "フィリピン海鮮グリル料理",
+          "has_person": true
+        },
+        {
+          "filename": "4920518599655229884.df4625cae80f931ce615a9b38a1bd9a5.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.df4625cae80f931ce615a9b38a1bd9a5.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "ウニ・生うに",
+          "has_person": true
+        }
+      ],
+      "postable_photos": [
+        {
+          "filename": "4920518599655229884.47d1417fb6e292bb9dbcc6c5358dc0f2.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.47d1417fb6e292bb9dbcc6c5358dc0f2.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "ウニ・生うに"
+        },
+        {
+          "filename": "4920518599655229884.82036bb8260c69809c68829418bd5246.23082722.jpg",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\4920518599655229884.82036bb8260c69809c68829418bd5246.23082722.jpg",
+          "taken_at": "2023-08-27T22:00:00",
+          "food_desc": "ウニ・海鮮盛り"
+        }
+      ],
+      "status": "pending",
+      "approved_posts": [],
+      "generated_posts": {
+        "instagram": "📍 素敵なお店 | エリア未確認\n\nこれは絶対に行ってほしいお店です！\n\nウニ・シーフード・ウニ・生うに・マンゴー・トロピカルフルーツ・ウニ・海鮮盛りと、どれも素材の旨みが際立つ一品。目で見ても美しく、食べても満足感が高いです。\nまた絶対訪れたいと思えるお店でした。ぜひチェックしてみてください！\n\nFresh seafood direct from the market\n\n━━━━━━━━━━━\n🏠 素敵なお店\n📍 エリア未確認\n━━━━━━━━━━━\n\n#海鮮 #シーフード #鮮魚 #グルメ #seafood",
+        "generated_at": "2026-06-11T10:52:50.780899",
+        "method": "template"
+      }
+    },
+    {
+      "id": "r0018",
+      "name": "日なた",
+      "area": "秋田県秋田市",
+      "date": "2025-02-23",
+      "gps": {
+        "lat": 39.71726666666667,
+        "lon": 140.12191666666666
+      },
+      "all_photos": [
+        {
+          "filename": "IMG_0003.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0003.HEIC",
+          "taken_at": "2025-02-23T14:45:51",
+          "gps": {
+            "lat": 39.71726666666667,
+            "lon": 140.12191666666666
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0006.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0006.HEIC",
+          "taken_at": "2025-02-23T14:46:34",
+          "gps": {
+            "lat": 39.717169444444444,
+            "lon": 140.12193333333335
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0008.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0008.HEIC",
+          "taken_at": "2025-02-23T14:47:10",
+          "gps": {
+            "lat": 39.71724722222223,
+            "lon": 140.1220388888889
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0011.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0011.HEIC",
+          "taken_at": "2025-02-23T14:47:44",
+          "gps": {
+            "lat": 39.71723055555556,
+            "lon": 140.1218861111111
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0013.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0013.HEIC",
+          "taken_at": "2025-02-23T14:51:18",
+          "gps": {
+            "lat": 39.71718611111111,
+            "lon": 140.122025
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0014.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0014.HEIC",
+          "taken_at": "2025-02-23T14:52:19",
+          "gps": {
+            "lat": 39.717125,
+            "lon": 140.122025
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0016.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0016.HEIC",
+          "taken_at": "2025-02-23T14:52:29",
+          "gps": {
+            "lat": 39.717169444444444,
+            "lon": 140.1220388888889
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0018.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0018.HEIC",
+          "taken_at": "2025-02-23T14:52:56",
+          "gps": {
+            "lat": 39.717175000000005,
+            "lon": 140.12191666666666
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0019.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0019.HEIC",
+          "taken_at": "2025-02-23T14:52:57",
+          "gps": {
+            "lat": 39.71716666666667,
+            "lon": 140.12194722222222
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0021.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0021.HEIC",
+          "taken_at": "2025-02-23T14:54:01",
+          "gps": {
+            "lat": 39.71721388888889,
+            "lon": 140.12211666666667
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0023.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0023.HEIC",
+          "taken_at": "2025-02-23T14:54:06",
+          "gps": {
+            "lat": 39.717225,
+            "lon": 140.12211666666667
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0026.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0026.HEIC",
+          "taken_at": "2025-02-23T15:45:37",
+          "gps": {
+            "lat": 39.72463888888889,
+            "lon": 140.13435277777776
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0027.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0027.HEIC",
+          "taken_at": "2025-02-23T16:54:21",
+          "gps": {
+            "lat": 39.71669444444445,
+            "lon": 140.1303861111111
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0028.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0028.HEIC",
+          "taken_at": "2025-02-23T16:54:33",
+          "gps": {
+            "lat": 39.716750000000005,
+            "lon": 140.13021944444446
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0029.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0029.HEIC",
+          "taken_at": "2025-02-23T17:01:14",
+          "gps": {
+            "lat": 39.716794444444446,
+            "lon": 140.12925833333335
+          },
+          "is_food": true,
+          "food_desc": "日本酒ペアリング・純米"
+        },
+        {
+          "filename": "IMG_0030.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0030.HEIC",
+          "taken_at": "2025-02-23T17:01:20",
+          "gps": {
+            "lat": 39.716797222222226,
+            "lon": 140.12924166666667
+          },
+          "is_food": true,
+          "food_desc": "日本酒ペアリング"
+        },
+        {
+          "filename": "IMG_0031.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0031.HEIC",
+          "taken_at": "2025-02-23T17:01:42",
+          "gps": {
+            "lat": 39.716794444444446,
+            "lon": 140.12925833333335
+          },
+          "is_food": true,
+          "food_desc": "日本酒・つまみ"
+        },
+        {
+          "filename": "IMG_0034.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0034.HEIC",
+          "taken_at": "2025-02-23T17:58:11",
+          "gps": {
+            "lat": 39.71511111111111,
+            "lon": 140.11683611111113
+          },
+          "is_food": true,
+          "food_desc": "ローストビーフ・カルパッチョ"
+        },
+        {
+          "filename": "IMG_0035.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0035.HEIC",
+          "taken_at": "2025-02-23T18:02:53",
+          "gps": {
+            "lat": 39.71511111111111,
+            "lon": 140.11685277777778
+          },
+          "is_food": true,
+          "food_desc": "新政No.6・日本酒"
+        },
+        {
+          "filename": "IMG_0036.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0036.HEIC",
+          "taken_at": "2025-02-23T18:03:02",
+          "gps": {
+            "lat": 39.71511111111111,
+            "lon": 140.11685277777778
+          },
+          "is_food": true,
+          "food_desc": "新政No.6裏ラベル・日本酒"
+        },
+        {
+          "filename": "IMG_0037.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0037.HEIC",
+          "taken_at": "2025-02-23T18:10:14",
+          "gps": {
+            "lat": 39.71508888888889,
+            "lon": 140.11680555555557
+          },
+          "is_food": true,
+          "food_desc": "刺身盛り合わせ・鮪・蛸"
+        },
+        {
+          "filename": "IMG_0038.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0038.HEIC",
+          "taken_at": "2025-02-23T18:21:28",
+          "gps": {
+            "lat": 39.715125,
+            "lon": 140.11686666666668
+          },
+          "is_food": true,
+          "food_desc": "もつ煮・豆腐・和食"
+        },
+        {
+          "filename": "IMG_0039.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0039.HEIC",
+          "taken_at": "2025-02-23T18:23:49",
+          "gps": {
+            "lat": 39.71513055555556,
+            "lon": 140.11682222222223
+          },
+          "is_food": true,
+          "food_desc": "コロッケ・揚げ物"
+        },
+        {
+          "filename": "IMG_0040.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0040.HEIC",
+          "taken_at": "2025-02-23T18:25:27",
+          "gps": {
+            "lat": 39.71511111111111,
+            "lon": 140.11685277777778
+          },
+          "is_food": true,
+          "food_desc": "ゆきの美人超辛・日本酒"
+        }
+      ],
+      "food_photos": [
+        {
+          "filename": "IMG_0029.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0029.HEIC",
+          "taken_at": "2025-02-23T17:01:14",
+          "food_desc": "日本酒ペアリング・純米",
+          "has_person": true
+        },
+        {
+          "filename": "IMG_0030.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0030.HEIC",
+          "taken_at": "2025-02-23T17:01:20",
+          "food_desc": "日本酒ペアリング",
+          "has_person": true
+        },
+        {
+          "filename": "IMG_0031.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0031.HEIC",
+          "taken_at": "2025-02-23T17:01:42",
+          "food_desc": "日本酒・つまみ",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0034.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0034.HEIC",
+          "taken_at": "2025-02-23T17:58:11",
+          "food_desc": "ローストビーフ・カルパッチョ",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0035.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0035.HEIC",
+          "taken_at": "2025-02-23T18:02:53",
+          "food_desc": "新政No.6・日本酒",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0036.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0036.HEIC",
+          "taken_at": "2025-02-23T18:03:02",
+          "food_desc": "新政No.6裏ラベル・日本酒",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0037.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0037.HEIC",
+          "taken_at": "2025-02-23T18:10:14",
+          "food_desc": "刺身盛り合わせ・鮪・蛸",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0038.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0038.HEIC",
+          "taken_at": "2025-02-23T18:21:28",
+          "food_desc": "もつ煮・豆腐・和食",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0039.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0039.HEIC",
+          "taken_at": "2025-02-23T18:23:49",
+          "food_desc": "コロッケ・揚げ物",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0040.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0040.HEIC",
+          "taken_at": "2025-02-23T18:25:27",
+          "food_desc": "ゆきの美人超辛・日本酒",
+          "has_person": false
+        }
+      ],
+      "postable_photos": [
+        {
+          "filename": "IMG_0031.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0031.HEIC",
+          "taken_at": "2025-02-23T17:01:42",
+          "food_desc": "日本酒・つまみ"
+        },
+        {
+          "filename": "IMG_0034.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0034.HEIC",
+          "taken_at": "2025-02-23T17:58:11",
+          "food_desc": "ローストビーフ・カルパッチョ"
+        },
+        {
+          "filename": "IMG_0035.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0035.HEIC",
+          "taken_at": "2025-02-23T18:02:53",
+          "food_desc": "新政No.6・日本酒"
+        },
+        {
+          "filename": "IMG_0036.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0036.HEIC",
+          "taken_at": "2025-02-23T18:03:02",
+          "food_desc": "新政No.6裏ラベル・日本酒"
+        },
+        {
+          "filename": "IMG_0037.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0037.HEIC",
+          "taken_at": "2025-02-23T18:10:14",
+          "food_desc": "刺身盛り合わせ・鮪・蛸"
+        },
+        {
+          "filename": "IMG_0038.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0038.HEIC",
+          "taken_at": "2025-02-23T18:21:28",
+          "food_desc": "もつ煮・豆腐・和食"
+        },
+        {
+          "filename": "IMG_0039.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0039.HEIC",
+          "taken_at": "2025-02-23T18:23:49",
+          "food_desc": "コロッケ・揚げ物"
+        },
+        {
+          "filename": "IMG_0040.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0040.HEIC",
+          "taken_at": "2025-02-23T18:25:27",
+          "food_desc": "ゆきの美人超辛・日本酒"
+        }
+      ],
+      "status": "approved",
+      "approved_posts": [
+        "20260611_134655_r0018_instagram"
+      ],
+      "generated_posts": {
+        "instagram": "📍 日なた | 秋田県秋田市\n\n今日のグルメ探訪、大当たりでした！\n\n日本酒・つまみ・ローストビーフ・刺身をいただきました。想像以上のクオリティで、コスパも含めて大満足です！\n気になった方はぜひ行ってみてください。絶対後悔しませんよ！\n\nFresh sashimi platter with seasonal fish\n\n━━━━━━━━━━━\n🏠 日なた\n📍 秋田県秋田市\n━━━━━━━━━━━\n\n#和食 #日本料理 #懐石 #グルメ #japanesefood",
+        "generated_at": "2026-06-11T10:52:50.780915",
+        "method": "template",
+        "x": ""
+      },
+      "catchphrase": "地酒と美食の宴"
+    },
+    {
+      "id": "r0019",
+      "name": "長屋酒場",
+      "area": "秋田県秋田市",
+      "date": "2025-02-23",
+      "gps": {
+        "lat": 39.71726666666667,
+        "lon": 140.12191666666666
+      },
+      "all_photos": [
+        {
+          "filename": "IMG_0041.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0041.HEIC",
+          "taken_at": "2025-02-23T19:16:36",
+          "gps": {
+            "lat": 39.71531388888889,
+            "lon": 140.127625
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0042.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0042.HEIC",
+          "taken_at": "2025-02-23T19:16:47",
+          "gps": {
+            "lat": 39.71525833333334,
+            "lon": 140.12766944444445
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0043.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0043.HEIC",
+          "taken_at": "2025-02-23T19:33:03",
+          "gps": {
+            "lat": 39.71545277777778,
+            "lon": 140.1275777777778
+          },
+          "is_food": false,
+          "food_desc": ""
+        },
+        {
+          "filename": "IMG_0044.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0044.HEIC",
+          "taken_at": "2025-02-23T19:35:22",
+          "gps": {
+            "lat": 39.71525277777778,
+            "lon": 140.1276388888889
+          },
+          "is_food": true,
+          "food_desc": "鍋料理・豚しゃぶ"
+        },
+        {
+          "filename": "IMG_0045.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0045.HEIC",
+          "taken_at": "2025-02-23T19:51:27",
+          "gps": {
+            "lat": 39.715358333333334,
+            "lon": 140.12773055555556
+          },
+          "is_food": true,
+          "food_desc": "さやえんどう・和食浸し"
+        },
+        {
+          "filename": "IMG_0046.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0046.HEIC",
+          "taken_at": "2025-02-23T19:56:11",
+          "gps": {
+            "lat": 39.71526388888889,
+            "lon": 140.12766944444445
+          },
+          "is_food": true,
+          "food_desc": "日本酒・ます酒溢れ注ぎ"
+        },
+        {
+          "filename": "IMG_0047.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0047.HEIC",
+          "taken_at": "2025-02-23T19:58:02",
+          "gps": {
+            "lat": 39.715272222222225,
+            "lon": 140.12768611111113
+          },
+          "is_food": true,
+          "food_desc": "牡蠣フライ・タルタルソース"
+        }
+      ],
+      "food_photos": [
+        {
+          "filename": "IMG_0044.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0044.HEIC",
+          "taken_at": "2025-02-23T19:35:22",
+          "food_desc": "鍋料理・豚しゃぶ",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0045.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0045.HEIC",
+          "taken_at": "2025-02-23T19:51:27",
+          "food_desc": "さやえんどう・和食浸し",
+          "has_person": false
+        },
+        {
+          "filename": "IMG_0046.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0046.HEIC",
+          "taken_at": "2025-02-23T19:56:11",
+          "food_desc": "日本酒・ます酒溢れ注ぎ",
+          "has_person": true
+        },
+        {
+          "filename": "IMG_0047.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0047.HEIC",
+          "taken_at": "2025-02-23T19:58:02",
+          "food_desc": "牡蠣フライ・タルタルソース",
+          "has_person": false
+        }
+      ],
+      "postable_photos": [
+        {
+          "filename": "IMG_0044.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0044.HEIC",
+          "taken_at": "2025-02-23T19:35:22",
+          "food_desc": "鍋料理・豚しゃぶ"
+        },
+        {
+          "filename": "IMG_0045.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0045.HEIC",
+          "taken_at": "2025-02-23T19:51:27",
+          "food_desc": "さやえんどう・和食浸し"
+        },
+        {
+          "filename": "IMG_0047.HEIC",
+          "path": "C:\\Users\\user\\iCloudPhotos\\Photos\\IMG_0047.HEIC",
+          "taken_at": "2025-02-23T19:58:02",
+          "food_desc": "牡蠣フライ・タルタルソース"
+        }
+      ],
+      "status": "approved",
+      "approved_posts": [
+        "20260611_135853_r0019_instagram"
+      ],
+      "generated_posts": {
+        "instagram": "📍 長屋酒場 | 秋田県秋田市\n\n今日のグルメ探訪、大当たりでした！\n秋田を感じられるメニューの数々。\n気になった方はぜひ行ってみてください。絶対後悔しませんよ！\n\nFresh sashimi platter with seasonal fish\n\n━━━━━━━━━━━\n🏠 長屋酒場\n📍 秋田県秋田市\n━━━━━━━━━━━\n\n#和食 #日本料理 #懐石 #グルメ #japanesefood",
+        "generated_at": "2026-06-11T10:52:50.780915",
+        "method": "template",
+        "x": ""
+      },
+      "catchphrase": "豚しゃぶ鍋と牡蠣フライの悦楽"
+    }
+  ],
+  "generated_at": "2026-06-11T10:52:50.780916"
+}

@@ -1,0 +1,22 @@
+{
+  "image.png": {"is_food": false, "food_desc": ""},
+  "IMG_0049.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0050.HEIC": {"is_food": true, "food_desc": "野菜たっぷり鍋"},
+  "IMG_0051.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0053.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0054.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0055.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0057(1).HEIC": {"is_food": true, "food_desc": "定食・ラーメンセット"},
+  "IMG_0057.HEIC": {"is_food": true, "food_desc": "蕎麦・焼き鳥定食"},
+  "IMG_0058.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0059.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0060(1).HEIC": {"is_food": true, "food_desc": "韓国風小皿・ナムル"},
+  "IMG_0060.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0061(1).HEIC": {"is_food": true, "food_desc": "ます酒・前菜"},
+  "IMG_0061.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0062(1).HEIC": {"is_food": true, "food_desc": "牛ユッケ卵黄のせ"},
+  "IMG_0062.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0063(1).HEIC": {"is_food": true, "food_desc": "牛刺し・赤身"},
+  "IMG_0063.HEIC": {"is_food": false, "food_desc": ""},
+  "IMG_0064.HEIC": {"is_food": false, "food_desc": ""}
+}

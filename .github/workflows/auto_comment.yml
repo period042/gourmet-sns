@@ -1,0 +1,44 @@
+name: Instagram Auto Comment
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # 11:00 JST
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-comment
+  cancel-in-progress: false
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run auto comment
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+        run: python scripts/auto_comment.py
+
+      - name: Commit commented log
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add data/commented_media.json || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "comment: auto comment $(date +%Y%m%d_%H%M%S)"
+          git pull --rebase origin main && git push || true
