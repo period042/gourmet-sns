@@ -186,7 +186,7 @@ header h1 { font-size: 17px; flex: 1; }
       <div class="field">
         <label>フック <small>（黄色バー・保存訴求テキスト）</small></label>
         <div style="display:flex;gap:8px;align-items:center">
-          <input type="text" id="hook_text" value="{{ r.hook_text or '' }}" placeholder="例: 日本酒好きなら保存！" style="flex:1">
+          <input type="text" id="hook_text" value="{{ r.hook_text or '' }}" placeholder="例: 日本酒好きなら保存！" oninput="schedulePreviewRefresh()" style="flex:1">
           <button class="btn btn-preview" onclick="generateHook()" style="white-space:nowrap;padding:9px 12px;font-size:12px">AI生成</button>
         </div>
       </div>

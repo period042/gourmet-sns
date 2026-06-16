@@ -29,6 +29,11 @@ from dotenv import load_dotenv
 load_dotenv(BASE_DIR / ".env")
 PHOTOS_DIR = Path(os.environ.get("PHOTOS_DIR", r"C:\Users\user\iCloudPhotos\Photos"))
 
+_HOME = str(Path.home())
+
+def resolve_path(p: str) -> str:
+    return p.replace(r"C:\Users\user", _HOME)
+
 app = Flask(__name__)
 
 cloudinary.config(
@@ -891,7 +896,7 @@ def remove_image_subcopy(item_id: str):
         return jsonify({"ok": False, "error": "not found"}), 404
     item = json.loads(path.read_text(encoding="utf-8-sig"))
 
-    source_path = item.get("overlay_source_path")
+    source_path = resolve_path(item.get("overlay_source_path", ""))
     if not source_path:
         return jsonify({"ok": False, "error": "元写真パスが保存されていません。再承認が必要です"}), 400
     if not Path(source_path).exists():
