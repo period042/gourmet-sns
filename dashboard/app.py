@@ -38,7 +38,7 @@ cloudinary.config(
 def load_data() -> dict:
     if not RESTAURANTS_FILE.exists():
         return {"restaurants": []}
-    return json.loads(RESTAURANTS_FILE.read_text(encoding="utf-8"))
+    return json.loads(RESTAURANTS_FILE.read_text(encoding="utf-8-sig"))
 
 
 def save_data(data: dict):
@@ -840,7 +840,7 @@ def suggest_name(rid: str):
 
     candidates: list[dict] = []
     if photo_date and TABELOG_PATH.exists():
-        tabelog = json.loads(TABELOG_PATH.read_text(encoding="utf-8"))
+        tabelog = json.loads(TABELOG_PATH.read_text(encoding="utf-8-sig"))
         ym = photo_date[:7].replace("-", "/")  # "YYYY/MM"
         for entry in tabelog:
             if (entry.get("date") or "").startswith(ym):
@@ -867,7 +867,7 @@ def reject(rid: str):
 def queue_list():
     items = []
     for f in sorted(QUEUE_DIR.glob("*.json")):
-        items.append(json.loads(f.read_text(encoding="utf-8")))
+        items.append(json.loads(f.read_text(encoding="utf-8-sig")))
     return render_template("queue.html", items=items)
 
 
@@ -886,7 +886,7 @@ def remove_image_subcopy(item_id: str):
     path = QUEUE_DIR / f"{item_id}.json"
     if not path.exists():
         return jsonify({"ok": False, "error": "not found"}), 404
-    item = json.loads(path.read_text(encoding="utf-8"))
+    item = json.loads(path.read_text(encoding="utf-8-sig"))
 
     source_path = item.get("overlay_source_path")
     if not source_path:
@@ -922,7 +922,7 @@ def patch_queue_item(item_id: str):
     path = QUEUE_DIR / f"{item_id}.json"
     if not path.exists():
         return jsonify({"ok": False, "error": "not found"}), 404
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = json.loads(path.read_text(encoding="utf-8-sig"))
     body = request.get_json(force=True, silent=True) or {}
     if "caption" in body:
         data["caption"] = body["caption"]
