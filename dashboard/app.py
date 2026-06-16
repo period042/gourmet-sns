@@ -194,7 +194,7 @@ def _make_catchphrase_ai(r: dict, exclude: str = "") -> tuple[str, str]:
     content = []
     photos = r.get("postable_photos") or r.get("food_photos", [])
     for p in photos[:2]:
-        path = Path(p["path"])
+        path = Path(resolve_path(p["path"]))
         if not path.exists():
             continue
         try:
@@ -743,7 +743,7 @@ def approve(rid: str):
         bullets     = [b for b in (r.get("bullets") or []) if b.strip()]
         hook_text   = r.get("hook_text", "")
         yellow_word = r.get("yellow_word", "")
-        overlay_path = create_overlay(selected[0]["path"], area, catchphrase,
+        overlay_path = create_overlay(resolve_path(selected[0]["path"]), area, catchphrase,
                                       bullets=bullets, target_copy=hook_text,
                                       yellow_word=yellow_word)
     except Exception as e:
@@ -755,7 +755,7 @@ def approve(rid: str):
         res = cloudinary.uploader.upload(overlay_path, folder="gourmet")
         cloud_urls.append(res["secure_url"])
         for p in selected[1:]:
-            res2 = cloudinary.uploader.upload(p["path"], folder="gourmet")
+            res2 = cloudinary.uploader.upload(resolve_path(p["path"]), folder="gourmet")
             cloud_urls.append(res2["secure_url"])
     except Exception as e:
         return jsonify({"ok": False, "error": f"Cloudinaryアップロード失敗: {e}"}), 500
@@ -839,7 +839,7 @@ def suggest_name(rid: str):
     # EXIF 日付取得（複数枚から最初に取れたものを使用）
     photo_date = ""
     for p in (r.get("food_photos") or [])[:5]:
-        path = p.get("path", "")
+        path = resolve_path(p.get("path", ""))
         if Path(path).exists():
             meta = _get_photo_meta(path)
             if meta["date"]:
