@@ -846,16 +846,22 @@ def suggest_name(rid: str):
                 photo_date = meta["date"]  # "YYYY-MM-DD"
                 break
 
+    r_station = r.get("area", "").replace("駅", "")
     candidates: list[dict] = []
     if photo_date and TABELOG_PATH.exists():
         tabelog = json.loads(TABELOG_PATH.read_text(encoding="utf-8-sig"))
         ym = photo_date[:7].replace("-", "/")  # "YYYY/MM"
         for entry in tabelog:
-            if (entry.get("date") or "").startswith(ym):
-                candidates.append({
-                    "name": entry["name"],
-                    "area": _clean_tabelog_area(entry.get("area", "")),
-                })
+            if not (entry.get("date") or "").startswith(ym):
+                continue
+            cleaned = _clean_tabelog_area(entry.get("area", ""))
+            tabelog_stations = cleaned.split("/")[0] if "/" in cleaned else cleaned
+            if r_station and tabelog_stations and r_station not in tabelog_stations:
+                continue
+            candidates.append({
+                "name": entry["name"],
+                "area": cleaned,
+            })
 
     return jsonify({"ok": True, "candidates": candidates, "date": photo_date})
 
