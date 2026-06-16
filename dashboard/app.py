@@ -24,7 +24,10 @@ QUEUE_DIR = BASE_DIR / "queue"
 OVERLAID_DIR = BASE_DIR / "overlaid"
 THUMB_DIR = DATA_DIR / "thumb_cache"
 RESTAURANTS_FILE = DATA_DIR / "restaurants.json"
-PHOTOS_DIR = Path(r"C:\Users\user\iCloudPhotos\Photos")
+
+from dotenv import load_dotenv
+load_dotenv(BASE_DIR / ".env")
+PHOTOS_DIR = Path(os.environ.get("PHOTOS_DIR", r"C:\Users\user\iCloudPhotos\Photos"))
 
 app = Flask(__name__)
 
