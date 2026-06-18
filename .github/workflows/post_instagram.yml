@@ -47,7 +47,8 @@ jobs:
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add posted/ queue/
+          git add posted/ || true
+          git add queue/ || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
             exit 0
