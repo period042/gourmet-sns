@@ -29,4 +29,6 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git add queue/
-          git diff --staged --quiet || (git pull --rebase origin main && git commit -m "summary: weekly summary queue $(date +%Y%m%d)" && git push)
+          git diff --staged --quiet || git commit -m "summary: weekly summary queue $(date +%Y%m%d)"
+          git pull --rebase origin main
+          git push
