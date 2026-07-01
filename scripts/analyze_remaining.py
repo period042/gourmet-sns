@@ -13,7 +13,11 @@ from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 pillow_heif.register_heif_opener()
 
-PHOTOS_DIR   = Path(r"C:\Users\user\iCloudPhotos\Photos")
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).parent.parent / ".env")
+
+_photos_env = os.environ.get("PHOTOS_DIR", "")
+PHOTOS_DIR   = Path(_photos_env) if _photos_env else Path(r"C:\Users\user\iCloudPhotos\Photos")
 DATA_DIR     = Path(__file__).parent.parent / "data"
 CACHE_FILE   = DATA_DIR / "classify_cache.json"
 OUTPUT_FILE  = DATA_DIR / "restaurants.json"
