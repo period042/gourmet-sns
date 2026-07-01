@@ -17,28 +17,93 @@ RESTAURANTS_FILE = DATA_DIR / "restaurants.json"
 
 
 def places_nearby(lat, lon):
-    """Google Maps Places API Nearby Search で店名・エリアを取得"""
-    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+    """Google Maps Places API (New) Nearby Search で店名・エリアを取得"""
+    url = "https://places.googleapis.com/v1/places:searchNearby"
+    headers = {
+        "X-Goog-Api-Key": KEY,
+        "X-Goog-FieldMask": "places.displayName,places.formattedAddress,places.rating,places.id",
+        "Content-Type": "application/json",
+        "Accept-Language": "ja",
+    }
     for radius in (100, 300):
-        r = requests.get(url, params={
-            "location": f"{lat},{lon}", "radius": radius,
-            "type": "restaurant", "language": "ja", "key": KEY,
-        }, timeout=10)
+        body = {
+            "includedTypes": ["restaurant", "food"],
+            "maxResultCount": 5,
+            "languageCode": "ja",
+            "locationRestriction": {
+                "circle": {
+                    "center": {"latitude": lat, "longitude": lon},
+                    "radius": float(radius),
+                }
+            },
+        }
+        r = requests.post(url, json=body, headers=headers, timeout=10)
         d = r.json()
-        status = d.get("status", "")
-        results = d.get("results", [])
-        print(f"    Places API radius={radius}m status={status} results={len(results)}")
-        if status == "REQUEST_DENIED":
-            print("    → Places API 未有効。Nominatim にフォールバック")
+        results = d.get("places", [])
+        print(f"    Places API (New) radius={radius}m results={len(results)}")
+        if "error" in d:
+            print(f"    → エラー: {d['error'].get('message','')}")
             return None
         if results:
             top = results[0]
+            name = top.get("displayName", {}).get("text", "")
+            addr = top.get("formattedAddress", "")
             return {
-                "name": top.get("name", ""),
-                "vicinity": top.get("vicinity", ""),
-                "place_id": top.get("place_id", ""),
+                "name": name,
+                "vicinity": addr,
+                "place_id": top.get("id", ""),
                 "rating": top.get("rating"),
             }
+    return {}
+
+
+def overpass_nearby(lat, lon):
+    """OpenStreetMap Overpass API で最寄りの飲食店名を取得（認証不要）"""
+    import math
+    def hav(la1, lo1, la2, lo2):
+        R = 6371000.0
+        dlat = math.radians(la2 - la1)
+        dlon = math.radians(lo2 - lo1)
+        a = math.sin(dlat/2)**2 + math.cos(math.radians(la1))*math.cos(math.radians(la2))*math.sin(dlon/2)**2
+        return R * 2 * math.asin(math.sqrt(a))
+
+    for radius in (50, 150, 300):
+        query = f"""
+[out:json][timeout:10];
+(
+  node["amenity"~"restaurant|bar|cafe|izakaya|pub|fast_food"](around:{radius},{lat},{lon});
+  way["amenity"~"restaurant|bar|cafe|izakaya|pub|fast_food"](around:{radius},{lat},{lon});
+);
+out body center;
+"""
+        try:
+            r = requests.post(
+                "https://overpass-api.de/api/interpreter",
+                data={"data": query},
+                timeout=15,
+            )
+            elements = r.json().get("elements", [])
+            print(f"    Overpass radius={radius}m results={len(elements)}")
+            if not elements:
+                continue
+            # 最近傍を選択
+            best = None
+            best_d = float("inf")
+            for el in elements:
+                elat = el.get("lat") or el.get("center", {}).get("lat")
+                elon = el.get("lon") or el.get("center", {}).get("lon")
+                if elat and elon:
+                    d = hav(lat, lon, elat, elon)
+                    if d < best_d:
+                        best_d, best = d, el
+            if best:
+                tags = best.get("tags", {})
+                name = tags.get("name:ja") or tags.get("name") or ""
+                if name:
+                    print(f"    → Overpass: {name} ({best_d:.0f}m)")
+                    return {"name": name, "vicinity": "", "place_id": "", "rating": None}
+        except Exception as e:
+            print(f"    Overpass エラー: {e}")
     return {}
 
 
@@ -226,9 +291,11 @@ def main():
 
         print(f"\n[{r['id']}] {r['date']} GPS={gps['lat']:.5f},{gps['lon']:.5f}")
 
-        # 店名: Places API（KEY がある場合のみ）
-        if KEY and not name_ok:
-            result = places_nearby(gps["lat"], gps["lon"])
+        # 店名: Places API (New) → Overpass API フォールバック
+        if not name_ok:
+            result = places_nearby(gps["lat"], gps["lon"]) if KEY else None
+            if not (result and result.get("name")):
+                result = overpass_nearby(gps["lat"], gps["lon"])
             if result and result.get("name"):
                 r["name"] = result["name"]
                 r["google_maps"] = result

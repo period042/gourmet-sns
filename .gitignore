@@ -1,5 +1,9 @@
 .env
 data/classify_cache.json
+data/thumb_cache/
+data/thumbs/
+data/reels/
+scripts/token.json
 __pycache__/
 *.pyc
 overlaid/

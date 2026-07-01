@@ -202,19 +202,30 @@ def is_overseas(r: dict) -> bool:
     return any(kw in area for kw in OVERSEAS_KEYWORDS)
 
 
+def normalize_date(s: str) -> str:
+    """'2025/05/03' → '2025-05-03'"""
+    return s.replace("/", "-") if s else ""
+
+
 def match(tabelog: list[dict], restaurants: list[dict]) -> tuple[list, list, list]:
     """
     返り値:
       auto    : [(rid, date, area, name, tbl_area)]  自動更新可
       ambig   : [(rid, date, area, [(name, tbl_area)])]  複数候補
       no_match: [(rid, date, area)]  記録なし
+
+    マッチ戦略:
+      1. 日付完全一致（YYYY-MM-DD）→ 1件なら自動、複数なら候補
+      2. 日付一致なし → 年月一致にフォールバック
     """
-    # 食べログを年月インデックス化
+    # 食べログを日付・年月インデックス化
+    tbl_by_date: dict[str, list] = defaultdict(list)
     tbl_by_ym: dict[str, list] = defaultdict(list)
     for e in tabelog:
-        ym = (e.get("date") or "")[:7]  # '2025/05'
-        if ym:
-            tbl_by_ym[ym].append({"name": e["name"], "area": clean_area(e.get("area", ""))})
+        raw_date = normalize_date((e.get("date") or ""))
+        if raw_date:
+            tbl_by_date[raw_date].append({"name": e["name"], "area": clean_area(e.get("area", ""))})
+            tbl_by_ym[raw_date[:7]].append({"name": e["name"], "area": clean_area(e.get("area", ""))})
 
     auto, ambig, no_match = [], [], []
 
@@ -224,14 +235,25 @@ def match(tabelog: list[dict], restaurants: list[dict]) -> tuple[list, list, lis
         date = r.get("date", "")
         if not date:
             continue
-        ym = date[:7].replace("-", "/")
+        date_key = date[:10]  # YYYY-MM-DD
+        ym = date_key[:7]     # YYYY-MM
 
-        # 同月に既に名前がついているエントリの店名を除外（二重マッチ防止）
-        named_in_month = {
+        # 既に名前がついているエントリの店名を除外（二重マッチ防止）
+        named_same_date = {
             r2["name"] for r2 in restaurants
-            if r2.get("name") and r2.get("date", "")[:7].replace("-", "/") == ym
+            if r2.get("name") and r2.get("date", "")[:10] == date_key
         }
-        cands = [c for c in tbl_by_ym.get(ym, []) if c["name"] not in named_in_month]
+        named_same_ym = {
+            r2["name"] for r2 in restaurants
+            if r2.get("name") and r2.get("date", "")[:7] == ym
+        }
+
+        # 1. 日付完全一致を優先
+        cands = [c for c in tbl_by_date.get(date_key, []) if c["name"] not in named_same_date]
+
+        # 2. 日付一致なし → 年月フォールバック
+        if not cands:
+            cands = [c for c in tbl_by_ym.get(ym, []) if c["name"] not in named_same_ym]
 
         if len(cands) == 1:
             auto.append((r["id"], date, r.get("area", ""), cands[0]["name"], cands[0]["area"]))

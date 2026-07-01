@@ -789,10 +789,25 @@ def approve(rid: str):
 @app.route("/api/restaurant/<rid>", methods=["DELETE"])
 def delete_restaurant(rid: str):
     data = load_data()
-    before = len(data["restaurants"])
-    data["restaurants"] = [r for r in data["restaurants"] if r["id"] != rid]
-    if len(data["restaurants"]) == before:
+    target = next((r for r in data["restaurants"] if r["id"] == rid), None)
+    if target is None:
         return jsonify({"ok": False, "error": "not found"}), 404
+
+    # classify_cache.json の該当写真を is_food=False にして再構築で復元されないようにする
+    cache_path = DATA_DIR / "classify_cache.json"
+    if cache_path.exists():
+        cache = json.loads(cache_path.read_text(encoding="utf-8"))
+        all_photos = target.get("food_photos", []) + target.get("all_photos", [])
+        changed = 0
+        for p in all_photos:
+            fname = p.get("filename", "")
+            if fname and fname in cache:
+                cache[fname] = {"is_food": False, "food_desc": ""}
+                changed += 1
+        if changed:
+            cache_path.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+
+    data["restaurants"] = [r for r in data["restaurants"] if r["id"] != rid]
     save_data(data)
     return jsonify({"ok": True})
 
