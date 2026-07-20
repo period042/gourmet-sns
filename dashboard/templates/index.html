@@ -77,11 +77,15 @@ main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
       <option value="posted">投稿済</option>
     </select>
     <input type="text" id="search" placeholder="店名で検索..." oninput="applyFilter()">
+    <label style="display:flex;align-items:center;gap:6px;font-size:14px;cursor:pointer;white-space:nowrap">
+      <input type="checkbox" id="noname-only" onchange="applyFilter()" style="width:16px;height:16px;cursor:pointer">
+      店名未設定のみ
+    </label>
   </div>
 
   <div class="grid" id="grid">
     {% for r in restaurants %}
-    <div class="card" data-status="{{ r.status }}" data-name="{{ r.name|lower }}">
+    <div class="card" data-status="{{ r.status }}" data-name="{{ r.name|lower }}" data-noname="{{ 'true' if not r.name else 'false' }}">
       {% set first = r.food_photos[0] if r.food_photos else None %}
       {% if first %}
       <img class="card-thumb" src="/photo/{{ first.filename }}" alt="{{ r.name }}" loading="lazy">
@@ -130,10 +134,12 @@ main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
 function applyFilter() {
   const f = document.getElementById('filter').value;
   const q = document.getElementById('search').value.toLowerCase();
+  const nonameOnly = document.getElementById('noname-only').checked;
   document.querySelectorAll('.card').forEach(c => {
     const matchFilter = f === 'all' || c.dataset.status === f;
     const matchSearch = !q || c.dataset.name.includes(q);
-    c.style.display = matchFilter && matchSearch ? '' : 'none';
+    const matchNoname = !nonameOnly || c.dataset.noname === 'true';
+    c.style.display = matchFilter && matchSearch && matchNoname ? '' : 'none';
   });
 }
 applyFilter();
@@ -209,6 +215,7 @@ async function applyName(rid, name) {
     if (cardEl) {
       cardEl.querySelector('.card-title').textContent = name;
       cardEl.dataset.name = name.toLowerCase();
+      cardEl.dataset.noname = 'false';
       cardEl.querySelector('.btn-suggest')?.remove();
     }
     document.getElementById('suggest-modal').classList.remove('open');

@@ -92,6 +92,18 @@ header h1 { font-size: 17px; flex: 1; }
 .btn-preview:hover { background: #d97706; }
 .btn-row { display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end; align-items: center; }
 
+/* 分割モード */
+.split-toolbar { display: none; background: #fff7ed; border: 1.5px solid #f59e0b; border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+.split-toolbar.active { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.split-count { font-size: 13px; font-weight: bold; color: #b45309; flex: 1; min-width: 120px; }
+.btn-split-exec { background: #f59e0b; color: #fff; padding: 9px 18px; font-size: 13px; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; }
+.btn-split-exec:disabled { background: #d1d5db; cursor: not-allowed; }
+.btn-split-cancel { background: #f3f4f6; color: #374151; padding: 9px 14px; font-size: 13px; border-radius: 8px; border: none; cursor: pointer; }
+.photo-item.split-selected { outline: 3px solid #f59e0b; outline-offset: -3px; }
+.photo-item.split-selected img { opacity: 1; }
+.btn-split-mode { background: #fff7ed; color: #b45309; border: 1.5px solid #f59e0b; padding: 7px 14px; font-size: 12px; font-weight: bold; border-radius: 8px; cursor: pointer; }
+.btn-split-mode.on { background: #f59e0b; color: #fff; }
+
 /* プレビュー */
 .preview-box { position: relative; width: 100%; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: #e5e7eb; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
 .preview-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -129,7 +141,17 @@ header h1 { font-size: 17px; flex: 1; }
         <strong style="color:#f59e0b">&#9733; 数字バッジをクリック → カバー写真（1枚目）に設定</strong>
         &nbsp;／&nbsp; <span style="color:#dc2626">人物あり</span>バッジは参考表示（選択可）
       </p>
-      <div class="selected-count" id="sel-count">0枚選択中</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div class="selected-count" id="sel-count">0枚選択中</div>
+        <button class="btn-split-mode" id="btn-split-mode" onclick="toggleSplitMode()">✂ 分割モード</button>
+      </div>
+
+      <!-- 分割モードツールバー -->
+      <div class="split-toolbar" id="split-toolbar">
+        <span class="split-count" id="split-count">0枚選択中（分割する写真をクリック）</span>
+        <button class="btn-split-exec" id="btn-split-exec" onclick="execSplit()" disabled>選択した写真を別の店として分割</button>
+        <button class="btn-split-cancel" onclick="toggleSplitMode()">キャンセル</button>
+      </div>
       <div class="photo-grid" id="photo-grid">
 
         {% set postable = r.postable_photos if r.postable_photos is defined else [] %}
@@ -282,6 +304,8 @@ const RID = "{{ r.id }}";
 const MAX_PHOTOS = 10;
 let selectedPhotos = [];  // filename の順序付きリスト（先頭がカバー）
 let overlayShown = false;  // 加工プレビュー表示中かどうか
+let splitMode = false;
+let splitSelected = new Set();  // 分割モードで選択中のfilename
 
 function initSelection() {
   document.querySelectorAll('.photo-item:not(.person)').forEach(item => {
@@ -292,9 +316,64 @@ function initSelection() {
   updateUI();
 }
 
+function toggleSplitMode() {
+  splitMode = !splitMode;
+  splitSelected.clear();
+  const btn = document.getElementById('btn-split-mode');
+  const toolbar = document.getElementById('split-toolbar');
+  if (splitMode) {
+    btn.classList.add('on');
+    btn.textContent = '✂ 分割モード ON';
+    toolbar.classList.add('active');
+  } else {
+    btn.classList.remove('on');
+    btn.textContent = '✂ 分割モード';
+    toolbar.classList.remove('active');
+    document.querySelectorAll('.photo-item.split-selected').forEach(el => el.classList.remove('split-selected'));
+  }
+  updateSplitUI();
+}
+
+function updateSplitUI() {
+  const count = splitSelected.size;
+  document.getElementById('split-count').textContent =
+    count > 0 ? `${count}枚選択中（新しい店に移動する写真）` : '0枚選択中（分割する写真をクリック）';
+  document.getElementById('btn-split-exec').disabled = count === 0;
+}
+
+async function execSplit() {
+  if (splitSelected.size === 0) return;
+  if (!confirm(`選択した${splitSelected.size}枚の写真を別の店として分割します。よろしいですか？`)) return;
+  const res = await fetch(`/api/restaurant/${RID}/split`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ split_filenames: [...splitSelected] })
+  });
+  const j = await res.json();
+  if (j.ok) {
+    toast(`分割しました → ${j.new_id}`);
+    setTimeout(() => location.href = `/restaurant/${j.new_id}`, 1200);
+  } else {
+    toast(j.error || '分割に失敗しました', true);
+  }
+}
+
 function togglePhoto(el) {
   if (el.classList.contains('person')) return;
   const fn = el.dataset.fn;
+
+  if (splitMode) {
+    if (splitSelected.has(fn)) {
+      splitSelected.delete(fn);
+      el.classList.remove('split-selected');
+    } else {
+      splitSelected.add(fn);
+      el.classList.add('split-selected');
+    }
+    updateSplitUI();
+    return;
+  }
+
   if (el.classList.contains('selected')) {
     el.classList.remove('selected');
     selectedPhotos = selectedPhotos.filter(f => f !== fn);
@@ -472,7 +551,8 @@ async function autoCaption() {
   btn.disabled = true;
   btn.textContent = '生成中...';
   try {
-    const res = await fetch(`/api/restaurant/${RID}/generate_caption?_t=${Date.now()}`);
+    const coverFn = selectedPhotos[0] ? encodeURIComponent(selectedPhotos[0]) : '';
+    const res = await fetch(`/api/restaurant/${RID}/generate_caption?cover_fn=${coverFn}&_t=${Date.now()}`);
     const j = await res.json();
     if (j.ok) {
       document.getElementById('cap-ig').value = j.caption;

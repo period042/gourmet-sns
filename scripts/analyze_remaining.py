@@ -24,6 +24,61 @@ OUTPUT_FILE  = DATA_DIR / "restaurants.json"
 BACKUP_FILE  = DATA_DIR / "restaurants_backup.json"
 
 SAME_VISIT_HOURS = 3
+
+
+def _get_anthropic_auth() -> dict:
+    """ANTHROPIC_API_KEY があればそれを使い、なければ Claude Code の OAuth トークンを使う。
+    Returns kwargs dict for anthropic.Anthropic()"""
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if api_key:
+        return {"api_key": api_key}
+    # Claude Code エンタープライズ認証 (~/.claude/.credentials.json)
+    import time as _time
+    cred_path = Path.home() / ".claude" / ".credentials.json"
+    if not cred_path.exists():
+        raise RuntimeError("ANTHROPIC_API_KEY 未設定かつ ~/.claude/.credentials.json が見つかりません")
+    cred = json.loads(cred_path.read_text(encoding="utf-8"))
+    oauth = cred.get("claudeAiOauth", {})
+    access_token = oauth.get("accessToken", "")
+    expires_at_ms = oauth.get("expiresAt", 0)
+    # トークンが期限切れなら refresh
+    if not access_token or _time.time() * 1000 >= expires_at_ms - 60_000:
+        access_token = _refresh_claude_token(cred_path, oauth)
+    return {"auth_token": access_token}
+
+
+def _refresh_claude_token(cred_path: Path, oauth: dict) -> str:
+    """リフレッシュトークンで新しいアクセストークンを取得して credentials.json を更新する"""
+    import urllib.request, urllib.parse, time as _time
+    refresh_token = oauth.get("refreshToken", "")
+    if not refresh_token:
+        raise RuntimeError("refreshToken が見つかりません。claude auth login を再実行してください")
+    data = urllib.parse.urlencode({
+        "grant_type": "refresh_token",
+        "refresh_token": refresh_token,
+        "client_id": "9d1c250a-e61b-44d9-88ed-5944d1962f5e",
+    }).encode()
+    req = urllib.request.Request(
+        "https://claude.ai/api/auth/oauth/token",
+        data=data,
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=15) as res:
+        resp = json.loads(res.read())
+    new_access = resp["access_token"]
+    expires_in = resp.get("expires_in", 3600)
+    # credentials.json を更新
+    full = json.loads(cred_path.read_text(encoding="utf-8"))
+    full["claudeAiOauth"]["accessToken"] = new_access
+    full["claudeAiOauth"]["expiresAt"] = int((_time.time() + expires_in) * 1000)
+    if "refresh_token" in resp:
+        full["claudeAiOauth"]["refreshToken"] = resp["refresh_token"]
+    cred_path.write_text(json.dumps(full, ensure_ascii=False, indent=2), encoding="utf-8")
+    print("  [auth] アクセストークンを更新しました")
+    return new_access
+
+
 CLASSIFY_PROMPT = (
     "この写真を分析してください。\n"
     "1行目: 食べ物・飲み物の写真か? yes/no のみ\n"
@@ -276,7 +331,7 @@ def main():
 
         if args.provider == "anthropic":
             import anthropic as sdk
-            client = sdk.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+            client = sdk.Anthropic(**_get_anthropic_auth())
             classify_fn = classify_anthropic
             sec_per_req = 60 / 50
         else:

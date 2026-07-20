@@ -404,11 +404,12 @@ def generate_caption(rid: str):
     r = get_restaurant(rid)
     if not r:
         return jsonify({"ok": False}), 404
-    caption = _generate_instagram_caption(r)
+    cover_fn = request.args.get("cover_fn", "")
+    caption = _generate_instagram_caption(r, cover_fn=cover_fn)
     return jsonify({"ok": True, "caption": caption})
 
 
-def _generate_instagram_caption(r: dict) -> str:
+def _generate_instagram_caption(r: dict, cover_fn: str = "") -> str:
     """酒と飯、ぐるめ。キャプションテンプレ v1.0"""
     import random
 
@@ -419,9 +420,27 @@ def _generate_instagram_caption(r: dict) -> str:
     station_name = station.replace("駅", "") if station.endswith("駅") else station
     disp_station = station if station else area
 
-    descs    = [p.get("food_desc", "") for p in r.get("food_photos", []) if p.get("food_desc")]
-    combined = " ".join(descs)
-    foods    = descs[:4] if descs else ["おまかせ料理"]
+    # postable_photos（投稿用に選択・順序付けされた写真）を優先、なければ food_photos
+    source_photos = r.get("postable_photos") or r.get("food_photos", [])
+    descs    = [p.get("food_desc", "") for p in source_photos if p.get("food_desc")]
+    # カテゴリ判定は1枚めのメイン料理名のみ（括弧・「奥に」以降は背景描写なので除外）
+    import re as _re
+    def _main_dish(desc: str) -> str:
+        return _re.split(r'[（(,、。　]|奥に|背後に', desc)[0].strip()
+    # UIで指定したカバー写真(cover_fn)があればその説明を最優先
+    all_photos = r.get("postable_photos") or r.get("food_photos", [])
+    if cover_fn:
+        cover_photo = next((p for p in all_photos if p.get("filename") == cover_fn), None)
+        _first_raw = cover_photo.get("food_desc", "") if cover_photo else (descs[0] if descs else "")
+    else:
+        _first_raw = descs[0] if descs else ""
+    combined = _main_dish(_first_raw)
+    # foods はカバー写真を先頭に並べ替え（top = foods[0] がカバー写真の料理名になる）
+    cover_main = _main_dish(_first_raw)
+    other_descs = [_main_dish(d) for d in descs if _main_dish(d) != cover_main]
+    foods = ([cover_main] + other_descs)[:4] if cover_main else (
+        [_main_dish(d) for d in descs[:4]] if descs else ["おまかせ料理"]
+    )
 
     def stars(n: int) -> str:
         return "★" * n + "☆" * (5 - n)
@@ -443,46 +462,94 @@ def _generate_instagram_caption(r: dict) -> str:
     else:
         cat = "gourmet"
 
-    # ── 冒頭3行（カテゴリ固定型） ──
+    # ── 冒頭3行（カテゴリ別・複数バリエーションからランダム選択） ──
     top = foods[0] if foods else "料理"
     if cat == "sake":
-        opening         = f"🍶 日本酒好きなら保存。\n{disp_station}で見つけた当たり店。\n銘柄の数も料理のレベルも高かった。"
-        rec_bullets     = ["✅ 日本酒が好き", "✅ 美味しい肴が食べたい", "✅ 飲み会で失敗したくない"]
+        opening         = random.choice([
+            f"🍶 日本酒好きなら保存。\n{disp_station}で見つけた当たり店。\n銘柄の数も料理のレベルも高かった。",
+            f"🍶 {disp_station}、日本酒好きには刺さる一軒。\n肴のクオリティも侮れない。\nここは通いたくなる。",
+            f"🍶 酒場好きなら一度は行っておきたい。\n{disp_station}エリアで日本酒を飲むならここで間違いない。\n料理との相性が絶妙だった。",
+        ])
+        rec_bullets     = random.choice([
+            ["✅ 日本酒が好き", "✅ 美味しい肴が食べたい", "✅ 飲み会で失敗したくない"],
+            ["✅ 地酒・銘柄酒に興味がある", "✅ 食と酒のペアリングを楽しみたい", "✅ 大人の飲み会場所を探している"],
+            ["✅ 日本酒居酒屋が好き", "✅ 肴にこだわりたい", "✅ ゆっくり飲める店を探している"],
+        ])
         category_tag    = "日本酒好きなら保存"
         genre_tags      = ["#日本酒好き", "#日本酒居酒屋", "#酒場好き", "#日本酒スタグラム", "#日本酒", "#sake"]
         budget          = "4,000〜8,000円"
         osusume         = next((d for d in descs if "日本酒" in d), top)
     elif cat == "yakitori":
-        opening         = f"🔥 焼鳥好きなら保存。\n{disp_station}で飲むなら候補に入れたい一軒。\n特に{top}が絶品。"
-        rec_bullets     = ["✅ 焼き鳥が好き", "✅ 炭火の香りが好き", "✅ コスパ良く飲みたい"]
+        opening         = random.choice([
+            f"🔥 焼鳥好きなら保存。\n{disp_station}で飲むなら候補に入れたい一軒。\n特に{top}が絶品。",
+            f"🔥 {disp_station}で焼鳥を食べるならここ。\n{top}は頼んでおくべき一品。\nいい夜になった。",
+            f"🔥 煙と肴、この雰囲気が好き。\n{disp_station}の串焼き好きにはたまらない一軒。\n{top}がとくに刺さった。",
+        ])
+        rec_bullets     = random.choice([
+            ["✅ 焼き鳥が好き", "✅ 炭火の香りが好き", "✅ コスパ良く飲みたい"],
+            ["✅ 串焼きで一杯やりたい", "✅ 仕事帰りに気軽に寄れる店を探している", "✅ 地元の名店を開拓したい"],
+            ["✅ もつ・ホルモン系が好き", "✅ 昔ながらの居酒屋が好き", "✅ 飲み仲間と気兼ねなく飲みたい"],
+        ])
         category_tag    = "焼鳥好きなら保存"
         genre_tags      = ["#焼鳥好き", "#焼鳥居酒屋", "#串焼き", "#やきとり", "#焼鳥", "#炭火焼き"]
         budget          = "3,000〜6,000円"
         osusume         = top
     elif cat == "seafood":
-        opening         = f"🐟 魚好きなら保存。\n正直、刺身目当てで再訪したい。\n日本酒との相性も最高。"
-        rec_bullets     = ["✅ 新鮮な魚が食べたい", "✅ 日本酒と肴を楽しみたい", "✅ 飲み会の場所に迷っている"]
+        opening         = random.choice([
+            f"🐟 魚好きなら保存。\n正直、{top}目当てで再訪したい。\n日本酒との相性も最高。",
+            f"🐟 {disp_station}で魚を食べるならここ。\n鮮度と質が段違いだった。\n{top}は特においしかった。",
+            f"🐟 海鮮好きに刺さる一軒。\n{disp_station}でこのレベルの魚が食べられるとは。\n次も{top}を頼むと思う。",
+        ])
+        rec_bullets     = random.choice([
+            ["✅ 新鮮な魚が食べたい", "✅ 日本酒と肴を楽しみたい", "✅ 飲み会の場所に迷っている"],
+            ["✅ 海鮮・刺身好き", "✅ 魚に合う日本酒が飲みたい", "✅ 上質な夜を過ごしたい"],
+            ["✅ 鮮魚居酒屋を探している", "✅ 旬の魚を楽しみたい", "✅ 大人数での飲み会場所に悩んでいる"],
+        ])
         category_tag    = "魚好きなら保存"
         genre_tags      = ["#海鮮好き", "#刺身好き", "#鮮魚居酒屋", "#海鮮料理", "#刺身", "#鮮魚"]
         budget          = "4,000〜8,000円"
         osusume         = top
     elif cat == "ramen":
-        opening         = f"🍜 ラーメン好きなら保存。\n{disp_station}のおすすめ一杯。\n一度食べたら忘れられない。"
-        rec_bullets     = ["✅ ラーメンが好き", "✅ 本格的な一杯が食べたい", "✅ 近くの良店を探している"]
+        opening         = random.choice([
+            f"🍜 ラーメン好きなら保存。\n{disp_station}のおすすめ一杯。\n一度食べたら忘れられない。",
+            f"🍜 {disp_station}でこの一杯に出会えてよかった。\n{top}は本当に完成度が高い。\nまた来る。",
+            f"🍜 スープを飲み干した。\n{disp_station}のラーメン、{top}のレベルが高すぎる。\nラーメン好き必見。",
+        ])
+        rec_bullets     = random.choice([
+            ["✅ ラーメンが好き", "✅ 本格的な一杯が食べたい", "✅ 近くの良店を探している"],
+            ["✅ スープにこだわりたい", "✅ 行列に並ぶ価値がある一杯を求めている", "✅ ラーメン巡りが趣味"],
+            ["✅ ご褒美の一杯が食べたい", "✅ 仕事帰りにラーメン", "✅ 話題の名店を押さえておきたい"],
+        ])
         category_tag    = "ラーメン好きなら保存"
         genre_tags      = ["#ラーメン好き", "#ラーメン巡り", "#ラーメン部", "#ラーメン", "#らーめん", "#ramen"]
         budget          = "1,000〜1,500円"
         osusume         = top
     elif cat == "meat":
-        opening         = f"🥩 肉好きなら保存。\n{disp_station}で食べる価値あり。\n特に{top}は必食。"
-        rec_bullets     = ["✅ 和牛・肉料理が好き", "✅ 本格派のお店に行きたい", "✅ 特別な日に使いたい"]
+        opening         = random.choice([
+            f"🥩 肉好きなら保存。\n{disp_station}で食べる価値あり。\n特に{top}は必食。",
+            f"🥩 {disp_station}で肉を食べるならここ一択。\n{top}のクオリティに唸った。\n記念日にも使える。",
+            f"🥩 いい肉を食べた夜だった。\n{disp_station}、{top}目当てで再訪確定。\n肉好きは絶対保存。",
+        ])
+        rec_bullets     = random.choice([
+            ["✅ 和牛・肉料理が好き", "✅ 本格派のお店に行きたい", "✅ 特別な日に使いたい"],
+            ["✅ 上質な肉を食べたい", "✅ 接待・記念日に使える店を探している", "✅ 赤ワインと肉を楽しみたい"],
+            ["✅ 焼肉・ステーキ好き", "✅ コスパ高めの肉が食べたい", "✅ 友人を連れて行きたい店を探している"],
+        ])
         category_tag    = "肉好きなら保存"
         genre_tags      = ["#肉好き", "#和牛好き", "#ステーキ好き", "#焼肉", "#肉スタグラム", "#和牛"]
         budget          = "6,000〜12,000円"
         osusume         = top
     else:
-        opening         = f"🍽️ グルメ好きなら保存。\n{disp_station}で見つけた一軒。\nコスパも雰囲気も文句なし。"
-        rec_bullets     = ["✅ 美味しいものが食べたい", "✅ 飲み会で失敗したくない", "✅ 新しいお店を開拓したい"]
+        opening         = random.choice([
+            f"🍽️ グルメ好きなら保存。\n{disp_station}で見つけた一軒。\nコスパも雰囲気も文句なし。",
+            f"🍽️ {disp_station}、いい店を見つけた。\n{top}が特においしかった。\n飲み会の候補に即追加した。",
+            f"🍽️ 久しぶりに当たりの店。\n{disp_station}で{top}を食べるならここ。\n雰囲気込みで好きな一軒。",
+        ])
+        rec_bullets     = random.choice([
+            ["✅ 美味しいものが食べたい", "✅ 飲み会で失敗したくない", "✅ 新しいお店を開拓したい"],
+            ["✅ コスパ良く飲み食いしたい", "✅ 仕事帰りに使える店を探している", "✅ 地元の名店を発掘したい"],
+            ["✅ 気軽に飲める居酒屋が好き", "✅ ひとりでも入れる雰囲気の店", "✅ 地元グルメを楽しみたい"],
+        ])
         category_tag    = "グルメ好きなら保存"
         genre_tags      = ["#グルメ好き", "#居酒屋好き", "#外食好き", "#グルメ記録", "#外食グルメ", "#グルメ旅"]
         budget          = "3,000〜6,000円"
@@ -959,6 +1026,69 @@ def patch_queue_item(item_id: str):
         data["scheduled_at"] = body["scheduled_at"]
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     return jsonify({"ok": True})
+
+
+@app.route("/api/restaurant/<rid>/split", methods=["POST"])
+def split_restaurant(rid: str):
+    """指定した写真を元レストランから分離して新しいレストランエントリを作成"""
+    body = request.get_json(force=True, silent=True) or {}
+    split_filenames = set(body.get("split_filenames", []))
+    if not split_filenames:
+        return jsonify({"ok": False, "error": "split_filenames is empty"}), 400
+
+    data = load_data()
+    restaurants = data["restaurants"]
+    orig_idx = next((i for i, r in enumerate(restaurants) if r["id"] == rid), None)
+    if orig_idx is None:
+        return jsonify({"ok": False, "error": "not found"}), 404
+
+    orig = restaurants[orig_idx]
+
+    # 新ID採番: 既存の最大番号 + 1
+    max_num = 0
+    for r in restaurants:
+        m = __import__("re").match(r"r(\d+)$", r["id"])
+        if m:
+            max_num = max(max_num, int(m.group(1)))
+    new_id = f"r{max_num + 1:04d}"
+
+    # 指定写真を分離
+    def split_photos(lst):
+        moved = [p for p in lst if p.get("filename") in split_filenames]
+        kept = [p for p in lst if p.get("filename") not in split_filenames]
+        return kept, moved
+
+    kept_food, moved_food = split_photos(orig.get("food_photos") or [])
+    kept_postable, moved_postable = split_photos(orig.get("postable_photos") or [])
+
+    if not moved_food and not moved_postable:
+        return jsonify({"ok": False, "error": "指定したファイル名が見つかりません"}), 400
+    if not kept_food and not kept_postable:
+        return jsonify({"ok": False, "error": "すべての写真を移動させることはできません"}), 400
+
+    orig["food_photos"] = kept_food
+    orig["postable_photos"] = kept_postable
+
+    new_restaurant = {
+        "id": new_id,
+        "name": "",
+        "area": orig.get("area", ""),
+        "date": orig.get("date", ""),
+        "gps": orig.get("gps"),
+        "food_photos": moved_food,
+        "postable_photos": moved_postable,
+        "status": "pending",
+        "generated_posts": {},
+        "catchphrase": "",
+        "yellow_word": "",
+        "hook_text": "",
+        "bullets": [],
+    }
+
+    restaurants.insert(orig_idx + 1, new_restaurant)
+    data["generated_at"] = datetime.now().isoformat()
+    save_data(data)
+    return jsonify({"ok": True, "new_id": new_id})
 
 
 if __name__ == "__main__":
