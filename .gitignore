@@ -4,6 +4,7 @@ data/thumb_cache/
 data/thumbs/
 data/reels/
 data/batch_*.json
+data/tmp_batch*.json
 data/restaurants.json
 data/restaurants_backup.json
 scripts/token.json
