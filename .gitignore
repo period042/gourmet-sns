@@ -3,6 +3,9 @@ data/classify_cache.json
 data/thumb_cache/
 data/thumbs/
 data/reels/
+data/batch_*.json
+data/restaurants.json
+data/restaurants_backup.json
 scripts/token.json
 __pycache__/
 *.pyc
