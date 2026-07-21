@@ -23,9 +23,10 @@ JST = timezone(timedelta(hours=9))
 
 load_dotenv(Path(__file__).parent.parent / ".env")
 
-QUEUE_DIR       = Path(__file__).parent.parent / "queue"
-POSTED_DIR      = Path(__file__).parent.parent / "posted"
-RESTAURANTS_JSON= Path(__file__).parent.parent / "data" / "restaurants.json"
+QUEUE_DIR          = Path(__file__).parent.parent / "queue"
+IN_PROGRESS_DIR    = Path(__file__).parent.parent / "in_progress"
+POSTED_DIR         = Path(__file__).parent.parent / "posted"
+RESTAURANTS_JSON   = Path(__file__).parent.parent / "data" / "restaurants.json"
 GRAPH_URL       = "https://graph.facebook.com/v22.0"
 
 _restaurants_cache: list[dict] | None = None
@@ -155,16 +156,14 @@ def normalize_url(url: str, crop: bool = False) -> str:
     return url
 
 
-def _build_posted_rid_set() -> set[str]:
-    """posted/ の投稿済みファイルから "rid:photo" / "rid:reel" のセットを返す。"""
+def _build_rid_set(directory: Path) -> set[str]:
+    """指定ディレクトリの JSON ファイルから "rid:photo" / "rid:reel" のセットを返す。"""
     rids: set[str] = set()
-    if not POSTED_DIR.exists():
+    if not directory.exists():
         return rids
-    for p in POSTED_DIR.glob("*.json"):
+    for p in directory.glob("*.json"):
         try:
             d = json.loads(p.read_text(encoding="utf-8-sig"))
-            if d.get("status") != "posted":
-                continue
             rid = d.get("restaurant_id", "")
             if not rid or rid == "summary":
                 continue
@@ -177,20 +176,19 @@ def _build_posted_rid_set() -> set[str]:
 
 def pick_queue() -> Path | None:
     now = datetime.now(JST)
-    posted_rids = _build_posted_rid_set()
-    # *_instagram.json と *_reel.json の両方を対象にアルファベット順でソート
+    posted_rids     = _build_rid_set(POSTED_DIR)
+    in_progress_rids = _build_rid_set(IN_PROGRESS_DIR)
     files = sorted([
         *QUEUE_DIR.glob("*_instagram.json"),
         *QUEUE_DIR.glob("*_reel.json"),
     ])
     for f in files:
         try:
-            # 冪等性チェック1: posted/ に同名ファイルがあればスキップ
-            posted_file = POSTED_DIR / f.name
-            if posted_file.exists():
-                posted_data = json.loads(posted_file.read_text(encoding="utf-8-sig"))
-                if posted_data.get("status") == "posted":
-                    print(f"[SKIP] 投稿済み(同名ファイル): {f.name}")
+            # チェック1: posted/ に同名ファイルがあればスキップ
+            if (POSTED_DIR / f.name).exists():
+                d = json.loads((POSTED_DIR / f.name).read_text(encoding="utf-8-sig"))
+                if d.get("status") == "posted":
+                    print(f"[SKIP] 投稿済み(同名): {f.name}")
                     f.unlink()
                     continue
 
@@ -198,14 +196,20 @@ def pick_queue() -> Path | None:
             if data.get("platform") != "instagram" or data.get("status") != "approved":
                 continue
 
-            # 冪等性チェック2: 同一 restaurant_id で同一種別が投稿済みならスキップ
-            rid = data.get("restaurant_id", "")
-            if rid and rid != "summary":
-                ftype = "reel" if f.name.endswith("_reel.json") else "photo"
-                if f"{rid}:{ftype}" in posted_rids:
-                    print(f"[SKIP] RID投稿済み(重複防止): {rid} ({f.name})")
-                    f.unlink()
-                    continue
+            rid   = data.get("restaurant_id", "")
+            ftype = "reel" if f.name.endswith("_reel.json") else "photo"
+            key   = f"{rid}:{ftype}"
+
+            # チェック2: 同一RIDが投稿済みならスキップ
+            if rid and rid != "summary" and key in posted_rids:
+                print(f"[SKIP] RID投稿済み: {rid} ({f.name})")
+                f.unlink()
+                continue
+
+            # チェック3: 同一RIDが処理中(in_progress)ならスキップ
+            if rid and rid != "summary" and key in in_progress_rids:
+                print(f"[SKIP] RID処理中(in_progress): {rid} ({f.name})")
+                continue  # 削除しない
 
             sched = data.get("scheduled_at")
             if sched:
@@ -220,73 +224,140 @@ def pick_queue() -> Path | None:
     return None
 
 
-def main():
-    POSTED_DIR.mkdir(exist_ok=True)
-    qfile = pick_queue()
-    if not qfile:
-        print("Instagramキューが空です。")
-        return
-
-    data        = json.loads(qfile.read_text(encoding="utf-8-sig"))
+def _call_instagram_api(data: dict) -> str:
+    """Instagram API を呼び出して post_id を返す。失敗時は例外を raise。"""
+    token, account_id = get_creds()
     caption     = data.get("caption", "")
     media_type  = data.get("media_type", "IMAGE")
     rid         = data.get("restaurant_id", "")
     location_id = data.get("location_id") or get_location_id(rid)
 
     print(f"Instagram投稿: {data['restaurant_name']} ({data.get('area','')})  type={media_type}")
-    if location_id:
-        print(f"  位置情報: {location_id}")
 
-    token, account_id = get_creds()
+    if media_type == "REELS":
+        video_url = data.get("video_url")
+        if not video_url:
+            raise ValueError("Reels queue に video_url がありません。")
+        container_id = create_reel_container(token, account_id, video_url, caption)
+        if not wait_for_container(token, container_id, max_wait=120):
+            raise RuntimeError("Reels コンテナの処理がタイムアウトしました")
+        return publish_container(token, account_id, container_id)
+
+    photo_urls = [normalize_url(u, crop=(i > 0)) for i, u in enumerate(data.get("photo_urls", []))]
+    if len(photo_urls) == 1:
+        cid = create_media_container(token, account_id, photo_urls[0], caption, location_id=location_id)
+        wait_for_container(token, cid)
+        return publish_container(token, account_id, cid)
+
+    children = []
+    for url in photo_urls[:10]:
+        cid = create_media_container(token, account_id, url, is_carousel_item=True)
+        wait_for_container(token, cid, max_wait=30)
+        children.append(cid)
+        time.sleep(1)
+    carousel_id = create_carousel_container(token, account_id, children, caption, location_id=location_id)
+    wait_for_container(token, carousel_id)
+    return publish_container(token, account_id, carousel_id)
+
+
+def phase1_lock() -> bool:
+    """
+    Phase 1: queue/ から1件選び in_progress/ に移動する。
+    in_progress/ に ig_post_id 付きのファイルがあれば recovery モード（phase2b のみ必要）。
+    戻り値: 処理対象があれば True、なければ False。
+    """
+    IN_PROGRESS_DIR.mkdir(exist_ok=True)
+    POSTED_DIR.mkdir(exist_ok=True)
+
+    # recovery チェック: in_progress に ig_post_id 付きファイルがあれば phase2b に任せる
+    for p in IN_PROGRESS_DIR.glob("*.json"):
+        try:
+            d = json.loads(p.read_text(encoding="utf-8-sig"))
+            if d.get("ig_post_id"):
+                print(f"[RECOVERY] ig_post_id あり。phase2b でクリーンアップ: {p.name}")
+                return True  # phase1 はスキップ、ファイルはそのまま
+        except Exception:
+            pass
+
+    qfile = pick_queue()
+    if not qfile:
+        print("キューが空です。")
+        return False
+
+    data = json.loads(qfile.read_text(encoding="utf-8-sig"))
+    data["locked_at"] = datetime.now(JST).isoformat()
+    ip_path = IN_PROGRESS_DIR / qfile.name
+    ip_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    qfile.unlink()
+    print(f"[Phase1] ロック: {ip_path.name}")
+    return True
+
+
+def phase2a_post():
+    """
+    Phase 2a: in_progress/ のファイルに Instagram API 呼び出し結果 (ig_post_id) を書き込む。
+    ig_post_id が既にあれば API 呼び出しをスキップ（recovery）。
+    """
+    files = sorted([*IN_PROGRESS_DIR.glob("*_instagram.json"), *IN_PROGRESS_DIR.glob("*_reel.json")])
+    if not files:
+        print("[Phase2a] in_progress ファイルなし。スキップ。")
+        return
+
+    ip_path = files[0]
+    data = json.loads(ip_path.read_text(encoding="utf-8-sig"))
+
+    if data.get("ig_post_id"):
+        print(f"[Phase2a] ig_post_id 既存。API 呼び出しスキップ: {data['ig_post_id']}")
+        return
 
     try:
-        if media_type == "REELS":
-            video_url = data.get("video_url")
-            if not video_url:
-                raise ValueError("Reels queue に video_url がありません。create_reel.py を再実行してください。")
-            print(f"  Reels video_url: {video_url[:60]}...")
-            container_id = create_reel_container(token, account_id, video_url, caption)
-            ok = wait_for_container(token, container_id, max_wait=120)
-            if not ok:
-                raise RuntimeError("Reels コンテナの処理がタイムアウトまたは失敗しました")
-            post_id = publish_container(token, account_id, container_id)
-
-        else:
-            photo_urls = [normalize_url(u, crop=(i > 0)) for i, u in enumerate(data.get("photo_urls", []))]
-            if len(photo_urls) == 1:
-                container_id = create_media_container(
-                    token, account_id, photo_urls[0], caption, location_id=location_id
-                )
-                wait_for_container(token, container_id)
-                post_id = publish_container(token, account_id, container_id)
-            else:
-                children = []
-                for url in photo_urls[:10]:
-                    cid = create_media_container(token, account_id, url, is_carousel_item=True)
-                    wait_for_container(token, cid, max_wait=30)
-                    children.append(cid)
-                    time.sleep(1)
-                carousel_id = create_carousel_container(
-                    token, account_id, children, caption, location_id=location_id
-                )
-                wait_for_container(token, carousel_id)
-                post_id = publish_container(token, account_id, carousel_id)
-
-        print(f"[OK] Instagram post_id={post_id}")
-        data["status"]    = "posted"
-        data["ig_post_id"]= post_id
-        data["posted_at"] = datetime.now().isoformat()
-
+        post_id = _call_instagram_api(data)
+        print(f"[OK] post_id={post_id}")
+        data["status"]     = "posted"
+        data["ig_post_id"] = post_id
+        data["posted_at"]  = datetime.now(JST).isoformat()
     except Exception as e:
-        print(f"[FAIL] Instagram: {e}")
+        print(f"[FAIL] Instagram API: {e}")
         data["status"] = "failed"
         data["error"]  = str(e)
 
-    posted_path = POSTED_DIR / qfile.name
+    # ig_post_id を in_progress/ に書き戻す（この後 workflow が commit+push する）
+    ip_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[Phase2a] ig_post_id を in_progress に記録: {ip_path.name}")
+
+
+def phase2b_cleanup():
+    """
+    Phase 2b: in_progress/ → posted/ に移動してクリーンアップ。
+    """
+    files = sorted([*IN_PROGRESS_DIR.glob("*_instagram.json"), *IN_PROGRESS_DIR.glob("*_reel.json")])
+    if not files:
+        print("[Phase2b] in_progress ファイルなし。スキップ。")
+        return
+
+    ip_path = files[0]
+    data = json.loads(ip_path.read_text(encoding="utf-8-sig"))
+    posted_path = POSTED_DIR / ip_path.name
     posted_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
-    qfile.unlink()
-    print(f"移動: {posted_path}")
+    ip_path.unlink()
+    print(f"[Phase2b] 完了: {posted_path.name}  status={data.get('status')}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    phase = next((a for a in sys.argv[1:] if a.startswith("--phase")), None)
+
+    if phase == "--phase1":
+        ok = phase1_lock()
+        sys.exit(0 if ok else 0)   # キュー空でも exit 0（workflow は staged 有無で判断）
+    elif phase == "--phase2a":
+        phase2a_post()
+    elif phase == "--phase2b":
+        phase2b_cleanup()
+    else:
+        # ローカル実行用: 3フェーズを順番に実行
+        IN_PROGRESS_DIR.mkdir(exist_ok=True)
+        POSTED_DIR.mkdir(exist_ok=True)
+        if phase1_lock():
+            phase2a_post()
+            phase2b_cleanup()

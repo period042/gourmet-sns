@@ -37,31 +37,80 @@ jobs:
       - name: Install dependencies
         run: pip install requests python-dotenv
 
-      - name: Post to Instagram
-        env:
-          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
-        run: python scripts/post_instagram.py
-
-      - name: Commit posted files
+      - name: Git config
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git add posted/ || true
-          git add queue/ || true
+
+      # ── Phase 1: queue → in_progress (API呼び出し前にコミット) ──────────────
+      - name: Phase 1 - Lock queue item
+        run: python scripts/post_instagram.py --phase1
+
+      - name: Commit Phase 1 (in_progress lock)
+        id: commit_phase1
+        run: |
+          git add in_progress/ queue/ || true
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "no_item=true" >> $GITHUB_OUTPUT
+            echo "キューが空です。スキップ。"
+            exit 0
+          fi
+          echo "no_item=false" >> $GITHUB_OUTPUT
+          git commit -m "in_progress: lock $(date +%Y%m%d_%H%M%S)"
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt"
+            if git push; then echo "Push succeeded"; exit 0; fi
+            git pull --rebase origin main
+            sleep $((attempt * 5))
+          done
+          echo "ERROR: Phase1 push failed"
+          exit 1
+
+      # ── Phase 2a: Instagram API呼び出し → ig_post_idをin_progressに記録 ───
+      - name: Phase 2a - Post to Instagram
+        if: steps.commit_phase1.outputs.no_item != 'true'
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+        run: python scripts/post_instagram.py --phase2a
+
+      - name: Commit Phase 2a (record ig_post_id in in_progress)
+        if: steps.commit_phase1.outputs.no_item != 'true'
+        run: |
+          git add in_progress/ || true
+          if git diff --staged --quiet; then
+            echo "変更なし。スキップ。"
+            exit 0
+          fi
+          git commit -m "in_progress: record post_id $(date +%Y%m%d_%H%M%S)"
+          for attempt in 1 2 3; do
+            echo "Push attempt $attempt"
+            if git push; then echo "Push succeeded"; exit 0; fi
+            git pull --rebase origin main
+            sleep $((attempt * 5))
+          done
+          echo "ERROR: Phase2a push failed"
+          exit 1
+
+      # ── Phase 2b: in_progress → posted (クリーンアップ) ──────────────────────
+      - name: Phase 2b - Cleanup to posted
+        if: steps.commit_phase1.outputs.no_item != 'true'
+        run: python scripts/post_instagram.py --phase2b
+
+      - name: Commit Phase 2b (posted)
+        if: steps.commit_phase1.outputs.no_item != 'true'
+        run: |
+          git add posted/ in_progress/ || true
+          if git diff --staged --quiet; then
+            echo "変更なし。スキップ。"
             exit 0
           fi
           git commit -m "post: Instagram auto post $(date +%Y%m%d_%H%M%S)"
           for attempt in 1 2 3; do
             echo "Push attempt $attempt"
-            if git push; then
-              echo "Push succeeded"
-              exit 0
-            fi
+            if git push; then echo "Push succeeded"; exit 0; fi
             git pull --rebase origin main
             sleep $((attempt * 5))
           done
-          echo "ERROR: Push failed after 3 attempts"
+          echo "ERROR: Phase2b push failed"
           exit 1
