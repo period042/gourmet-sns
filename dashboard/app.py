@@ -781,6 +781,26 @@ def approve(rid: str):
         return jsonify({"ok": False, "error": "not found"}), 404
 
     body = request.json or {}
+    force = body.get("force", False)
+
+    # 投稿済みチェック: posted/ に同一 RID の写真投稿があれば警告
+    posted_dir = BASE_DIR / "posted"
+    if not force and posted_dir.exists():
+        already = []
+        for pf in posted_dir.glob("*_instagram.json"):
+            try:
+                pd = json.loads(pf.read_text(encoding="utf-8-sig"))
+                if pd.get("restaurant_id") == rid and pd.get("status") == "posted":
+                    already.append(f'{pd.get("restaurant_name","")} ({pd.get("posted_at","")[:10]})')
+            except Exception:
+                pass
+        if already:
+            return jsonify({
+                "ok": False,
+                "already_posted": already,
+                "error": f"この店舗は既に投稿済みです: {', '.join(already)}。強制投稿する場合は force=true を指定してください。"
+            }), 409
+
     name = r.get("name", "")
     area = r.get("area", "")
     catchphrase = body.get("catchphrase", r.get("catchphrase", ""))
@@ -873,6 +893,16 @@ def delete_restaurant(rid: str):
                 changed += 1
         if changed:
             cache_path.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
+
+    # thumb_cache の該当ファイルを削除
+    all_photos = target.get("food_photos", []) + target.get("postable_photos", [])
+    for p in all_photos:
+        fname = p.get("filename", "")
+        if fname:
+            stem = Path(fname).stem
+            thumb = THUMB_DIR / f"{stem}.jpg"
+            if thumb.exists():
+                thumb.unlink()
 
     data["restaurants"] = [r for r in data["restaurants"] if r["id"] != rid]
     save_data(data)

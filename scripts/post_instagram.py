@@ -155,8 +155,29 @@ def normalize_url(url: str, crop: bool = False) -> str:
     return url
 
 
+def _build_posted_rid_set() -> set[str]:
+    """posted/ の投稿済みファイルから "rid:photo" / "rid:reel" のセットを返す。"""
+    rids: set[str] = set()
+    if not POSTED_DIR.exists():
+        return rids
+    for p in POSTED_DIR.glob("*.json"):
+        try:
+            d = json.loads(p.read_text(encoding="utf-8-sig"))
+            if d.get("status") != "posted":
+                continue
+            rid = d.get("restaurant_id", "")
+            if not rid or rid == "summary":
+                continue
+            ftype = "reel" if p.name.endswith("_reel.json") else "photo"
+            rids.add(f"{rid}:{ftype}")
+        except Exception:
+            pass
+    return rids
+
+
 def pick_queue() -> Path | None:
     now = datetime.now(JST)
+    posted_rids = _build_posted_rid_set()
     # *_instagram.json と *_reel.json の両方を対象にアルファベット順でソート
     files = sorted([
         *QUEUE_DIR.glob("*_instagram.json"),
@@ -164,18 +185,28 @@ def pick_queue() -> Path | None:
     ])
     for f in files:
         try:
-            # 冪等性チェック: posted/ に同名の status=posted ファイルがあればスキップ
+            # 冪等性チェック1: posted/ に同名ファイルがあればスキップ
             posted_file = POSTED_DIR / f.name
             if posted_file.exists():
                 posted_data = json.loads(posted_file.read_text(encoding="utf-8-sig"))
                 if posted_data.get("status") == "posted":
-                    print(f"[SKIP] 投稿済み(重複防止): {f.name}")
+                    print(f"[SKIP] 投稿済み(同名ファイル): {f.name}")
                     f.unlink()
                     continue
 
             data = json.loads(f.read_text(encoding="utf-8-sig"))
             if data.get("platform") != "instagram" or data.get("status") != "approved":
                 continue
+
+            # 冪等性チェック2: 同一 restaurant_id で同一種別が投稿済みならスキップ
+            rid = data.get("restaurant_id", "")
+            if rid and rid != "summary":
+                ftype = "reel" if f.name.endswith("_reel.json") else "photo"
+                if f"{rid}:{ftype}" in posted_rids:
+                    print(f"[SKIP] RID投稿済み(重複防止): {rid} ({f.name})")
+                    f.unlink()
+                    continue
+
             sched = data.get("scheduled_at")
             if sched:
                 sched_dt = datetime.fromisoformat(sched)
