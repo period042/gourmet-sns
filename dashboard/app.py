@@ -24,6 +24,7 @@ QUEUE_DIR = BASE_DIR / "queue"
 OVERLAID_DIR = BASE_DIR / "overlaid"
 THUMB_DIR = DATA_DIR / "thumb_cache"
 RESTAURANTS_FILE = DATA_DIR / "restaurants.json"
+OVERRIDES_FILE = DATA_DIR / "restaurant_overrides.json"
 
 from dotenv import load_dotenv
 load_dotenv(BASE_DIR / ".env")
@@ -43,10 +44,54 @@ cloudinary.config(
 )
 
 
+# ── overrides (手動編集永続化) ────────────────────────────────────────────────
+
+_OVERRIDE_FIELDS = ("name", "area", "catchphrase", "yellow_word", "hook_text",
+                    "bullets", "generated_posts", "status")
+
+def _override_key(r: dict) -> str | None:
+    """最初のpostable/food写真ファイル名をoverride識別キーとして返す（パス不依存・安定）"""
+    photos = r.get("postable_photos") or r.get("food_photos", [])
+    return photos[0]["filename"] if photos else None
+
+def load_overrides() -> dict:
+    if not OVERRIDES_FILE.exists():
+        return {"version": 1, "entries": {}}
+    try:
+        return json.loads(OVERRIDES_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {"version": 1, "entries": {}}
+
+def save_overrides(overrides: dict):
+    OVERRIDES_FILE.write_text(json.dumps(overrides, ensure_ascii=False, indent=2), encoding="utf-8")
+
+def _apply_overrides(restaurants: list) -> list:
+    """restaurants.jsonエントリにoverridesを上書き適用（再生成後の復元）"""
+    entries = load_overrides().get("entries", {})
+    for r in restaurants:
+        key = _override_key(r)
+        if key and key in entries:
+            for field, val in entries[key].items():
+                r[field] = val
+    return restaurants
+
+def _save_override(r: dict, fields: dict):
+    """指定フィールドをoverridesに保存"""
+    key = _override_key(r)
+    if not key:
+        return
+    ov = load_overrides()
+    entry = ov.setdefault("entries", {}).setdefault(key, {})
+    entry.update({k: v for k, v in fields.items() if v is not None})
+    save_overrides(ov)
+
+
 def load_data() -> dict:
     if not RESTAURANTS_FILE.exists():
         return {"restaurants": []}
-    return json.loads(RESTAURANTS_FILE.read_text(encoding="utf-8-sig"))
+    data = json.loads(RESTAURANTS_FILE.read_text(encoding="utf-8-sig"))
+    _apply_overrides(data.get("restaurants", []))
+    return data
 
 
 def save_data(data: dict):
@@ -155,6 +200,13 @@ def update_restaurant(rid: str):
             x = body.get("caption_x", r.get("generated_posts", {}).get("x", ""))
             r.setdefault("generated_posts", {})["x"] = x
             save_data(data)
+            # 手動編集をoverridesに永続化（restaurants.json再生成後も保持）
+            _save_override(r, {
+                "name": r.get("name"), "area": r.get("area"),
+                "catchphrase": r.get("catchphrase"), "yellow_word": r.get("yellow_word"),
+                "hook_text": r.get("hook_text"), "bullets": r.get("bullets"),
+                "generated_posts": r.get("generated_posts"),
+            })
             # 更新後のキャプションをフロントに返す（textarea更新用）
             return jsonify({"ok": True,
                             "caption_instagram": ig,
@@ -869,6 +921,7 @@ def approve(rid: str):
     r["status"] = "approved"
     r["approved_posts"] = [queue_ig["id"]]
     save_data(data)
+    _save_override(r, {"status": "approved"})
 
     return jsonify({"ok": True, "queue_ig": queue_ig["id"]})
 
@@ -985,6 +1038,7 @@ def reject(rid: str):
         if r["id"] == rid:
             r["status"] = "rejected"
             save_data(data)
+            _save_override(r, {"status": "rejected"})
             return jsonify({"ok": True})
     return jsonify({"ok": False}), 404
 
@@ -1118,6 +1172,9 @@ def split_restaurant(rid: str):
     restaurants.insert(orig_idx + 1, new_restaurant)
     data["generated_at"] = datetime.now().isoformat()
     save_data(data)
+    # 分割後の元エントリと新エントリをoverridesに記録（再生成後も復元可能に）
+    _save_override(orig, {k: orig.get(k) for k in _OVERRIDE_FIELDS if orig.get(k)})
+    _save_override(new_restaurant, {"name": "", "area": orig.get("area", ""), "status": "pending"})
     return jsonify({"ok": True, "new_id": new_id})
 
 

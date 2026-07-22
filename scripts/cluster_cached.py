@@ -5,8 +5,10 @@ Phase 2 (API分類) をスキップし、キャッシュ済みデータだけで
 import os, json, time, requests
 from pathlib import Path
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+load_dotenv(Path(__file__).parent.parent / ".env")
 
-PHOTOS_DIR = r"C:\Users\user\iCloudPhotos\Photos"
+PHOTOS_DIR = os.environ.get("PHOTOS_DIR", r"C:\Users\user\iCloudPhotos\Photos")
 DATA_DIR = Path(__file__).parent.parent / "data"
 CACHE_FILE = DATA_DIR / "classify_cache.json"
 OUTPUT_FILE = DATA_DIR / "restaurants.json"
@@ -261,6 +263,25 @@ def main():
         })
 
     print(f"  レストラン候補: {len(restaurants)}件")
+
+    # overrides適用（手動編集の再生成後自動復元）
+    OVERRIDES_FILE = DATA_DIR / "restaurant_overrides.json"
+    if OVERRIDES_FILE.exists():
+        try:
+            overrides = json.loads(OVERRIDES_FILE.read_text(encoding="utf-8"))
+            entries = overrides.get("entries", {})
+            changed = 0
+            for r in restaurants:
+                photos = r.get("postable_photos") or r.get("food_photos", [])
+                key = photos[0]["filename"] if photos else None
+                if key and key in entries:
+                    r.update(entries[key])
+                    changed += 1
+            if changed:
+                print(f"  overrides適用: {changed}件")
+        except Exception as e:
+            print(f"  [warn] overrides適用失敗: {e}")
+
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump({"restaurants": restaurants, "generated_at": datetime.now().isoformat()}, f, ensure_ascii=False, indent=2)
     print(f"\n保存完了: {OUTPUT_FILE}")
