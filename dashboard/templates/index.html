@@ -38,7 +38,7 @@ main { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
 .btn-suggest:hover { background: #d97706; }
 .suggest-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1000; align-items:center; justify-content:center; }
 .suggest-modal.open { display:flex; }
-.suggest-box { background:#fff; border-radius:12px; padding:24px; max-width:400px; width:90%; }
+.suggest-box { background:#fff; border-radius:12px; padding:24px; max-width:400px; width:90%; max-height:85vh; overflow-y:auto; }
 .suggest-box h3 { margin-bottom:12px; }
 .suggest-item { display:block; width:100%; text-align:left; padding:8px 12px; margin:4px 0; border:1px solid #e5e7eb; border-radius:6px; background:#fff; cursor:pointer; font-size:14px; }
 .suggest-item:hover { background:#f3f4f6; }
@@ -181,7 +181,8 @@ async function suggestName(rid) {
     html += `<p style="font-size:12px;color:#888;margin-bottom:6px">食べログ「行った」(${j.date ? j.date.slice(0,7) : ''}) より候補:</p>`;
     j.candidates.forEach(c => {
       const safeName = c.name.replace(/'/g, "\\'");
-      html += `<button class="suggest-item" onclick="applyName('${rid}','${safeName}')">
+      const safeArea = (c.area || '').replace(/'/g, "\\'");
+      html += `<button class="suggest-item" onclick="applyName('${rid}','${safeName}','${safeArea}')">
         <strong>${c.name}</strong>${c.area ? `<br><span style="font-size:11px;color:#888">${c.area}</span>` : ''}
       </button>`;
     });
@@ -200,13 +201,15 @@ async function suggestName(rid) {
   body.innerHTML = html;
 }
 
-async function applyName(rid, name) {
+async function applyName(rid, name, area) {
   if (!name || !name.trim()) { toast('店名を入力してください', true); return; }
   name = name.trim();
+  const body = {name};
+  if (area && area.trim()) body.area = area.trim();
   const res = await fetch(`/api/restaurant/${rid}`, {
     method: 'PATCH',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({name}),
+    body: JSON.stringify(body),
   });
   const j = await res.json();
   if (j.ok) {
@@ -217,9 +220,14 @@ async function applyName(rid, name) {
       cardEl.dataset.name = name.toLowerCase();
       cardEl.dataset.noname = 'false';
       cardEl.querySelector('.btn-suggest')?.remove();
+      if (area && area.trim()) {
+        const metaEl = cardEl.querySelector('.card-meta');
+        if (metaEl) metaEl.textContent = metaEl.textContent.replace(/^[^・]+/, area.trim());
+      }
     }
     document.getElementById('suggest-modal').classList.remove('open');
-    toast(`店名を「${name}」に設定しました`);
+    const msg = area && area.trim() ? `店名「${name}」・エリア「${area.trim()}」を設定しました` : `店名を「${name}」に設定しました`;
+    toast(msg);
   } else {
     toast('保存失敗', true);
   }
