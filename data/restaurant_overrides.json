@@ -6,11 +6,21 @@
     },
     "IMG_3286.HEIC": {
       "name": "チャモロ",
-      "status": "pending"
+      "status": "pending",
+      "area": "恵比寿駅"
     },
     "IMG_3295.HEIC": {
       "name": "ホルモン青木 亀戸店",
-      "status": "pending"
+      "status": "approved",
+      "area": "亀戸駅",
+      "catchphrase": "ホルモンが至高",
+      "yellow_word": "ホルモン",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "🍽️ 久しぶりに当たりの店。\nでホルモンを食べるならここ。\n雰囲気込みで好きな一軒。\n\nーーーーー\n👥 こんな人におすすめ\n\n✅ 美味しいものが食べたい\n✅ 飲み会で失敗したくない\n✅ 新しいお店を開拓したい\n\nーーーーー\n⭐ 酒と飯、ぐるめ。評価\n\n料理　★★★☆☆\nお酒　★★★★☆\nコスパ★★★★☆\n再訪度★★★★★\n\nーーーーー\n💬 ひとこと\n\n定期的に来たい一軒になりました。\n保存して次の飲み会候補にどうぞ。\n\nーーーーー\n📍 ホルモン青木 亀戸店\n🚉 \n💰 予算：3,000〜6,000円\n🍶 おすすめ：生肉のスライス\n\nーーーーー\n🔖 保存推奨\n次の飲み会候補として保存しておいてください。\n\nーーーーー\n\n#グルメ好きなら保存 #グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #グルメ好き #居酒屋好き #外食好き #グルメ記録 #外食グルメ #グルメ旅 #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ",
+        "x": ""
+      }
     },
     "IMG_3312(1).HEIC": {
       "status": "pending"
@@ -20,17 +30,37 @@
     },
     "IMG_3382(1).HEIC": {
       "name": "いっちゃん 本店",
-      "status": "pending"
+      "status": "pending",
+      "area": "広島駅"
     },
     "IMG_3386(1).HEIC": {
-      "name": "いっちゃん 本店",
-      "status": "pending"
+      "name": "居魚屋 うおはん",
+      "status": "pending",
+      "area": " 松川町駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3394.HEIC": {
       "status": "pending"
     },
     "IMG_3457(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ほ志の",
+      "area": "清澄白河駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_3481(1).HEIC": {
       "name": "極 アジフライ堂",
@@ -38,241 +68,413 @@
     },
     "IMG_3490(1).HEIC": {
       "name": "月。",
-      "status": "pending"
+      "status": "pending",
+      "area": "五反田駅"
     },
     "IMG_3526(1).HEIC": {
       "name": "肉と日本酒",
-      "status": "pending"
+      "status": "pending",
+      "area": "千駄木駅"
     },
     "IMG_3546(2).HEIC": {
       "name": "焼とりよね田",
-      "status": "pending"
+      "status": "pending",
+      "area": "西荻窪駅"
     },
     "IMG_3575.HEIC": {
       "name": "焼肉赤身にくがとう33895",
-      "status": "pending"
+      "status": "pending",
+      "area": "三田駅"
     },
     "IMG_3663(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ヒロミヤ",
+      "area": "四谷駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3790(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "人類みな麺類",
+      "area": "恵比寿駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3805.HEIC": {
       "name": "モルゲン 五反田駅前店",
-      "status": "pending"
+      "status": "pending",
+      "area": "大崎広小路駅"
     },
     "IMG_3812.HEIC": {
       "name": "香川一福 恵比寿店",
-      "status": "pending"
+      "status": "pending",
+      "area": "恵比寿駅"
     },
     "IMG_3820.HEIC": {
       "name": "チャコールグリル山武商店",
-      "status": "pending"
+      "status": "pending",
+      "area": "五反田駅"
     },
     "IMG_3843.HEIC": {
       "name": "大衆食堂スタンド そのだ 五反田店",
-      "status": "pending"
+      "status": "pending",
+      "area": "五反田駅"
     },
     "IMG_3937.HEIC": {
       "name": "さば銀",
-      "status": "pending"
+      "status": "pending",
+      "area": "中野駅"
     },
     "IMG_3967(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "闇市",
+      "area": "赤羽駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_4008(1).HEIC": {
       "name": "アブラッチョ",
-      "status": "pending"
+      "status": "pending",
+      "area": "田町駅"
     },
     "IMG_4046(1).HEIC": {
       "status": "pending"
     },
     "IMG_4064.HEIC": {
       "name": "おいしかよ",
-      "status": "pending"
+      "status": "pending",
+      "area": "鶴ケ丘駅"
     },
     "IMG_4098(1).HEIC": {
       "name": "串かつ おうじ ジャンジャン横丁店",
-      "status": "pending"
+      "status": "pending",
+      "area": "動物園前駅"
     },
     "IMG_4141.HEIC": {
       "name": "肉ビストロ灯",
-      "status": "pending"
+      "status": "pending",
+      "area": "西武新宿駅"
     },
     "IMG_4176(1).HEIC": {
       "name": "鮨・酒・肴 杉玉 大宮東口",
-      "status": "pending"
+      "status": "pending",
+      "area": "大宮駅"
     },
     "IMG_4208.HEIC": {
       "name": "燗アガリ",
-      "status": "pending"
+      "status": "pending",
+      "area": "西武新宿駅"
     },
     "IMG_4297.HEIC": {
       "name": "亀戸ホルモン 目黒権之助坂店",
-      "status": "pending"
+      "status": "pending",
+      "area": "目黒駅"
     },
     "IMG_4310.HEIC": {
       "name": "忠弥",
-      "status": "pending"
+      "status": "pending",
+      "area": "祐天寺駅"
     },
     "IMG_4329(1).HEIC": {
       "name": "GENKAI BURGER",
-      "status": "pending"
+      "status": "pending",
+      "area": "中目黒駅"
     },
     "IMG_4348(1).HEIC": {
       "name": "銀座イタリアンORIGO 博品館店",
-      "status": "pending"
+      "status": "pending",
+      "area": "新橋駅"
     },
     "IMG_4369.HEIC": {
       "name": "もつ焼 まるい",
-      "status": "pending"
+      "status": "pending",
+      "area": "押上駅"
     },
     "IMG_4418(1).HEIC": {
       "name": "かがやき",
-      "status": "pending"
+      "status": "pending",
+      "area": "宝町駅"
     },
     "IMG_4472.HEIC": {
       "name": "やきとり 戎 西荻南口店",
-      "status": "pending"
+      "status": "pending",
+      "area": "西荻窪駅"
     },
     "IMG_4501(1).HEIC": {
       "status": "pending"
     },
     "IMG_4646(1).HEIC": {
       "name": "赤鬼",
-      "status": "pending"
+      "status": "pending",
+      "area": "三軒茶屋駅"
     },
     "IMG_4697.HEIC": {
       "name": "京鼎樓 恵比寿本店",
-      "status": "pending"
+      "status": "pending",
+      "area": "恵比寿駅"
     },
     "IMG_4749(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "さわやか 御殿場インター店",
+      "area": "御殿場",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_4754(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "旬菜 酒家 たくみ",
+      "area": "御殿場",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_4765.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ヒロミヤ",
+      "area": "曙橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4792(1).HEIC": {
       "name": "熊本ラーメン 黒亭 本店",
-      "status": "pending"
+      "status": "pending",
+      "area": "二本木口駅"
     },
     "IMG_4804(1).HEIC": {
       "status": "pending"
     },
     "IMG_4828(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ねぎぼうず",
+      "area": "熊本城・市役所前、通町筋、花畑町/居酒屋、郷土料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4859(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "須崎屋台かじしか",
+      "area": "呉服町、中洲川端、千代県庁口/居酒屋、海鮮、焼き鳥",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4939(1).HEIC": {
       "name": "魚の店 オカモ倶楽部 中目黒店",
-      "status": "pending"
+      "status": "pending",
+      "area": "中目黒駅"
     },
     "IMG_4951(1).HEIC": {
       "name": "聖林館",
-      "status": "pending"
+      "status": "pending",
+      "area": "中目黒駅"
     },
     "IMG_5025(1).HEIC": {
       "name": "かいのみ",
-      "status": "pending"
+      "status": "pending",
+      "area": "四ツ谷駅"
     },
     "IMG_5176(1).HEIC": {
       "name": "肉のいちのへ 大森店",
-      "status": "pending"
+      "status": "pending",
+      "area": "大森駅"
     },
     "IMG_5235.HEIC": {
       "name": "サケラボトーキョー",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5362.HEIC": {
       "name": "やきとりまるま",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5403(1).HEIC": {
       "name": "かわなみ鮨",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5492(1).HEIC": {
       "name": "お酒の美術館 十条店",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5540(1).HEIC": {
       "name": "馬ござる",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5555(1).HEIC": {
       "name": "スタミナ苑",
-      "status": "pending"
+      "status": "pending",
+      "area": "西新井大師西駅"
     },
     "IMG_5576(1).HEIC": {
       "name": "まんてん鮨 丸の内",
-      "status": "pending"
+      "status": "pending",
+      "area": "二重橋前駅"
     },
     "IMG_5617.HEIC": {
       "name": "ほり",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5653(1).HEIC": {
       "name": "みこ酒場",
-      "status": "pending"
+      "status": "pending",
+      "area": "新橋駅"
     },
     "IMG_5795(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "丸吉食堂",
+      "area": "宮古島市/沖縄そば",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5830(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "炭火焼肉 琉宮苑",
+      "area": "宮古島市/焼肉、ステーキ、沖縄料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5924(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "千とせ べっかん",
+      "area": "近鉄日本橋、日本橋/うどん",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5940(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おいしかよ",
+      "area": "西田辺駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5969(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "日本酒原価酒蔵 上野御徒町店",
+      "area": "御徒町、上野広小路、上野御徒町/居酒屋、日本酒バー、海鮮",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6014(1).HEIC": {
       "name": "山源",
-      "status": "pending"
+      "status": "pending",
+      "area": "新板橋駅"
     },
     "IMG_6032(1).HEIC": {
       "name": "常笑",
-      "status": "pending"
+      "status": "pending",
+      "area": "中野駅"
     },
     "IMG_6072(1).HEIC": {
       "name": "中野 青二才",
-      "status": "pending"
+      "status": "pending",
+      "area": "中野駅"
     },
     "IMG_6085(1).HEIC": {
       "name": "天空",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_6103.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "大衆居酒屋 喰場",
+      "area": "東十条、十条、王子神谷/居酒屋",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6123(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "鮨屋のうおきん",
+      "area": "新橋、汐留、内幸町/寿司",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6160(1).HEIC": {
       "name": "原始炭焼 いろり家 東銀座店",
-      "status": "pending"
+      "status": "pending",
+      "area": "東銀座駅"
     },
     "IMG_6257.HEIC": {
       "name": "ニューマルコ",
-      "status": "pending"
+      "status": "pending",
+      "area": "三軒茶屋駅"
     },
     "IMG_6284(1).HEIC": {
-      "name": "饗酒堂 温on",
-      "status": "pending"
+      "name": "東京大神宮",
+      "status": "pending",
+      "area": "",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6291(1).HEIC": {
       "name": "饗酒堂 温on",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_6330.HEIC": {
       "name": "肉キッチン BOICHI ホテルサンルート浅草店",
@@ -280,24 +482,43 @@
     },
     "IMG_6371.HEIC": {
       "name": "飛葉",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_6444.HEIC": {
       "name": "Il Cucchiaio di Angelo",
-      "status": "pending"
+      "status": "pending",
+      "area": "高田馬場駅"
     },
     "IMG_6461.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おいしかよ",
+      "area": "西田辺駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6477.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "美津の",
+      "area": "日本橋、近鉄日本橋/お好み焼き",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6485.HEIC": {
       "status": "pending"
     },
     "IMG_6580.HEIC": {
       "name": "ヤマタくん",
-      "status": "pending"
+      "status": "pending",
+      "area": "笠上黒生駅"
     },
     "IMG_6617.HEIC": {
       "name": "食堂 あいそ",
@@ -308,7 +529,13 @@
       "status": "posted"
     },
     "IMG_6695.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "鏑屋",
+      "area": "大山、板橋区役所前/居酒屋、もつ焼き",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6776.HEIC": {
       "name": "天狗",
@@ -324,18 +551,31 @@
     },
     "IMG_0006(1).HEIC": {
       "name": "スタンドトトノイ",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋駅"
     },
     "IMG_0025.HEIC": {
       "name": "魚竹",
-      "status": "pending"
+      "status": "pending",
+      "area": "恵比寿駅"
     },
     "IMG_0060(1).HEIC": {
       "name": "神保焼肉料理店",
-      "status": "pending"
+      "status": "pending",
+      "area": "神保町駅"
     },
     "IMG_0080(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おいしかよ",
+      "area": "西田辺駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0162.HEIC": {
       "name": "ロブション",
@@ -343,17 +583,39 @@
     },
     "IMG_0181(1).HEIC": {
       "name": "すけろく商店",
-      "status": "pending"
+      "status": "pending",
+      "area": "中板橋駅"
     },
     "IMG_0201(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "日本料理 秀たか",
+      "area": "恵比寿駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_0246(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "スタンドトトノイ",
+      "area": "板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0268.HEIC": {
       "name": "うっちゃり",
-      "status": "pending"
+      "status": "pending",
+      "area": "大山駅"
     },
     "IMG_0294(1).HEIC": {
       "status": "pending"
@@ -364,11 +626,13 @@
     },
     "IMG_0471.HEIC": {
       "name": "La Soffitta Renovatio",
-      "status": "pending"
+      "status": "pending",
+      "area": "バチカン地区駅"
     },
     "IMG_0476(1).HEIC": {
       "name": "La Soffitta Renovatio",
-      "status": "pending"
+      "status": "pending",
+      "area": "バチカン地区駅"
     },
     "IMG_0519(1).HEIC": {
       "status": "pending"
@@ -381,18 +645,21 @@
     },
     "IMG_0628(1).HEIC": {
       "name": "Cerveseria Catalana",
-      "status": "pending"
+      "status": "pending",
+      "area": "グラシア通り周辺駅"
     },
     "IMG_0794.HEIC": {
       "status": "pending"
     },
     "IMG_0891(1).HEIC": {
       "name": "El Xampanyet",
-      "status": "pending"
+      "status": "pending",
+      "area": "ゴシック地区駅"
     },
     "IMG_0968(1).HEIC": {
       "name": "日曜ST",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋駅"
     },
     "IMG_0977(1).HEIC": {
       "name": "食堂ゆりこ",
@@ -407,7 +674,13 @@
       "status": "posted"
     },
     "IMG_1049.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "やきとん やんぐ 本店",
+      "area": "板橋、新板橋、下板橋/居酒屋、もつ焼き、創作料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_1070(1).HEIC": {
       "name": "鮨　まつ本",
@@ -441,14 +714,30 @@
       "status": "posted"
     },
     "IMG_1290.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おうちごはん",
+      "area": "板橋駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_1306.HEIC": {
       "name": "晴れのち晴れ",
       "status": "posted"
     },
     "IMG_1324.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "新潟屋",
+      "area": "東十条、王子神谷、十条/もつ焼き、居酒屋、串焼き",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_1358.HEIC": {
       "name": "勝",
@@ -459,7 +748,17 @@
       "status": "posted"
     },
     "IMG_1382.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "勝",
+      "area": "十条駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_1413.HEIC": {
       "name": "路傍酒庵",
@@ -478,24 +777,48 @@
       "status": "posted"
     },
     "IMG_1497.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "赤尾",
+      "area": "板橋駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_1523.HEIC": {
       "status": "pending"
     },
     "IMG_1535.HEIC": {
       "name": "手打ち中華そば 竹の助",
-      "status": "pending"
+      "status": "pending",
+      "area": "柿生駅"
     },
     "IMG_1543.HEIC": {
       "name": "魚屋スタンドふじ",
-      "status": "pending"
+      "status": "pending",
+      "area": "新大阪駅"
     },
     "IMG_1551.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "嵐山よしむら",
+      "area": "嵐電嵯峨、嵐山（阪急）/そば、天ぷら",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_1554.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "大旦那 天満本店",
+      "area": "天満、扇町、天神橋筋六丁目/居酒屋、肉料理、ろばた焼き",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6873.HEIC": {
       "status": "pending"
@@ -533,242 +856,435 @@
     },
     "IMG_1970.HEIC": {
       "name": "九州産直 炉端かてて 八丁堀はなれ",
-      "status": "pending"
+      "status": "pending",
+      "area": "八丁堀駅"
     },
     "IMG_1984.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ソルト",
+      "area": "北赤羽",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_1987.HEIC": {
       "name": "和牛焼串 とびうし 離宮",
-      "status": "pending"
+      "status": "pending",
+      "area": "飯田橋駅"
     },
     "IMG_2016.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "魚猫 大山店",
+      "area": "大山、板橋区役所前、中板橋/居酒屋、海鮮、バル",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2026.HEIC": {
       "name": "タイ イサーン",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_2056.HEIC": {
       "name": "焼鳥たなべ",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_2087.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "なきざかな 新宿店はなれ",
+      "area": "新宿、都庁前、南新宿/海鮮、居酒屋、日本酒バー",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2135.HEIC": {
       "name": "べったこ",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋駅"
     },
     "IMG_2154.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おうちごはん",
+      "area": "板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2260.HEIC": {
       "name": "居酒屋ひでじろう",
-      "status": "pending"
+      "status": "pending",
+      "area": "三軒茶屋駅"
     },
     "IMG_2295.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "筑波",
+      "area": "十条、東十条/日本料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2406.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "炭火焼ごっつり",
+      "area": "北千住、千住大橋、牛田/居酒屋、肉料理、海鮮",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2448.HEIC": {
       "status": "pending"
     },
     "IMG_2484.HEIC": {
       "name": "hide mode",
-      "status": "pending"
+      "status": "pending",
+      "area": "本郷三丁目駅"
     },
     "IMG_2534.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "Udon Kyutaro",
+      "area": "本町、堺筋本町、心斎橋/うどん、天ぷら、日本料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2546.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "立ち呑み処 魚しょう 天満",
+      "area": "天満、天神橋筋六丁目、扇町/立ち飲み、海鮮",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2569.HEIC": {
       "name": "立ち呑み 南",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_2574.HEIC": {
       "name": "Caline",
-      "status": "pending"
+      "status": "pending",
+      "area": "木八幡駅"
     },
     "IMG_2593.HEIC": {
       "name": "海鮮居酒屋 あぺたいと 上板橋",
-      "status": "pending"
+      "status": "pending",
+      "area": "上板橋駅"
     },
     "IMG_2602.HEIC": {
       "name": "焼肉 森林",
-      "status": "pending"
+      "status": "pending",
+      "area": "朝霞駅"
     },
     "IMG_2615.HEIC": {
       "name": "ハイボール酒場鶏のから騒ぎ別邸",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_2631.HEIC": {
       "name": "のみくい なにわ",
-      "status": "pending"
+      "status": "pending",
+      "area": "大山駅"
     },
     "IMG_2652.HEIC": {
       "name": "かぶら屋 板橋2号店",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋駅"
     },
     "IMG_2664.HEIC": {
       "name": "地魚屋台 浜ちゃん 上野店",
-      "status": "pending"
+      "status": "pending",
+      "area": "京成上野駅"
     },
     "IMG_2689.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "中華そば 半ざわ",
+      "area": "西巣鴨、西ケ原四丁目、新庚申塚/ラーメン",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2695.JPG": {
       "name": "たる鉄",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_2726.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "居酒茶屋 鑪",
+      "area": "大山、板橋区役所前/居酒屋、海鮮、焼き鳥",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2728.HEIC": {
       "name": "リアン スイートホーム",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_2740.HEIC": {
       "name": "酒ば すぎちゃんチ",
-      "status": "pending"
+      "status": "pending",
+      "area": "大山駅"
     },
     "IMG_2792.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ひでちゃん",
+      "area": "板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2798.HEIC": {
       "name": "人や",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_2833.HEIC": {
       "name": "魚と肉の創作酒場 あどはだり",
-      "status": "pending"
+      "status": "pending",
+      "area": "ときわ台駅"
     },
     "IMG_2841.HEIC": {
       "name": "居酒屋　源",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_2853.HEIC": {
       "status": "pending"
     },
     "IMG_2856.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "焼肉29テラス 渋谷南口店",
+      "area": "渋谷、神泉/焼肉、ホルモン、冷麺",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_2914.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "串駒 本店",
+      "area": "巣鴨新田、大塚駅前、大塚/居酒屋、串揚げ、日本酒バー",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3002.HEIC": {
       "status": "pending"
     },
     "IMG_3005.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ひでちゃん",
+      "area": "板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3039.HEIC": {
       "name": "ニュー新みかん",
-      "status": "pending"
+      "status": "pending",
+      "area": "新橋駅"
     },
     "IMG_3103.HEIC": {
       "name": "壱ノ宮",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_3114.HEIC": {
       "status": "pending"
     },
     "IMG_3125.HEIC": {
       "name": "TJK箱根の森",
-      "status": "pending"
+      "status": "pending",
+      "area": "小涌谷駅"
     },
     "IMG_3246.HEIC": {
       "name": "TJKリゾート金谷城",
-      "status": "pending"
+      "status": "pending",
+      "area": "浜金谷駅"
     },
     "IMG_3296.HEIC": {
       "name": "OSTERIA CHOUZETSU TOKYO",
-      "status": "pending"
+      "status": "pending",
+      "area": "赤坂駅"
     },
     "IMG_3311.HEIC": {
       "name": "立呑みアーニー",
-      "status": "pending"
+      "status": "pending",
+      "area": "池袋駅"
     },
     "IMG_3323.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "うしごろ 貫 恵比寿本店",
+      "area": "恵比寿、代官山、中目黒/焼肉、ホルモン、日本料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3350.HEIC": {
       "name": "大衆イタリアン酒場 ばくりこ",
-      "status": "pending"
+      "status": "pending",
+      "area": "五反田駅"
     },
     "IMG_3367.HEIC": {
       "name": "ダーツ&バー ケー",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_3370.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "鮨まつ本",
+      "area": "板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3428.HEIC": {
       "name": "やきとん まるば",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_3456.HEIC": {
       "name": "ひな鳥 そのだ",
-      "status": "pending"
+      "status": "pending",
+      "area": "鮫洲駅"
     },
     "IMG_3468.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "名物やきとん とみちゃん 十条店",
+      "area": "十条、東十条/居酒屋",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3472.HEIC": {
       "name": "鉄板焼き ステーキ SUN SHO",
-      "status": "pending"
+      "status": "pending",
+      "area": "赤坂見附駅"
     },
     "IMG_3503.HEIC": {
       "name": "マヌエル タスカ ド ターリョ 丸の内店",
-      "status": "pending"
+      "status": "pending",
+      "area": "二重橋前駅"
     },
     "IMG_3507.HEIC": {
       "name": "口水食堂",
-      "status": "pending"
+      "status": "pending",
+      "area": "練馬駅"
     },
     "IMG_3515.HEIC": {
-      "name": "サケトオバンザイ シュミズ",
-      "status": "pending"
+      "name": "とんかつ みのや",
+      "status": "pending",
+      "area": "十条駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3586.HEIC": {
       "name": "厚切り牛タン 焼肉 一心たん助 目黒店",
-      "status": "pending"
+      "status": "pending",
+      "area": "目黒駅"
     },
     "IMG_3607.HEIC": {
       "name": "うろこ家",
-      "status": "pending"
+      "status": "pending",
+      "area": "大山駅"
     },
     "IMG_3648.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "最魚の晩餐～寿司と牡蠣と日本酒の裏切り～",
+      "area": "中野、新井薬師前/寿司、居酒屋、日本料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3662.HEIC": {
       "name": "酒場 ワタナベ",
-      "status": "pending"
+      "status": "pending",
+      "area": "上板橋駅"
     },
     "IMG_3728.HEIC": {
       "name": "活鮮 四季",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_3733.HEIC": {
       "name": "須賀乃湯",
-      "status": "pending"
+      "status": "pending",
+      "area": "上板橋駅"
     },
     "IMG_3744.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "さかとけ キューズ",
+      "area": "天王寺駅前、天王寺、大阪阿部野橋/立ち飲み",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3759.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おいしかよ",
+      "area": "西田辺駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_3774.HEIC": {
       "status": "pending"
     },
     "IMG_3782.HEIC": {
       "name": "眞味食堂",
-      "status": "pending"
+      "status": "pending",
+      "area": "ホンデ駅"
     },
     "IMG_3803.HEIC": {
       "name": "眞味食堂",
@@ -776,90 +1292,175 @@
     },
     "IMG_3817.HEIC": {
       "name": "영천영화",
-      "status": "pending"
+      "status": "pending",
+      "area": "チョンダムドン駅"
     },
     "IMG_3824.HEIC": {
       "name": "영천영화",
-      "status": "pending"
+      "status": "pending",
+      "area": "チョンダムドン駅"
     },
     "IMG_3836.HEIC": {
       "name": "酒場塾",
-      "status": "pending"
+      "status": "pending",
+      "area": "西台駅"
     },
     "IMG_3882.HEIC": {
       "name": "和洋だいにんぐ酒らふ",
-      "status": "pending"
+      "status": "pending",
+      "area": "志村坂上駅"
     },
     "IMG_3892.HEIC": {
       "name": "やきとんひなた 志村坂上店",
-      "status": "pending"
+      "status": "pending",
+      "area": "志村坂上駅"
     },
     "IMG_3964.HEIC": {
       "name": "とんかつ丸七 池袋店",
-      "status": "pending"
+      "status": "pending",
+      "area": "池袋駅"
     },
     "IMG_4005.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "須賀乃湯",
+      "area": "上板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4020.HEIC": {
       "name": "Sagamihara 欅",
-      "status": "pending"
+      "status": "pending",
+      "area": "小田急相模原駅"
     },
     "IMG_4043.HEIC": {
       "name": "炒肴酒飯店 010",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋駅"
     },
     "IMG_4045.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "貝と魚と炉ばたのバンビ",
+      "area": "北千住、牛田、京成関屋/居酒屋、日本料理、海鮮",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4106.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "えいちや",
+      "area": "東十条駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4110.HEIC": {
       "name": "一歩一歩",
-      "status": "pending"
+      "status": "pending",
+      "area": "北千住駅"
     },
     "IMG_4167.HEIC": {
       "name": "焼肉 六六六",
-      "status": "pending"
+      "status": "pending",
+      "area": "四谷三丁目駅"
     },
     "IMG_4210.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "鶏 オノゴロ",
+      "area": "日本橋、近鉄日本橋、なんば（大阪メトロ）/立ち飲み",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4222.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "庭 uraniwa",
+      "area": "西田辺駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4237.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おでんと、アジフライ。 バルチカ03",
+      "area": "西梅田、大阪、北新地/居酒屋、おでん",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4394.HEIC": {
       "name": "大衆酒場 リリィ",
-      "status": "pending"
+      "status": "pending",
+      "area": "大山駅"
     },
     "IMG_4400.HEIC": {
       "name": "天婦羅いやさか",
-      "status": "pending"
+      "status": "pending",
+      "area": "東京駅"
     },
     "IMG_4425.HEIC": {
       "name": "居酒屋ひので",
-      "status": "pending"
+      "status": "pending",
+      "area": "中板橋駅"
     },
     "IMG_4430.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ヨコクラストアハウス",
+      "area": "栃木",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4465.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "食道楽 まいど",
+      "area": "志村坂上、志村三丁目/居酒屋",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4493.HEIC": {
       "name": "鮨よしかわ 勝 銀座",
-      "status": "pending"
+      "status": "pending",
+      "area": "東銀座駅"
     },
     "IMG_4543.HEIC": {
       "name": "つくばらーめん 鬼者語",
-      "status": "pending"
+      "status": "pending",
+      "area": "万博記念公園駅"
     },
     "IMG_0031.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "とっぴんぱらりのぷ",
+      "area": "秋田/居酒屋、郷土料理、きりたんぽ",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0099.HEIC": {
       "name": "やきとり にしだ場 東十条店",
@@ -870,14 +1471,25 @@
       "status": "posted"
     },
     "IMG_0239.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "りあん",
+      "area": "東十条駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0274.HEIC": {
       "status": "pending"
     },
     "IMG_0303.HEIC": {
       "name": "たぬ吉 麻布十番店",
-      "status": "pending"
+      "status": "pending",
+      "area": "麻布十番駅"
     },
     "IMG_0357.HEIC": {
       "status": "pending"
@@ -891,7 +1503,13 @@
       "status": "posted"
     },
     "IMG_0551.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "居酒屋 はら匠",
+      "area": "巣鴨、大塚駅前、大塚/居酒屋",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0585.HEIC": {
       "name": "すし処 漁美",
@@ -927,7 +1545,8 @@
     },
     "IMG_0748.HEIC": {
       "name": "そば処 大吉田",
-      "status": "pending"
+      "status": "pending",
+      "area": "虎ノ門駅"
     },
     "IMG_0752.HEIC": {
       "name": "やきとん たかちゃん",
@@ -942,28 +1561,70 @@
       "status": "approved"
     },
     "IMG_0833.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "おうちごはん",
+      "area": "板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0838.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "あらし",
+      "area": "池袋駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_0880.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "須賀乃湯",
+      "area": "上板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0895.HEIC": {
       "name": "やきとんひなた 大山店",
       "status": "approved"
     },
     "IMG_0914.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ぷらっと",
+      "area": "本蓮沼駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_0924.HEIC": {
       "name": "焼鳥どん 東十条店",
-      "status": "pending"
+      "status": "pending",
+      "area": "東十条駅"
     },
     "IMG_0931.HEIC": {
       "name": "目黒日本酒バル いと。スタンド",
-      "status": "pending"
+      "status": "pending",
+      "area": "目黒駅"
     },
     "IMG_0946.HEIC": {
       "name": "もつ焼ぽるこ",
@@ -983,14 +1644,21 @@
     },
     "IMG_1067.HEIC": {
       "name": "寅吉",
-      "status": "pending"
+      "status": "pending",
+      "area": "中板橋駅"
     },
     "IMG_1073.HEIC": {
       "name": "ほととぎす",
       "status": "approved"
     },
     "IMG_1084.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ときわ台 加賀廣",
+      "area": "ときわ台、中板橋/居酒屋、もつ焼き、牛料理",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_1094.HEIC": {
       "name": "仲宿食堂",
@@ -1006,7 +1674,8 @@
     },
     "IMG_4600.HEIC": {
       "name": "Baan E-Sarn Mungyos",
-      "status": "pending"
+      "status": "pending",
+      "area": "プロンポン駅周辺駅"
     },
     "IMG_4624.HEIC": {
       "status": "pending"
@@ -1018,92 +1687,197 @@
       "status": "pending"
     },
     "IMG_4711.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "庭 uraniwa",
+      "area": "西田辺駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4735.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "マルフク",
+      "area": "動物園前、新今宮駅前、今池/ホルモン、立ち飲み、居酒屋",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4803.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ぐぅぐぅ",
+      "area": "東十条駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4807.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ヤキトン GAるKU",
+      "area": "北赤羽駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_4840.HEIC": {
       "status": "pending"
     },
     "IMG_4844.HEIC": {
       "name": "時楽",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋本町駅"
     },
     "IMG_4893.HEIC": {
       "name": "西巣鴨 Stand YaoyaBal",
-      "status": "pending"
+      "status": "pending",
+      "area": "西巣鴨駅"
     },
     "IMG_4920.HEIC": {
       "name": "兎まい門",
-      "status": "pending"
+      "status": "pending",
+      "area": "下板橋駅"
     },
     "IMG_4938.HEIC": {
       "name": "やきとん558 新浦安ホルモン",
-      "status": "pending"
+      "status": "pending",
+      "area": "新浦安駅"
     },
     "IMG_4998.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "兎まい門",
+      "area": "下板橋、新板橋、板橋/居酒屋",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5021.HEIC": {
       "name": "NIKUDOSI 渋谷店",
-      "status": "pending"
+      "status": "pending",
+      "area": "神泉駅"
     },
     "IMG_5043.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "びんびん",
+      "area": "中板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5059.HEIC": {
       "status": "pending"
     },
     "IMG_5122.HEIC": {
       "name": "どてえもんカドチ",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋駅"
     },
     "IMG_5154.HEIC": {
       "name": "炭火串焼 ゆう",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋本町駅"
     },
     "IMG_5265.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "Caline",
+      "area": "代々木公園駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5274.HEIC": {
       "name": "本格焼肉一門",
-      "status": "pending"
+      "status": "pending",
+      "area": "西大井駅"
     },
     "IMG_5283.HEIC": {
       "name": "ちゅるり",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5296.HEIC": {
       "name": "曙橋 かず",
-      "status": "pending"
+      "status": "pending",
+      "area": "曙橋駅"
     },
     "IMG_5337.HEIC": {
       "name": "酒楽屋 ちろる",
-      "status": "pending"
+      "status": "pending",
+      "area": "板橋区役所前駅"
     },
     "IMG_5356.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "仲宿食堂",
+      "area": "板橋本町駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5363.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "兎まい門",
+      "area": "下板橋駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_5370.HEIC": {
       "name": "焼肉麻布",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5574.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "ほり",
+      "area": "十条駅",
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      },
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_5591.HEIC": {
       "name": "玄海",
-      "status": "pending"
+      "status": "pending",
+      "area": "十条駅"
     },
     "IMG_5688.HEIC": {
       "status": "pending"
@@ -1122,23 +1896,264 @@
     },
     "IMG_6054.HEIC": {
       "name": "ラビスタ 観音崎テラス",
-      "status": "pending"
+      "status": "pending",
+      "area": "浦賀駅"
     },
     "IMG_6284.HEIC": {
       "name": "塩の湯温泉 蓮月",
-      "status": "pending"
+      "status": "pending",
+      "area": "那須塩原市その他駅"
     },
     "IMG_6377(1).HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "すし処 漁美",
+      "area": "上野駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6524.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "吉備",
+      "area": "駒川中野駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6533.HEIC": {
-      "status": "pending"
+      "status": "pending",
+      "name": "TAKOYAKI PARK TAKOPA",
+      "area": "ユニバーサルシティ駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     },
     "IMG_6576.HEIC": {
+      "status": "pending",
+      "name": "仲宿酒蔵",
+      "area": "板橋区役所前駅",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_3276(1).HEIC": {
+      "name": "月と熊",
+      "area": "本川越駅",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_4056.HEIC": {
+      "name": "魚屋ひでぞう 立ち呑み店",
+      "area": "難波駅",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_4866(1).HEIC": {
+      "name": "きはるの胡麻鯖や",
+      "area": "天神南、西鉄福岡（天神）、中洲川端/居酒屋、海鮮",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_0253(1).HEIC": {
+      "name": "",
+      "area": "",
       "status": "pending"
+    },
+    "IMG_6486.HEIC": {
+      "name": "",
+      "area": "",
+      "status": "pending"
+    },
+    "IMG_1053.HEIC": {
+      "name": "",
+      "area": "",
+      "status": "pending"
+    },
+    "IMG_1257.HEIC": {
+      "name": "スタンドトトノイ",
+      "area": "板橋駅",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_1562.HEIC": {
+      "name": "",
+      "area": "天満、扇町、天神橋筋六丁目/居酒屋、肉料理、ろばた焼き",
+      "status": "pending"
+    },
+    "IMG_2412.HEIC": {
+      "name": "タチアタル",
+      "area": "北千住、牛田、京成関屋/立ち飲み、居酒屋",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_2549.HEIC": {
+      "name": "SLAMDRUNK",
+      "area": "天神橋筋六丁目、天満、扇町/立ち飲み、中華料理",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_2796.HEIC": {
+      "name": "おうちごはん",
+      "area": "板橋駅",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_3006.HEIC": {
+      "name": "おうちごはん",
+      "area": "板橋駅",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_4241.HEIC": {
+      "name": "ダテダチ",
+      "area": "近鉄日本橋、日本橋、難波（南海）/立ち飲み、焼き鳥、居酒屋",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_0044.HEIC": {
+      "name": "秋田長屋酒場",
+      "area": "秋田/居酒屋、郷土料理、きりたんぽ",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_0046.HEIC": {
+      "name": "",
+      "area": "",
+      "status": "pending"
+    },
+    "IMG_0050.HEIC": {
+      "name": "",
+      "area": "",
+      "status": "pending"
+    },
+    "IMG_1087.HEIC": {
+      "name": "勝",
+      "area": "十条駅",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_5061.HEIC": {
+      "name": "ホルモン 航",
+      "area": "今池、今船、萩ノ茶屋/ホルモン、牛料理",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
+    },
+    "IMG_5070.HEIC": {
+      "name": "溝畑酒店",
+      "area": "堺東、大小路、花田口/立ち飲み",
+      "status": "pending",
+      "catchphrase": "",
+      "yellow_word": "",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "",
+        "x": ""
+      }
     }
   }
 }
