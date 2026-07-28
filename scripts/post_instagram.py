@@ -294,18 +294,36 @@ def phase1_lock() -> bool:
     return True
 
 
-def _build_threads_caption(caption: str) -> str:
+def _get_ig_permalink(token: str, post_id: str) -> str | None:
+    """Instagram post_id からパーマリンクURLを取得。"""
+    try:
+        r = requests.get(
+            f"{GRAPH_URL}/{post_id}",
+            params={"fields": "permalink", "access_token": token},
+            timeout=15,
+        )
+        if r.ok:
+            return r.json().get("permalink")
+    except Exception as e:
+        print(f"[IG permalink] 取得失敗: {e}")
+    return None
+
+
+def _build_threads_caption(caption: str, ig_permalink: str | None = None) -> str:
     """Instagram キャプションを Threads 用に変換（500文字以内）。"""
     lines = caption.splitlines()
     # ハッシュタグ行（#で始まるワードが3つ以上含む行）を除去
     body_lines = [l for l in lines if not (l.strip().startswith("#") and l.count("#") >= 3)]
     text = "\n".join(body_lines).strip()
-    if len(text) <= 500:
-        return text
-    return text[:497] + "..."
+
+    suffix = f"\n\n📷 写真はInstagramで →\n{ig_permalink}" if ig_permalink else ""
+    limit = 500 - len(suffix)
+    if len(text) > limit:
+        text = text[:limit - 3] + "..."
+    return text + suffix
 
 
-def _post_to_threads(data: dict) -> str | None:
+def _post_to_threads(data: dict, ig_permalink: str | None = None) -> str | None:
     """Threads にテキスト＋1枚目画像を投稿。失敗しても例外を外に出さない。"""
     token   = os.environ.get("THREADS_ACCESS_TOKEN", "")
     user_id = os.environ.get("THREADS_USER_ID", "")
@@ -313,7 +331,7 @@ def _post_to_threads(data: dict) -> str | None:
         print("[Threads] THREADS_ACCESS_TOKEN / THREADS_USER_ID 未設定。スキップ。")
         return None
 
-    caption  = _build_threads_caption(data.get("caption", ""))
+    caption  = _build_threads_caption(data.get("caption", ""), ig_permalink)
     photo_urls = data.get("photo_urls", [])
     image_url  = normalize_url(photo_urls[0]) if photo_urls else None
 
@@ -376,8 +394,14 @@ def phase2a_post():
         data["ig_post_id"] = post_id
         data["posted_at"]  = datetime.now(JST).isoformat()
 
+        # Instagram 投稿のパーマリンクを取得
+        ig_token = os.environ.get("IG_ACCESS_TOKEN", "")
+        ig_permalink = _get_ig_permalink(ig_token, post_id)
+        if ig_permalink:
+            print(f"[IG permalink] {ig_permalink}")
+
         # Threads にも投稿（失敗しても Instagram 投稿は完了扱い）
-        th_id = _post_to_threads(data)
+        th_id = _post_to_threads(data, ig_permalink)
         if th_id:
             data["th_post_id"] = th_id
 
