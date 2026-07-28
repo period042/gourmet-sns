@@ -28,6 +28,7 @@ IN_PROGRESS_DIR    = Path(__file__).parent.parent / "in_progress"
 POSTED_DIR         = Path(__file__).parent.parent / "posted"
 RESTAURANTS_JSON   = Path(__file__).parent.parent / "data" / "restaurants.json"
 GRAPH_URL       = "https://graph.facebook.com/v22.0"
+THREADS_API_URL = "https://graph.threads.net/v1.0"
 
 _restaurants_cache: list[dict] | None = None
 
@@ -293,10 +294,68 @@ def phase1_lock() -> bool:
     return True
 
 
+def _build_threads_caption(caption: str) -> str:
+    """Instagram キャプションを Threads 用に変換（500文字以内）。"""
+    lines = caption.splitlines()
+    # ハッシュタグ行（#で始まるワードが3つ以上含む行）を除去
+    body_lines = [l for l in lines if not (l.strip().startswith("#") and l.count("#") >= 3)]
+    text = "\n".join(body_lines).strip()
+    if len(text) <= 500:
+        return text
+    return text[:497] + "..."
+
+
+def _post_to_threads(data: dict) -> str | None:
+    """Threads にテキスト＋1枚目画像を投稿。失敗しても例外を外に出さない。"""
+    token   = os.environ.get("THREADS_ACCESS_TOKEN", "")
+    user_id = os.environ.get("THREADS_USER_ID", "")
+    if not token or not user_id:
+        print("[Threads] THREADS_ACCESS_TOKEN / THREADS_USER_ID 未設定。スキップ。")
+        return None
+
+    caption  = _build_threads_caption(data.get("caption", ""))
+    photo_urls = data.get("photo_urls", [])
+    image_url  = normalize_url(photo_urls[0]) if photo_urls else None
+
+    try:
+        # コンテナ作成
+        params: dict = {"access_token": token, "text": caption}
+        if image_url:
+            params["media_type"] = "IMAGE"
+            params["image_url"]  = image_url
+        else:
+            params["media_type"] = "TEXT"
+
+        r = requests.post(f"{THREADS_API_URL}/{user_id}/threads", params=params, timeout=30)
+        if not r.ok:
+            print(f"[Threads] コンテナ作成失敗: {r.status_code} {r.text}")
+            return None
+        container_id = r.json()["id"]
+
+        time.sleep(3)  # コンテナ処理待ち
+
+        # 公開
+        r2 = requests.post(
+            f"{THREADS_API_URL}/{user_id}/threads_publish",
+            params={"access_token": token, "creation_id": container_id},
+            timeout=30,
+        )
+        if not r2.ok:
+            print(f"[Threads] 公開失敗: {r2.status_code} {r2.text}")
+            return None
+        th_id = r2.json()["id"]
+        print(f"[Threads] 投稿成功: {th_id}")
+        return th_id
+    except Exception as e:
+        print(f"[Threads] 例外: {e}")
+        return None
+
+
 def phase2a_post():
     """
     Phase 2a: in_progress/ のファイルに Instagram API 呼び出し結果 (ig_post_id) を書き込む。
     ig_post_id が既にあれば API 呼び出しをスキップ（recovery）。
+    Instagram 投稿成功後に Threads にも同時投稿（失敗しても Instagram 投稿は完了扱い）。
     """
     files = sorted([*IN_PROGRESS_DIR.glob("*_instagram.json"), *IN_PROGRESS_DIR.glob("*_reel.json")])
     if not files:
@@ -316,6 +375,12 @@ def phase2a_post():
         data["status"]     = "posted"
         data["ig_post_id"] = post_id
         data["posted_at"]  = datetime.now(JST).isoformat()
+
+        # Threads にも投稿（失敗しても Instagram 投稿は完了扱い）
+        th_id = _post_to_threads(data)
+        if th_id:
+            data["th_post_id"] = th_id
+
     except Exception as e:
         print(f"[FAIL] Instagram API: {e}")
         data["status"] = "failed"

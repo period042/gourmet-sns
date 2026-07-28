@@ -67,11 +67,13 @@ jobs:
           exit 1
 
       # ── Phase 2a: Instagram API呼び出し → ig_post_idをin_progressに記録 ───
-      - name: Phase 2a - Post to Instagram
+      - name: Phase 2a - Post to Instagram & Threads
         if: steps.commit_phase1.outputs.no_item != 'true'
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
         run: python scripts/post_instagram.py --phase2a
 
       - name: Commit Phase 2a (record ig_post_id in in_progress)
