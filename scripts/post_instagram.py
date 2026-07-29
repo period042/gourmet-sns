@@ -309,20 +309,46 @@ def _get_ig_permalink(token: str, post_id: str) -> str | None:
     return None
 
 
-def _build_threads_caption(caption: str, ig_permalink: str | None = None) -> str:
-    """Instagram キャプションを Threads 用に変換（500文字以内）。"""
+def _build_threads_caption(data: dict, ig_permalink: str | None = None) -> str:
+    """Threads最適化キャプション（フック＋ひとこと＋店舗情報＋IGリンク、500文字以内）。"""
+    caption = data.get("caption", "")
     lines = caption.splitlines()
-    # ハッシュタグ行（#で始まるワードが3つ以上含む行）を除去
-    body_lines = [l for l in lines if not (l.strip().startswith("#") and l.count("#") >= 3)]
-    text = "\n".join(body_lines).strip()
 
-    suffix = f"\n\n📷 写真はInstagramで →\n{ig_permalink}" if ig_permalink else ""
+    def is_sep(line: str) -> bool:
+        s = line.strip()
+        return len(s) >= 3 and len(set(s)) == 1
+
+    hook_lines = []
+    for line in lines:
+        if is_sep(line):
+            break
+        hook_lines.append(line)
+    hook = "\n".join(hook_lines).strip()
+
+    hitokoto_lines: list[str] = []
+    in_hitokoto = False
+    for line in lines:
+        if "💬" in line:
+            in_hitokoto = True
+            continue
+        if in_hitokoto:
+            if is_sep(line):
+                break
+            if line.strip():
+                hitokoto_lines.append(line.strip())
+    hitokoto = "\n".join(hitokoto_lines)
+
+    info_lines = [l.strip() for l in lines if any(l.strip().startswith(p) for p in ("📍", "💰", "🍶"))]
+    info = "\n".join(info_lines)
+
+    suffix = f"\n\n📷 詳細はInstagramで →\n{ig_permalink}" if ig_permalink else ""
+    parts = [p for p in [hook, hitokoto, info] if p]
+    text = "\n\n".join(parts)
+
     limit = 500 - len(suffix)
     if len(text) > limit:
         text = text[:limit - 3] + "..."
     return text + suffix
-
-
 def _post_to_threads(data: dict, ig_permalink: str | None = None) -> str | None:
     """Threads にテキスト＋1枚目画像を投稿。失敗しても例外を外に出さない。"""
     token   = os.environ.get("THREADS_ACCESS_TOKEN", "")
@@ -331,7 +357,7 @@ def _post_to_threads(data: dict, ig_permalink: str | None = None) -> str | None:
         print("[Threads] THREADS_ACCESS_TOKEN / THREADS_USER_ID 未設定。スキップ。")
         return None
 
-    caption  = _build_threads_caption(data.get("caption", ""), ig_permalink)
+    caption  = _build_threads_caption(data, ig_permalink)
     photo_urls = data.get("photo_urls", [])
     image_url  = normalize_url(photo_urls[0]) if photo_urls else None
 
