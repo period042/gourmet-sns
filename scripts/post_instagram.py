@@ -261,6 +261,96 @@ def _call_instagram_api(data: dict) -> str:
     return publish_container(token, account_id, carousel_id)
 
 
+
+def phase0_repair() -> int:
+    """posted/ のstatus=failedアイテムを自動修正してqueue/に復元。修復件数を返す。"""
+    import re as _re
+    restored = 0
+    for p in sorted([*POSTED_DIR.glob("*_instagram.json"), *POSTED_DIR.glob("*_reel.json")]):
+        try:
+            raw_bytes = p.read_bytes()
+            data = json.loads(raw_bytes.decode("utf-8", errors="replace"))
+            if data.get("status") != "failed":
+                continue
+            print(f"[Phase0] 修正対象: {p.name}")
+
+            caption = data.get("caption", "")
+
+            # restaurant_name修正: 文字化けなら📍行から抽出
+            name = data.get("restaurant_name", "")
+            if not name or "\ufffd" in name or "\udc" in repr(name):
+                for line in caption.splitlines():
+                    s = line.strip()
+                    if s.startswith("\U0001f4cd") or s.startswith("📍"):
+                        name = s.lstrip("📍").strip()
+                        break
+                if name:
+                    data["restaurant_name"] = name
+                    print(f"  restaurant_name修正: {name}")
+
+            # area修正: 文字化けなら🚉行から抽出、なければ本文の「XX駅」を抽出
+            area = data.get("area", "")
+            if not area or "\ufffd" in area or "\udc" in repr(area):
+                for line in caption.splitlines():
+                    s = line.strip()
+                    if s.startswith("\U0001f689") or s.startswith("🚉"):
+                        area = s.lstrip("🚉").strip()
+                        break
+                if not area:
+                    m = _re.search(r"[\u3041-\u9fff]+駅", caption)
+                    if m:
+                        area = m.group(0)
+                if area:
+                    data["area"] = area
+                    print(f"  area修正: {area}")
+
+            # 画像URL検証: HEADリクエストで4xxを除外
+            photo_urls = data.get("photo_urls", [])
+            valid_urls = []
+            for url in photo_urls:
+                try:
+                    r = requests.head(url, timeout=8, allow_redirects=True)
+                    if r.status_code < 400:
+                        valid_urls.append(url)
+                    else:
+                        print(f"  [DROP] HTTP{r.status_code}: ...{url[-40:]}")
+                except Exception as exc:
+                    print(f"  [DROP] 接続エラー({exc}): ...{url[-40:]}")
+
+            if not valid_urls:
+                print(f"  [UNFIXABLE] 有効画像なし → status=unfixable")
+                data["status"] = "unfixable"
+                p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+                continue
+
+            if len(valid_urls) < len(photo_urls):
+                print(f"  photo_urls: {len(photo_urls)} → {len(valid_urls)}件")
+                data["photo_urls"] = valid_urls
+
+            # メタデータリセットしてqueue/に復元
+            data["status"] = "approved"
+            data.pop("error", None)
+            data.pop("ig_post_id", None)
+            data.pop("th_post_id", None)
+            data.pop("posted_at", None)
+            data.pop("locked_at", None)
+            data["scheduled_at"] = datetime.now(JST).isoformat()
+
+            queue_path = QUEUE_DIR / p.name
+            queue_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+            p.unlink()
+            print(f"  [OK] queue/に復元: {p.name}")
+            restored += 1
+
+        except Exception as exc:
+            print(f"  [ERROR] {p.name}: {exc}")
+
+    if restored:
+        print(f"[Phase0] {restored}件を修正・復元")
+    else:
+        print("[Phase0] 修復対象なし")
+    return restored
+
 def phase1_lock() -> bool:
     """
     Phase 1: queue/ から1件選び in_progress/ に移動する。
@@ -462,7 +552,9 @@ if __name__ == "__main__":
     import sys
     phase = next((a for a in sys.argv[1:] if a.startswith("--phase")), None)
 
-    if phase == "--phase1":
+    if phase == "--phase0":
+        phase0_repair()
+    elif phase == "--phase1":
         ok = phase1_lock()
         sys.exit(0 if ok else 0)   # キュー空でも exit 0（workflow は staged 有無で判断）
     elif phase == "--phase2a":
