@@ -278,7 +278,7 @@ def phase0_repair() -> int:
 
             # restaurant_name修正: 文字化けなら📍行から抽出
             name = data.get("restaurant_name", "")
-            if not name or "\ufffd" in name or "\udc" in repr(name):
+            if not name or "\ufffd" in name or any(0xDC00 <= ord(c) <= 0xDFFF for c in name):
                 for line in caption.splitlines():
                     s = line.strip()
                     if s.startswith("\U0001f4cd") or s.startswith("📍"):
@@ -290,7 +290,7 @@ def phase0_repair() -> int:
 
             # area修正: 文字化けなら🚉行から抽出、なければ本文の「XX駅」を抽出
             area = data.get("area", "")
-            if not area or "\ufffd" in area or "\udc" in repr(area):
+            if not area or "\ufffd" in area or any(0xDC00 <= ord(c) <= 0xDFFF for c in area):
                 for line in caption.splitlines():
                     s = line.strip()
                     if s.startswith("\U0001f689") or s.startswith("🚉"):
