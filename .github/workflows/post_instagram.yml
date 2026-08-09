@@ -42,6 +42,25 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
+
+      # ── Phase 0: failed items を自動修復してqueue/に復元 ────────────────────
+      - name: Phase 0 - Repair failed items
+        id: commit_phase0
+        run: |
+          python scripts/post_instagram.py --phase0
+          git add posted/ queue/ || true
+          if git diff --staged --quiet; then
+            echo "修復対象なし"
+          else
+            git commit -m "repair: auto-fix failed items $(date +%Y%m%d_%H%M%S)"
+            for attempt in 1 2 3; do
+              echo "Push attempt $attempt"
+              if git push; then echo "Push succeeded"; break; fi
+              git pull --rebase origin main
+              sleep $((attempt * 5))
+            done
+          fi
+
       # ── Phase 1: queue → in_progress (API呼び出し前にコミット) ──────────────
       - name: Phase 1 - Lock queue item
         run: python scripts/post_instagram.py --phase1
