@@ -334,7 +334,11 @@ def phase0_repair() -> int:
             data.pop("th_post_id", None)
             data.pop("posted_at", None)
             data.pop("locked_at", None)
-            data["scheduled_at"] = datetime.now(JST).isoformat()
+            # 今日すでに投稿スロットが埋まっている可能性があるので翌日12:05に復元
+            from datetime import timedelta
+            tomorrow = (datetime.now(JST) + timedelta(days=1)).replace(
+                hour=12, minute=5, second=0, microsecond=0)
+            data["scheduled_at"] = tomorrow.isoformat()
 
             queue_path = QUEUE_DIR / p.name
             queue_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
