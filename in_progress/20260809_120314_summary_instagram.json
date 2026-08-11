@@ -15,8 +15,9 @@
     "https://res.cloudinary.com/dviztyljm/image/upload/v1784208754/gourmet/s3zvqzw7wcstlv4bptlf.jpg"
   ],
   "caption": "🗓️ 今週の酒と飯まとめ。\nこの1週間で8軒をレポートしました。\n保存して飲み会の参考に。\n\nーーーーー\n📍 エリア別ピックアップ\n\n【板橋区役所前駅】\n  ✅ やきとんひなた 大山店\n  ✅ うなぎ居酒屋 炭火や 中板橋\n  ✅ 恵風和暢　あっと\n\n【清澄白河駅】\n  ✅ ほ志の\n\n【神田駅】\n  ✅ 居酒屋 ちぇけ\n\n【亀戸駅】\n  ✅ ホルモン青木 亀戸店\n\n【東京】\n  ✅ 週次まとめ\n\n【恵比寿駅】\n  ✅ 極 アジフライ堂\n\nーーーーー\n🔖 あとで行きたい店があれば保存しておいてください。\n\nーーーーー\n\n#グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ #食べ歩き #東京居酒屋 #グルメ投稿 #飯活 #週間まとめ #グルメまとめ #東京グルメまとめ",
-  "status": "approved",
+  "status": "failed",
   "created_at": "2026-08-09T12:03:14.891732+09:00",
   "scheduled_at": "2026-08-11T12:00:00+09:00",
-  "locked_at": "2026-08-11T13:23:13.252098+09:00"
+  "locked_at": "2026-08-11T13:23:13.252098+09:00",
+  "error": "400 Client Error: Bad Request for url: https://graph.facebook.com/v22.0/17841409907981806/media?access_token=EAAWF4dlGa04BRtcZABZAioAXjE9qOrQQgGKZBMG3h6JYEE3X3jhEQ0ZAn1cZA37up2aZAAmlS15zYZBslLB8hILpHvUIzzZArtFvu6WRVp5XcvmqFH60cPrkQcqQ1FzFeN8ADuic4jZCPy09yLsBCrZBayVT5lBPPIBeQKeGXhIzABwEWUN0z02hTfdhMDuipK&image_url=https%3A%2F%2Fres.cloudinary.com%2Fdviztyljm%2Fimage%2Fupload%2Fv1785159723%2Fgourmet%2Ftwv4huwqan3dea0qpgq5.jpg&is_carousel_item=true"
 }
