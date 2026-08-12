@@ -27,7 +27,7 @@ QUEUE_DIR          = Path(__file__).parent.parent / "queue"
 IN_PROGRESS_DIR    = Path(__file__).parent.parent / "in_progress"
 POSTED_DIR         = Path(__file__).parent.parent / "posted"
 RESTAURANTS_JSON   = Path(__file__).parent.parent / "data" / "restaurants.json"
-GRAPH_URL       = "https://graph.facebook.com/v22.0"
+GRAPH_URL       = "https://graph.instagram.com/v22.0"
 THREADS_API_URL = "https://graph.threads.net/v1.0"
 
 _restaurants_cache: list[dict] | None = None
