@@ -1,0 +1,174 @@
+name: Token Expiry Check & Auto-Refresh
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # 毎日 09:00 JST
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  secrets: write
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check & refresh tokens
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 << 'PYEOF'
+          import os, json, urllib.request, datetime, subprocess, sys
+          sys.stdout.reconfigure(encoding='utf-8')
+
+          REPO = "period042/gourmet-sns"
+          NOW = datetime.datetime.now(datetime.timezone.utc)
+
+          def debug_token(token):
+              try:
+                  url = f"https://graph.facebook.com/v22.0/debug_token?input_token={token}&access_token={token}"
+                  with urllib.request.urlopen(url, timeout=10) as r:
+                      d = json.load(r)
+                  data = d.get("data", {})
+                  exp = data.get("expires_at", 0)
+                  if exp == 0:
+                      return None  # never expires
+                  return datetime.datetime.fromtimestamp(exp, tz=datetime.timezone.utc)
+              except Exception as e:
+                  print(f"debug_token error: {e}")
+                  return False
+
+          def refresh_ig_token(token):
+              try:
+                  url = f"https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token={token}"
+                  with urllib.request.urlopen(url, timeout=10) as r:
+                      d = json.load(r)
+                  return d.get("access_token")
+              except Exception as e:
+                  print(f"refresh_ig_token error: {e}")
+                  return None
+
+          def refresh_threads_token(token):
+              try:
+                  url = f"https://graph.threads.net/refresh_access_token?grant_type=th_refresh_token&access_token={token}"
+                  with urllib.request.urlopen(url, timeout=10) as r:
+                      d = json.load(r)
+                  return d.get("access_token")
+              except Exception as e:
+                  print(f"refresh_threads_token error: {e}")
+                  return None
+
+          def set_secret(name, value):
+              r = subprocess.run(
+                  ["gh", "secret", "set", name, "--repo", REPO],
+                  input=value.encode(), capture_output=True
+              )
+              return r.returncode == 0
+
+          def create_issue(title, body):
+              # 同じタイトルのIssueが既にあれば作らない
+              r_list = subprocess.run(
+                  ["gh", "issue", "list", "--repo", REPO, "--state", "open",
+                   "--search", title[:30], "--json", "title"],
+                  capture_output=True
+              )
+              existing = json.loads(r_list.stdout or "[]")
+              if any(title in i.get("title", "") for i in existing):
+                  print(f"Issue already exists: {title}")
+                  return
+              r = subprocess.run(
+                  ["gh", "issue", "create", "--repo", REPO,
+                   "--title", title, "--body", body],
+                  capture_output=True
+              )
+              print("issue created:", r.returncode, r.stdout.decode()[:100])
+
+          # ── Instagram ─────────────────────────────────────────────
+          ig_token = os.environ.get("IG_ACCESS_TOKEN", "")
+          if ig_token:
+              exp = debug_token(ig_token)
+              if exp is False:
+                  create_issue(
+                      "[Token] Instagram Token 検証失敗",
+                      "IG_ACCESS_TOKENのデバッグ検証でエラーが発生しました。\n\nトークンが既に失効している可能性があります。\n\n**対応:** Meta Developer ConsoleでIG_ACCESS_TOKENを再発行し、GitHub Secretsを更新してください。"
+                  )
+              elif exp is None:
+                  print("IG token: no expiry (OK)")
+              else:
+                  days = (exp - NOW).days
+                  print(f"IG token expires: {exp.isoformat()} (残り{days}日)")
+                  if days <= 0:
+                      create_issue(
+                          "[Token] Instagram Token 失効済み",
+                          f"IG_ACCESS_TOKENが失効しています（{exp.strftime('%Y-%m-%d')}）。\n\n**対応:** Meta Developer ConsoleでIG_ACCESS_TOKENを再発行し、GitHub Secretsを更新してください。"
+                      )
+                  elif days <= 14:
+                      print(f"IG token: 残り{days}日 → 自動更新を試みます")
+                      new_token = refresh_ig_token(ig_token)
+                      if new_token:
+                          if set_secret("IG_ACCESS_TOKEN", new_token):
+                              new_exp = debug_token(new_token)
+                              new_exp_str = new_exp.strftime('%Y-%m-%d') if new_exp else '不明'
+                              create_issue(
+                                  f"[Token] Instagram Token 自動更新完了",
+                                  f"IG_ACCESS_TOKENを自動更新しました。\n\n- 旧期限: {exp.strftime('%Y-%m-%d')}\n- 新期限: {new_exp_str}"
+                              )
+                              print(f"IG_ACCESS_TOKEN 更新成功 → 新期限: {new_exp_str}")
+                          else:
+                              create_issue(
+                                  f"[Token] Instagram Token Secret更新失敗（残り{days}日）",
+                                  f"トークン更新は成功しましたがGitHub Secretへの保存に失敗しました。\n残り{days}日です。手動でIG_ACCESS_TOKENを更新してください。"
+                              )
+                      else:
+                          create_issue(
+                              f"[Token] Instagram Token 自動更新失敗（残り{days}日）",
+                              f"IG_ACCESS_TOKENの自動更新に失敗しました。残り{days}日です。\n\n**対応:** Meta Developer ConsoleでIG_ACCESS_TOKENを手動更新してください。"
+                          )
+
+          # ── Threads ───────────────────────────────────────────────
+          th_token = os.environ.get("THREADS_ACCESS_TOKEN", "")
+          if th_token:
+              exp = debug_token(th_token)
+              if exp is False:
+                  create_issue(
+                      "[Token] Threads Token 検証失敗",
+                      "THREADS_ACCESS_TOKENのデバッグ検証でエラーが発生しました。\n\n**対応:** Meta Developer Console（App 1510156694190451）でTHREADS_ACCESS_TOKENを再発行してください。"
+                  )
+              elif exp is None:
+                  print("Threads token: no expiry (OK)")
+              else:
+                  days = (exp - NOW).days
+                  print(f"Threads token expires: {exp.isoformat()} (残り{days}日)")
+                  if days <= 0:
+                      create_issue(
+                          "[Token] Threads Token 失効済み",
+                          f"THREADS_ACCESS_TOKENが失効しています（{exp.strftime('%Y-%m-%d')}）。\n\n**対応:** Meta Developer Console（App 1510156694190451）でTHREADS_ACCESS_TOKENを再発行してください。"
+                      )
+                  elif days <= 14:
+                      print(f"Threads token: 残り{days}日 → 自動更新を試みます")
+                      new_token = refresh_threads_token(th_token)
+                      if new_token:
+                          if set_secret("THREADS_ACCESS_TOKEN", new_token):
+                              new_exp = debug_token(new_token)
+                              new_exp_str = new_exp.strftime('%Y-%m-%d') if new_exp else '不明'
+                              create_issue(
+                                  "[Token] Threads Token 自動更新完了",
+                                  f"THREADS_ACCESS_TOKENを自動更新しました。\n\n- 旧期限: {exp.strftime('%Y-%m-%d')}\n- 新期限: {new_exp_str}"
+                              )
+                              print(f"THREADS_ACCESS_TOKEN 更新成功 → 新期限: {new_exp_str}")
+                          else:
+                              create_issue(
+                                  f"[Token] Threads Token Secret更新失敗（残り{days}日）",
+                                  f"トークン更新は成功しましたがGitHub Secretへの保存に失敗しました。\n残り{days}日です。手動でTHREADS_ACCESS_TOKENを更新してください。"
+                              )
+                      else:
+                          create_issue(
+                              f"[Token] Threads Token 自動更新失敗（残り{days}日）",
+                              f"THREADS_ACCESS_TOKENの自動更新に失敗しました。残り{days}日です。\n\n**対応:** Meta Developer Console（App 1510156694190451）でTHREADS_ACCESS_TOKENを手動更新してください。"
+                          )
+
+          print("チェック完了")
+          PYEOF
