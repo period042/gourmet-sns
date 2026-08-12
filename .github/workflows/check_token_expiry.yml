@@ -7,7 +7,6 @@ on:
 
 permissions:
   issues: write
-  secrets: write
   contents: read
 
 jobs:
@@ -18,7 +17,7 @@ jobs:
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: |
           python3 << 'PYEOF'
           import os, json, urllib.request, datetime, subprocess, sys
