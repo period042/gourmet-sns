@@ -1,0 +1,121 @@
+name: Refresh Instagram Token
+
+on:
+  workflow_dispatch:
+    inputs:
+      short_lived_token:
+        description: 'Meta Developer Console で生成した短期トークン'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Exchange & update token
+        env:
+          SHORT_TOKEN: ${{ inputs.short_lived_token }}
+          IG_APP_ID: ${{ secrets.IG_APP_ID }}
+          IG_APP_SECRET: ${{ secrets.IG_APP_SECRET }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 << 'PYEOF'
+          import os, json, urllib.request, urllib.error, urllib.parse, subprocess, datetime, base64, sys
+          sys.stdout.reconfigure(encoding='utf-8')
+
+          REPO = "period042/gourmet-sns"
+          SHORT_TOKEN = os.environ["SHORT_TOKEN"]
+          APP_ID = os.environ["IG_APP_ID"]
+          APP_SECRET = os.environ["IG_APP_SECRET"]
+
+          def api_get(url):
+              try:
+                  with urllib.request.urlopen(url, timeout=15) as r:
+                      return True, json.load(r)
+              except urllib.error.HTTPError as e:
+                  try:
+                      body = json.loads(e.read())
+                  except:
+                      body = {"http": e.code}
+                  return False, body
+              except Exception as e:
+                  return False, str(e)
+
+          def set_secret(name, value):
+              r = subprocess.run(["gh", "secret", "set", name, "--repo", REPO],
+                                 input=value.encode(), capture_output=True)
+              return r.returncode == 0
+
+          def create_issue(title, body):
+              subprocess.run(["gh", "issue", "create", "--repo", REPO,
+                              "--title", title, "--body", body], capture_output=True)
+
+          # Step 1: 短期 → 長期トークン交換
+          print("=== 長期トークン交換 ===")
+          params = urllib.parse.urlencode({
+              "grant_type": "ig_exchange_token",
+              "client_id": APP_ID,
+              "client_secret": APP_SECRET,
+              "access_token": SHORT_TOKEN,
+          })
+          ok, data = api_get(f"https://graph.instagram.com/access_token?{params}")
+          if not ok:
+              msg = f"トークン交換失敗: {data}"
+              print(msg)
+              create_issue("[Token] Instagram Token 交換失敗", msg)
+              sys.exit(1)
+
+          LONG_TOKEN = data["access_token"]
+          EXPIRES_IN = data.get("expires_in", 5184000)
+          NEW_EXP = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=EXPIRES_IN)
+          print(f"長期トークン取得: {EXPIRES_IN//86400}日間有効, 期限={NEW_EXP.strftime('%Y-%m-%d')}")
+
+          # Step 2: User ID確認
+          ok2, me = api_get(f"https://graph.instagram.com/v22.0/me?fields=id,username&access_token={LONG_TOKEN}")
+          if ok2:
+              USER_ID = me["id"]
+              print(f"User ID: {USER_ID} (@{me.get('username')})")
+          else:
+              print(f"User ID確認失敗: {me}")
+              USER_ID = None
+
+          # Step 3: Secrets更新
+          print("\n=== Secrets更新 ===")
+          ok_token = set_secret("IG_ACCESS_TOKEN", LONG_TOKEN)
+          print(f"IG_ACCESS_TOKEN: {'OK' if ok_token else 'FAIL'}")
+          if USER_ID:
+              ok_uid = set_secret("IG_BUSINESS_ACCOUNT_ID", USER_ID)
+              print(f"IG_BUSINESS_ACCOUNT_ID: {'OK' if ok_uid else 'FAIL'}")
+
+          # Step 4: token_metadata.json更新
+          META_PATH = "token_metadata.json"
+          try:
+              with open(META_PATH) as f:
+                  meta = json.load(f)
+          except:
+              meta = {}
+          meta["ig_expires_at"] = NEW_EXP.isoformat()
+          meta["ig_app_id"] = APP_ID
+          if USER_ID:
+              meta["ig_user_id"] = USER_ID
+          meta["ig_api_base"] = "https://graph.instagram.com/v22.0"
+          with open(META_PATH, "w") as f:
+              json.dump(meta, f, indent=2, ensure_ascii=False)
+          subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+          subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
+          subprocess.run(["git", "add", META_PATH], check=True)
+          r = subprocess.run(["git", "diff", "--staged", "--quiet"])
+          if r.returncode != 0:
+              subprocess.run(["git", "commit", "-m", f"chore: IG token更新 期限={NEW_EXP.strftime('%Y-%m-%d')}"], check=True)
+              subprocess.run(["git", "push"], check=True)
+
+          create_issue("[Token] Instagram Token 更新完了",
+                       f"IG_ACCESS_TOKENを更新しました。\n- 新期限: {NEW_EXP.strftime('%Y-%m-%d')}\n- User ID: {USER_ID}")
+          print(f"\n完了: IG_ACCESS_TOKEN更新 期限={NEW_EXP.strftime('%Y-%m-%d')}")
+          PYEOF
