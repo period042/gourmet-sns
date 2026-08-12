@@ -1,3 +1,7 @@
 {
-  "threads_expires_at": "2026-10-11T07:02:23.286704+00:00"
+  "threads_expires_at": "2026-10-11T07:02:23.286704+00:00",
+  "ig_expires_at": "2026-10-11T00:00:00+00:00",
+  "ig_user_id": "28190971523873170",
+  "ig_app_id": "1554579942959950",
+  "ig_api_base": "https://graph.instagram.com/v22.0"
 }
