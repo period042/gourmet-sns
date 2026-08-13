@@ -334,11 +334,26 @@ def phase0_repair() -> int:
             data.pop("th_post_id", None)
             data.pop("posted_at", None)
             data.pop("locked_at", None)
-            # 今日すでに投稿スロットが埋まっている可能性があるので翌日12:05に復元
-            from datetime import timedelta
-            tomorrow = (datetime.now(JST) + timedelta(days=1)).replace(
-                hour=12, minute=5, second=0, microsecond=0)
-            data["scheduled_at"] = tomorrow.isoformat()
+            # キュー内の日別件数を見て空きスロットに割り当て（1日2件上限）
+            _slots: dict[str, int] = {}
+            for _qf in QUEUE_DIR.glob("*_instagram.json"):
+                try:
+                    _qd = json.loads(_qf.read_text(encoding="utf-8"))
+                    _sa = _qd.get("scheduled_at", "")[:10]
+                    if _sa:
+                        _slots[_sa] = _slots.get(_sa, 0) + 1
+                except Exception:
+                    pass
+            _day = datetime.now(JST) + timedelta(days=1)
+            for _ in range(60):  # 最大60日先まで探索
+                _key = _day.strftime("%Y-%m-%d")
+                if _slots.get(_key, 0) < 2:
+                    _slots[_key] = _slots.get(_key, 0) + 1
+                    break
+                _day += timedelta(days=1)
+            _sched = _day.replace(hour=12, minute=5, second=0, microsecond=0)
+            data["scheduled_at"] = _sched.isoformat()
+            print(f"  スケジュール: {_sched.strftime('%Y-%m-%d')} (slot={_slots[_sched.strftime('%Y-%m-%d')]})")
 
             queue_path = QUEUE_DIR / p.name
             queue_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
