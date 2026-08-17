@@ -535,10 +535,10 @@ def phase2a_post():
         if ig_permalink:
             print(f"[IG permalink] {ig_permalink}")
 
-        # Threads にも投稿（失敗しても Instagram 投稿は完了扱い）
-        th_id = _post_to_threads(data, ig_permalink)
-        if th_id:
-            data["th_post_id"] = th_id
+        # Threads 投稿は停止中（Instagram のみ継続）
+        # th_id = _post_to_threads(data, ig_permalink)
+        # if th_id:
+        #     data["th_post_id"] = th_id
 
     except Exception as e:
         print(f"[FAIL] Instagram API: {e}")
