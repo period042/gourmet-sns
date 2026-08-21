@@ -64,7 +64,7 @@
     },
     "IMG_3481(1).HEIC": {
       "name": "極 アジフライ堂",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_3490(1).HEIC": {
       "name": "月。",
@@ -258,7 +258,7 @@
       "bullets": []
     },
     "IMG_4765.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "ヒロミヤ",
       "area": "曙橋駅",
       "catchphrase": "",
@@ -389,15 +389,15 @@
       }
     },
     "IMG_5940(1).HEIC": {
-      "status": "pending",
+      "status": "approved",
       "name": "おいしかよ",
       "area": "西田辺駅",
-      "catchphrase": "",
-      "yellow_word": "",
+      "catchphrase": "少量多皿のお手本",
+      "yellow_word": "少量多皿",
       "hook_text": "",
       "bullets": [],
       "generated_posts": {
-        "instagram": "",
+        "instagram": "🍽️ グルメ好きなら保存。\n西田辺駅で見つけた一軒。\nコスパも雰囲気も文句なし。\n\nーーーーー\n👥 こんな人におすすめ\n\n✅ 美味しいものが食べたい\n✅ 飲み会で失敗したくない\n✅ 新しいお店を開拓したい\n\nーーーーー\n⭐ 酒と飯、ぐるめ。評価\n\n料理　★★★★★\nお酒　★★★☆☆\nコスパ★★★★☆\n再訪度★★★☆☆\n\nーーーーー\n💬 ひとこと\n\n定期的に来たい一軒になりました。\n保存して次の飲み会候補にどうぞ。\n\nーーーーー\n📍 おいしかよ\n🚉 西田辺駅\n💰 予算：3,000〜6,000円\n🍶 おすすめ：中華料理\n\nーーーーー\n💬 質問\nあなたなら何を注文しますか？\nコメントで教えてください。\n\nーーーーー\n\n#グルメ好きなら保存 #グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #西田辺グルメ #西田辺居酒屋 #西田辺飲み #グルメ好き #居酒屋好き #外食好き #グルメ記録 #外食グルメ #グルメ旅 #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ",
         "x": ""
       }
     },
@@ -431,16 +431,20 @@
       "area": "十条駅"
     },
     "IMG_6103.HEIC": {
-      "status": "pending",
+      "status": "approved",
       "name": "大衆居酒屋 喰場",
-      "area": "東十条、十条、王子神谷/居酒屋",
+      "area": "東十条",
       "generated_posts": {
-        "instagram": "",
+        "instagram": "🍽️ 王子駅、いい店を見つけた。\n唐揚げ・フライドチキンが特においしかった。\n飲み会の候補に即追加した。\n\nーーーーー\n👥 こんな人におすすめ\n\n✅ 美味しいものが食べたい\n✅ 飲み会で失敗したくない\n✅ 新しいお店を開拓したい\n\nーーーーー\n⭐ 酒と飯、ぐるめ。評価\n\n料理　★★★☆☆\nお酒　★★★☆☆\nコスパ★★★★☆\n再訪度★★★★☆\n\nーーーーー\n💬 ひとこと\n\n王子ならかなりおすすめ。\n保存して次の飲み会候補にどうぞ。\n\nーーーーー\n📍 大衆居酒屋 喰場\n🚉 王子駅\n💰 予算：3,000〜6,000円\n🍶 おすすめ：唐揚げ・フライドチキン\n\nーーーーー\n🔖 保存推奨\n次の飲み会候補として保存しておいてください。\n\nーーーーー\n\n#グルメ好きなら保存 #グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #王子グルメ #王子居酒屋 #王子飲み #グルメ好き #居酒屋好き #外食好き #グルメ記録 #外食グルメ #グルメ旅 #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ",
         "x": ""
-      }
+      },
+      "catchphrase": "内緒にしたい場所",
+      "yellow_word": "内緒",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_6123(1).HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "鮨屋のうおきん",
       "area": "新橋、汐留、内幸町/寿司",
       "generated_posts": {
@@ -450,13 +454,29 @@
     },
     "IMG_6160(1).HEIC": {
       "name": "原始炭焼 いろり家 東銀座店",
-      "status": "pending",
-      "area": "東銀座駅"
+      "status": "approved",
+      "area": "東銀座駅",
+      "catchphrase": "いくらかけ放題",
+      "yellow_word": "いくら",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "🍽️ 東銀座駅、いい店を見つけた。\nイクラ丼が特においしかった。\n飲み会の候補に即追加した。\n\nーーーーー\n👥 こんな人におすすめ\n\n✅ 美味しいものが食べたい\n✅ 飲み会で失敗したくない\n✅ 新しいお店を開拓したい\n\nーーーーー\n⭐ 酒と飯、ぐるめ。評価\n\n料理　★★★★★\nお酒　★★★★☆\nコスパ★★★★☆\n再訪度★★★★☆\n\nーーーーー\n💬 ひとこと\n\n次の飲み会に迷ったら、ここで間違いない。\n保存しておくと便利です。\n\nーーーーー\n📍 原始炭焼 いろり家 東銀座店\n🚉 東銀座駅\n💰 予算：3,000〜6,000円\n🍶 おすすめ：イクラ丼\n\nーーーーー\n🔖 保存推奨\n次の飲み会候補として保存しておいてください。\n\nーーーーー\n\n#グルメ好きなら保存 #グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #東銀座グルメ #東銀座居酒屋 #東銀座飲み #グルメ好き #居酒屋好き #外食好き #グルメ記録 #外食グルメ #グルメ旅 #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ",
+        "x": ""
+      }
     },
     "IMG_6257.HEIC": {
       "name": "ニューマルコ",
-      "status": "pending",
-      "area": "三軒茶屋駅"
+      "status": "approved",
+      "area": "三軒茶屋駅",
+      "catchphrase": "食べた瞬間、笑ってた",
+      "yellow_word": "笑ってた",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "🍽️ 三軒茶屋駅、いい店を見つけた。\n揚げた肉料理とレッドワインソースが特においしかった。\n飲み会の候補に即追加した。\n\nーーーーー\n👥 こんな人におすすめ\n\n✅ 美味しいものが食べたい\n✅ 飲み会で失敗したくない\n✅ 新しいお店を開拓したい\n\nーーーーー\n⭐ 酒と飯、ぐるめ。評価\n\n料理　★★★★☆\nお酒　★★★★☆\nコスパ★★★★★\n再訪度★★★★☆\n\nーーーーー\n💬 ひとこと\n\n次の飲み会に迷ったら、ここで間違いない。\n保存しておくと便利です。\n\nーーーーー\n📍 ニューマルコ\n🚉 三軒茶屋駅\n💰 予算：3,000〜6,000円\n🍶 おすすめ：揚げた肉料理とレッドワインソース\n\nーーーーー\n💬 質問\nあなたなら何を注文しますか？\nコメントで教えてください。\n\nーーーーー\n\n#グルメ好きなら保存 #グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #三軒茶屋グルメ #三軒茶屋居酒屋 #三軒茶屋飲み #グルメ好き #居酒屋好き #外食好き #グルメ記録 #外食グルメ #グルメ旅 #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ",
+        "x": ""
+      }
     },
     "IMG_6284(1).HEIC": {
       "name": "東京大神宮",
@@ -482,7 +502,7 @@
     },
     "IMG_6371.HEIC": {
       "name": "飛葉",
-      "status": "pending",
+      "status": "posted",
       "area": "東十条駅"
     },
     "IMG_6444.HEIC": {
@@ -529,13 +549,17 @@
       "status": "posted"
     },
     "IMG_6695.HEIC": {
-      "status": "pending",
+      "status": "approved",
       "name": "鏑屋",
-      "area": "大山、板橋区役所前/居酒屋、もつ焼き",
+      "area": "大山、板橋区役所前",
       "generated_posts": {
-        "instagram": "",
+        "instagram": "🍽️ 久しぶりに当たりの店。\n板橋駅で豆腐スープを食べるならここ。\n雰囲気込みで好きな一軒。\n\nーーーーー\n👥 こんな人におすすめ\n\n✅ コスパ良く飲み食いしたい\n✅ 仕事帰りに使える店を探している\n✅ 地元の名店を発掘したい\n\nーーーーー\n⭐ 酒と飯、ぐるめ。評価\n\n料理　★★★★☆\nお酒　★★★★☆\nコスパ★★★☆☆\n再訪度★★★★☆\n\nーーーーー\n💬 ひとこと\n\n定期的に来たい一軒になりました。\n保存して次の飲み会候補にどうぞ。\n\nーーーーー\n📍 鏑屋\n🚉 板橋駅\n💰 予算：3,000〜6,000円\n🍶 おすすめ：豆腐スープ\n\nーーーーー\n💬 質問\nあなたなら何を注文しますか？\nコメントで教えてください。\n\nーーーーー\n\n#グルメ好きなら保存 #グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #板橋グルメ #板橋居酒屋 #板橋飲み #グルメ好き #居酒屋好き #外食好き #グルメ記録 #外食グルメ #グルメ旅 #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ",
         "x": ""
-      }
+      },
+      "catchphrase": "心休まる煮込み",
+      "yellow_word": "心休まる",
+      "hook_text": "",
+      "bullets": []
     },
     "IMG_6776.HEIC": {
       "name": "天狗",
@@ -556,7 +580,7 @@
     },
     "IMG_0025.HEIC": {
       "name": "魚竹",
-      "status": "pending",
+      "status": "posted",
       "area": "恵比寿駅"
     },
     "IMG_0060(1).HEIC": {
@@ -583,8 +607,16 @@
     },
     "IMG_0181(1).HEIC": {
       "name": "すけろく商店",
-      "status": "pending",
-      "area": "中板橋駅"
+      "status": "posted",
+      "area": "中板橋駅",
+      "catchphrase": "うまいのになぜ安い",
+      "yellow_word": "安い",
+      "hook_text": "",
+      "bullets": [],
+      "generated_posts": {
+        "instagram": "🍽️ 中板橋駅、いい店を見つけた。\n焼き牡蠣串・レモン添えが特においしかった。\n飲み会の候補に即追加した。\n\nーーーーー\n👥 こんな人におすすめ\n\n✅ コスパ良く飲み食いしたい\n✅ 仕事帰りに使える店を探している\n✅ 地元の名店を発掘したい\n\nーーーーー\n⭐ 酒と飯、ぐるめ。評価\n\n料理　★★★☆☆\nお酒　★★★★☆\nコスパ★★★★☆\n再訪度★★★★☆\n\nーーーーー\n💬 ひとこと\n\n次の飲み会に迷ったら、ここで間違いない。\n保存しておくと便利です。\n\nーーーーー\n📍 すけろく商店\n🚉 中板橋駅\n💰 予算：3,000〜6,000円\n🍶 おすすめ：焼き牡蠣串・レモン添え\n\nーーーーー\n🔖 保存推奨\n次の飲み会候補として保存しておいてください。\n\nーーーーー\n\n#グルメ好きなら保存 #グルメ #東京グルメ #居酒屋 #飯テロ #グルメスタグラム #中板橋グルメ #中板橋居酒屋 #中板橋飲み #グルメ好き #居酒屋好き #外食好き #グルメ記録 #外食グルメ #グルメ旅 #グルメ好きな人と繋がりたい #居酒屋巡り #飲み歩き #おすすめグルメ #食スタグラム #グルメ部 #酒と飯ぐるめ",
+        "x": ""
+      }
     },
     "IMG_0201(1).HEIC": {
       "status": "pending",
@@ -614,7 +646,7 @@
     },
     "IMG_0268.HEIC": {
       "name": "うっちゃり",
-      "status": "pending",
+      "status": "posted",
       "area": "大山駅"
     },
     "IMG_0294(1).HEIC": {
@@ -777,7 +809,7 @@
       "status": "posted"
     },
     "IMG_1497.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "赤尾",
       "area": "板橋駅",
       "generated_posts": {
@@ -840,11 +872,11 @@
     },
     "IMG_1869.HEIC": {
       "name": "伊勢路 東十条店",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_1881.HEIC": {
       "name": "サケラボ",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_1908.HEIC": {
       "name": "ソルト",
@@ -852,7 +884,7 @@
     },
     "IMG_1947.HEIC": {
       "name": "創作鉄板と鮨 たけはな",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_1970.HEIC": {
       "name": "九州産直 炉端かてて 八丁堀はなれ",
@@ -860,7 +892,7 @@
       "area": "八丁堀駅"
     },
     "IMG_1984.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "ソルト",
       "area": "北赤羽",
       "catchphrase": "",
@@ -1353,7 +1385,7 @@
       }
     },
     "IMG_4106.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "えいちや",
       "area": "東十条駅",
       "catchphrase": "",
@@ -1454,7 +1486,7 @@
       "area": "万博記念公園駅"
     },
     "IMG_0031.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "とっぴんぱらりのぷ",
       "area": "秋田/居酒屋、郷土料理、きりたんぽ",
       "generated_posts": {
@@ -1471,7 +1503,7 @@
       "status": "posted"
     },
     "IMG_0239.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "りあん",
       "area": "東十条駅",
       "catchphrase": "",
@@ -1550,15 +1582,15 @@
     },
     "IMG_0752.HEIC": {
       "name": "やきとん たかちゃん",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_0758.HEIC": {
       "name": "もぐら",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_0825.HEIC": {
       "name": "もつ焼き にんべん",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_0833.HEIC": {
       "status": "pending",
@@ -1601,7 +1633,7 @@
     },
     "IMG_0895.HEIC": {
       "name": "やきとんひなた 大山店",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_0914.HEIC": {
       "status": "pending",
@@ -1628,19 +1660,19 @@
     },
     "IMG_0946.HEIC": {
       "name": "もつ焼ぽるこ",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_0953.HEIC": {
       "name": "うなぎ居酒屋 炭火や 中板橋",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_0973.HEIC": {
       "name": "居酒屋 ちぇけ",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_1014.HEIC": {
       "name": "もつ焼き 高橋",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_1067.HEIC": {
       "name": "寅吉",
@@ -1649,7 +1681,7 @@
     },
     "IMG_1073.HEIC": {
       "name": "ほととぎす",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_1084.HEIC": {
       "status": "pending",
@@ -1666,7 +1698,7 @@
     },
     "IMG_1098.HEIC": {
       "name": "恵風和暢　あっと",
-      "status": "approved"
+      "status": "posted"
     },
     "IMG_1113.HEIC": {
       "name": "ヤキトン GAるKU",
@@ -1722,7 +1754,7 @@
       }
     },
     "IMG_4807.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "ヤキトン GAるKU",
       "area": "北赤羽駅",
       "catchphrase": "",
@@ -1831,7 +1863,7 @@
       "area": "板橋区役所前駅"
     },
     "IMG_5356.HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "仲宿食堂",
       "area": "板橋本町駅",
       "catchphrase": "",
@@ -1905,7 +1937,7 @@
       "area": "那須塩原市その他駅"
     },
     "IMG_6377(1).HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "すし処 漁美",
       "area": "上野駅",
       "catchphrase": "",
@@ -2013,7 +2045,7 @@
     "IMG_1257.HEIC": {
       "name": "スタンドトトノイ",
       "area": "板橋駅",
-      "status": "pending",
+      "status": "posted",
       "catchphrase": "",
       "yellow_word": "",
       "hook_text": "",
@@ -2119,7 +2151,7 @@
     "IMG_1087.HEIC": {
       "name": "勝",
       "area": "十条駅",
-      "status": "pending",
+      "status": "posted",
       "catchphrase": "",
       "yellow_word": "",
       "hook_text": "",
