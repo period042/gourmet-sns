@@ -1,0 +1,18 @@
+{
+  "id": "20260821_230123_r0738_instagram",
+  "platform": "instagram",
+  "restaurant_id": "r0738",
+  "restaurant_name": "やきとん やんぐ 本店",
+  "area": "板橋、新板橋",
+  "photo_urls": [
+    "https://res.cloudinary.com/dviztyljm/image/upload/v1787320879/gourmet/pfrhhozjx47x1ogysck3.jpg",
+    "https://res.cloudinary.com/dviztyljm/image/upload/v1787320879/gourmet/yhunpjpkp1nq5zwtwmbe.heic",
+    "https://res.cloudinary.com/dviztyljm/image/upload/v1787320881/gourmet/e6dpwm679jbfykukebqa.heic",
+    "https://res.cloudinary.com/dviztyljm/image/upload/v1787320882/gourmet/qz5jvphwpdkcuthu1y8e.heic"
+  ],
+  "caption": "",
+  "created_at": "2026-08-21T23:01:23.998544",
+  "status": "approved",
+  "overlay_source_path": "C:\\Users\\hmorimot\\iCloudPhotos\\Photos\\IMG_1051.HEIC",
+  "scheduled_at": "2026-09-25T12:05:00+09:00"
+}
