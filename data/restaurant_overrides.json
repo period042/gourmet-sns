@@ -11,7 +11,7 @@
     },
     "IMG_3295.HEIC": {
       "name": "ホルモン青木 亀戸店",
-      "status": "approved",
+      "status": "posted",
       "area": "亀戸駅",
       "catchphrase": "ホルモンが至高",
       "yellow_word": "ホルモン",
@@ -50,7 +50,7 @@
       "status": "pending"
     },
     "IMG_3457(1).HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "ほ志の",
       "area": "清澄白河駅",
       "generated_posts": {
@@ -68,26 +68,26 @@
     },
     "IMG_3490(1).HEIC": {
       "name": "月。",
-      "status": "pending",
+      "status": "posted",
       "area": "五反田駅"
     },
     "IMG_3526(1).HEIC": {
       "name": "肉と日本酒",
-      "status": "pending",
+      "status": "posted",
       "area": "千駄木駅"
     },
     "IMG_3546(2).HEIC": {
       "name": "焼とりよね田",
-      "status": "pending",
+      "status": "posted",
       "area": "西荻窪駅"
     },
     "IMG_3575.HEIC": {
       "name": "焼肉赤身にくがとう33895",
-      "status": "pending",
+      "status": "posted",
       "area": "三田駅"
     },
     "IMG_3663(1).HEIC": {
-      "status": "pending",
+      "status": "posted",
       "name": "ヒロミヤ",
       "area": "四谷駅",
       "catchphrase": "",
@@ -100,7 +100,7 @@
       }
     },
     "IMG_3790(1).HEIC": {
-      "status": "pending",
+      "status": "approved",
       "name": "人類みな麺類",
       "area": "恵比寿駅",
       "catchphrase": "",
@@ -114,31 +114,31 @@
     },
     "IMG_3805.HEIC": {
       "name": "モルゲン 五反田駅前店",
-      "status": "pending",
+      "status": "approved",
       "area": "大崎広小路駅"
     },
     "IMG_3812.HEIC": {
       "name": "香川一福 恵比寿店",
-      "status": "pending",
+      "status": "approved",
       "area": "恵比寿駅"
     },
     "IMG_3820.HEIC": {
       "name": "チャコールグリル山武商店",
-      "status": "pending",
+      "status": "approved",
       "area": "五反田駅"
     },
     "IMG_3843.HEIC": {
       "name": "大衆食堂スタンド そのだ 五反田店",
-      "status": "pending",
+      "status": "posted",
       "area": "五反田駅"
     },
     "IMG_3937.HEIC": {
       "name": "さば銀",
-      "status": "pending",
+      "status": "posted",
       "area": "中野駅"
     },
     "IMG_3967(1).HEIC": {
-      "status": "pending",
+      "status": "approved",
       "name": "闇市",
       "area": "赤羽駅",
       "generated_posts": {
@@ -152,7 +152,7 @@
     },
     "IMG_4008(1).HEIC": {
       "name": "アブラッチョ",
-      "status": "pending",
+      "status": "posted",
       "area": "田町駅"
     },
     "IMG_4046(1).HEIC": {
@@ -170,7 +170,7 @@
     },
     "IMG_4141.HEIC": {
       "name": "肉ビストロ灯",
-      "status": "pending",
+      "status": "approved",
       "area": "西武新宿駅"
     },
     "IMG_4176(1).HEIC": {
@@ -180,42 +180,42 @@
     },
     "IMG_4208.HEIC": {
       "name": "燗アガリ",
-      "status": "pending",
+      "status": "posted",
       "area": "西武新宿駅"
     },
     "IMG_4297.HEIC": {
       "name": "亀戸ホルモン 目黒権之助坂店",
-      "status": "pending",
+      "status": "approved",
       "area": "目黒駅"
     },
     "IMG_4310.HEIC": {
       "name": "忠弥",
-      "status": "pending",
+      "status": "posted",
       "area": "祐天寺駅"
     },
     "IMG_4329(1).HEIC": {
       "name": "GENKAI BURGER",
-      "status": "pending",
+      "status": "approved",
       "area": "中目黒駅"
     },
     "IMG_4348(1).HEIC": {
       "name": "銀座イタリアンORIGO 博品館店",
-      "status": "pending",
+      "status": "approved",
       "area": "新橋駅"
     },
     "IMG_4369.HEIC": {
       "name": "もつ焼 まるい",
-      "status": "pending",
+      "status": "approved",
       "area": "押上駅"
     },
     "IMG_4418(1).HEIC": {
       "name": "かがやき",
-      "status": "pending",
+      "status": "posted",
       "area": "宝町駅"
     },
     "IMG_4472.HEIC": {
       "name": "やきとり 戎 西荻南口店",
-      "status": "pending",
+      "status": "approved",
       "area": "西荻窪駅"
     },
     "IMG_4501(1).HEIC": {
@@ -223,16 +223,16 @@
     },
     "IMG_4646(1).HEIC": {
       "name": "赤鬼",
-      "status": "pending",
+      "status": "approved",
       "area": "三軒茶屋駅"
     },
     "IMG_4697.HEIC": {
       "name": "京鼎樓 恵比寿本店",
-      "status": "pending",
+      "status": "approved",
       "area": "恵比寿駅"
     },
     "IMG_4749(1).HEIC": {
-      "status": "pending",
+      "status": "approved",
       "name": "さわやか 御殿場インター店",
       "area": "御殿場",
       "generated_posts": {
@@ -298,7 +298,7 @@
     },
     "IMG_4939(1).HEIC": {
       "name": "魚の店 オカモ倶楽部 中目黒店",
-      "status": "pending",
+      "status": "approved",
       "area": "中目黒駅"
     },
     "IMG_4951(1).HEIC": {
@@ -308,12 +308,12 @@
     },
     "IMG_5025(1).HEIC": {
       "name": "かいのみ",
-      "status": "pending",
+      "status": "approved",
       "area": "四ツ谷駅"
     },
     "IMG_5176(1).HEIC": {
       "name": "肉のいちのへ 大森店",
-      "status": "pending",
+      "status": "approved",
       "area": "大森駅"
     },
     "IMG_5235.HEIC": {
@@ -323,12 +323,12 @@
     },
     "IMG_5362.HEIC": {
       "name": "やきとりまるま",
-      "status": "pending",
+      "status": "approved",
       "area": "十条駅"
     },
     "IMG_5403(1).HEIC": {
       "name": "かわなみ鮨",
-      "status": "pending",
+      "status": "posted",
       "area": "十条駅"
     },
     "IMG_5492(1).HEIC": {
@@ -338,22 +338,22 @@
     },
     "IMG_5540(1).HEIC": {
       "name": "馬ござる",
-      "status": "pending",
+      "status": "posted",
       "area": "十条駅"
     },
     "IMG_5555(1).HEIC": {
       "name": "スタミナ苑",
-      "status": "pending",
+      "status": "approved",
       "area": "西新井大師西駅"
     },
     "IMG_5576(1).HEIC": {
       "name": "まんてん鮨 丸の内",
-      "status": "pending",
+      "status": "approved",
       "area": "二重橋前駅"
     },
     "IMG_5617.HEIC": {
       "name": "ほり",
-      "status": "pending",
+      "status": "approved",
       "area": "十条駅"
     },
     "IMG_5653(1).HEIC": {
@@ -402,7 +402,7 @@
       }
     },
     "IMG_5969(1).HEIC": {
-      "status": "pending",
+      "status": "approved",
       "name": "日本酒原価酒蔵 上野御徒町店",
       "area": "御徒町、上野広小路、上野御徒町/居酒屋、日本酒バー、海鮮",
       "generated_posts": {
@@ -412,17 +412,17 @@
     },
     "IMG_6014(1).HEIC": {
       "name": "山源",
-      "status": "pending",
+      "status": "approved",
       "area": "新板橋駅"
     },
     "IMG_6032(1).HEIC": {
       "name": "常笑",
-      "status": "pending",
+      "status": "approved",
       "area": "中野駅"
     },
     "IMG_6072(1).HEIC": {
       "name": "中野 青二才",
-      "status": "pending",
+      "status": "approved",
       "area": "中野駅"
     },
     "IMG_6085(1).HEIC": {
@@ -551,7 +551,7 @@
     },
     "IMG_0006(1).HEIC": {
       "name": "スタンドトトノイ",
-      "status": "pending",
+      "status": "approved",
       "area": "板橋駅"
     },
     "IMG_0025.HEIC": {
@@ -1959,7 +1959,7 @@
     "IMG_3276(1).HEIC": {
       "name": "月と熊",
       "area": "本川越駅",
-      "status": "pending",
+      "status": "approved",
       "catchphrase": "",
       "yellow_word": "",
       "hook_text": "",
@@ -2154,306 +2154,6 @@
         "instagram": "",
         "x": ""
       }
-    },
-    "r0001": {
-      "status": "posted"
-    },
-    "r0002": {
-      "status": "posted"
-    },
-    "r0003": {
-      "status": "posted"
-    },
-    "r0004": {
-      "status": "posted"
-    },
-    "r0005": {
-      "status": "posted"
-    },
-    "r0006": {
-      "status": "posted"
-    },
-    "r0007": {
-      "status": "posted"
-    },
-    "r0008": {
-      "status": "posted"
-    },
-    "r0009": {
-      "status": "posted"
-    },
-    "r0010": {
-      "status": "posted"
-    },
-    "r0012": {
-      "status": "posted"
-    },
-    "r0014": {
-      "status": "posted"
-    },
-    "r0018": {
-      "status": "posted"
-    },
-    "r0019": {
-      "status": "posted"
-    },
-    "r0019b": {
-      "status": "posted"
-    },
-    "r0020": {
-      "status": "posted"
-    },
-    "r0021": {
-      "status": "posted"
-    },
-    "r0022": {
-      "status": "posted"
-    },
-    "r0023": {
-      "status": "posted"
-    },
-    "r0024": {
-      "status": "posted"
-    },
-    "r0025": {
-      "status": "posted"
-    },
-    "r0027": {
-      "status": "posted"
-    },
-    "r0028": {
-      "status": "posted"
-    },
-    "r0030": {
-      "status": "posted"
-    },
-    "r0032": {
-      "status": "posted"
-    },
-    "r0033": {
-      "status": "posted"
-    },
-    "r0035": {
-      "status": "posted"
-    },
-    "r0036": {
-      "status": "posted"
-    },
-    "r0037": {
-      "status": "posted"
-    },
-    "r0038": {
-      "status": "posted"
-    },
-    "r0039": {
-      "status": "posted"
-    },
-    "r0040": {
-      "status": "posted"
-    },
-    "r0041": {
-      "status": "posted"
-    },
-    "r0042": {
-      "status": "posted"
-    },
-    "r0043": {
-      "status": "posted"
-    },
-    "r0044": {
-      "status": "posted"
-    },
-    "r0045": {
-      "status": "posted"
-    },
-    "r0046": {
-      "status": "posted"
-    },
-    "r0049": {
-      "status": "posted"
-    },
-    "r0050": {
-      "status": "posted"
-    },
-    "r0051": {
-      "status": "posted"
-    },
-    "r0053": {
-      "status": "posted"
-    },
-    "r0066": {
-      "status": "posted"
-    },
-    "r0068": {
-      "status": "posted"
-    },
-    "r0069": {
-      "status": "posted"
-    },
-    "r0070": {
-      "status": "posted"
-    },
-    "r0100": {
-      "status": "posted"
-    },
-    "r0101": {
-      "status": "posted"
-    },
-    "r0103": {
-      "status": "posted"
-    },
-    "r0109": {
-      "status": "posted"
-    },
-    "r0113": {
-      "status": "posted"
-    },
-    "r0114": {
-      "status": "posted"
-    },
-    "r0115": {
-      "status": "posted"
-    },
-    "r0117": {
-      "status": "posted"
-    },
-    "r0120": {
-      "status": "posted"
-    },
-    "r0122": {
-      "status": "posted"
-    },
-    "r0123": {
-      "status": "posted"
-    },
-    "r0125": {
-      "status": "posted"
-    },
-    "r0414": {
-      "status": "posted"
-    },
-    "r0427": {
-      "status": "posted"
-    },
-    "r0431": {
-      "status": "posted"
-    },
-    "r0436": {
-      "status": "posted"
-    },
-    "r0437": {
-      "status": "posted"
-    },
-    "r0439": {
-      "status": "posted"
-    },
-    "r0451": {
-      "status": "posted"
-    },
-    "r0469": {
-      "status": "posted"
-    },
-    "r0472": {
-      "status": "posted"
-    },
-    "r0479": {
-      "status": "posted"
-    },
-    "r0500": {
-      "status": "posted"
-    },
-    "r0508": {
-      "status": "posted"
-    },
-    "r0523": {
-      "status": "posted"
-    },
-    "r0586": {
-      "status": "posted"
-    },
-    "r0600": {
-      "status": "posted"
-    },
-    "summary": {
-      "status": "posted"
-    },
-    "r0460": {
-      "status": "approved"
-    },
-    "r0462": {
-      "status": "approved"
-    },
-    "r0463": {
-      "status": "approved"
-    },
-    "r0465": {
-      "status": "approved"
-    },
-    "r0474": {
-      "status": "approved"
-    },
-    "r0492": {
-      "status": "approved"
-    },
-    "r0507": {
-      "status": "approved"
-    },
-    "r0511": {
-      "status": "approved"
-    },
-    "r0514": {
-      "status": "approved"
-    },
-    "r0515": {
-      "status": "approved"
-    },
-    "r0527": {
-      "status": "approved"
-    },
-    "r0537": {
-      "status": "approved"
-    },
-    "r0543": {
-      "status": "approved"
-    },
-    "r0545": {
-      "status": "approved"
-    },
-    "r0557": {
-      "status": "approved"
-    },
-    "r0562": {
-      "status": "approved"
-    },
-    "r0570": {
-      "status": "approved"
-    },
-    "r0581": {
-      "status": "approved"
-    },
-    "r0602": {
-      "status": "approved"
-    },
-    "r0604": {
-      "status": "approved"
-    },
-    "r0605": {
-      "status": "approved"
-    },
-    "r0623": {
-      "status": "approved"
-    },
-    "r0626": {
-      "status": "approved"
-    },
-    "r0627": {
-      "status": "approved"
-    },
-    "r0634": {
-      "status": "approved"
-    },
-    "r1450": {
-      "status": "approved"
     }
   }
 }
