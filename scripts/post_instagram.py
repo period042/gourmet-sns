@@ -54,12 +54,50 @@ def get_location_id(restaurant_id: str) -> str | None:
     return None
 
 
+def _reupload_cloudinary(original_url: str) -> str:
+    """画像をダウンロードしてCloudinaryに再アップロードし、新URLを返す。
+    Instagram error 2207052 (media fetch失敗) の自動修復に使用。"""
+    import hashlib as _hashlib
+    cloud_name = os.environ.get("CLOUDINARY_CLOUD_NAME", "")
+    api_key    = os.environ.get("CLOUDINARY_API_KEY", "")
+    api_secret = os.environ.get("CLOUDINARY_API_SECRET", "")
+    if not all([cloud_name, api_key, api_secret]):
+        raise RuntimeError("Cloudinary credentials not set")
+
+    r = requests.get(original_url, timeout=30)
+    r.raise_for_status()
+    img_data = r.content
+
+    # public_id: 元URLのファイル名 + タイムスタンプでユニーク化
+    import re as _re
+    base = _re.search(r"/([^/]+)\.[a-zA-Z]+$", original_url)
+    base_name = base.group(1) if base else "img"
+    new_public_id = f"gourmet/{base_name}_r{int(time.time())}"
+
+    ts = int(time.time())
+    sig_str = f"public_id={new_public_id}&timestamp={ts}" + api_secret
+    sig = _hashlib.sha1(sig_str.encode()).hexdigest()
+
+    upload_url = f"https://api.cloudinary.com/v1_1/{cloud_name}/image/upload"
+    resp = requests.post(upload_url, data={
+        "public_id": new_public_id,
+        "timestamp": ts,
+        "api_key": api_key,
+        "signature": sig,
+    }, files={"file": ("image.jpg", img_data, "image/jpeg")}, timeout=60)
+    resp.raise_for_status()
+    new_url = resp.json()["secure_url"]
+    print(f"  [reupload] {original_url[-40:]} → {new_url[-40:]}")
+    return new_url
+
+
 def create_media_container(
     token: str, account_id: str, image_url: str,
     caption: str = "", is_carousel_item: bool = False,
     location_id: str | None = None,
-) -> str:
-    """単一画像またはカルーセルアイテムのコンテナIDを作成。"""
+) -> tuple[str, str]:
+    """単一画像またはカルーセルアイテムのコンテナIDを作成。
+    戻り値: (container_id, 実際に使用したimage_url) — 再アップロード時はURLが変わる。"""
     url = f"{GRAPH_URL}/{account_id}/media"
     params: dict = {"access_token": token, "image_url": image_url}
     if is_carousel_item:
@@ -71,8 +109,19 @@ def create_media_container(
     resp = requests.post(url, params=params, timeout=30)
     if not resp.ok:
         print(f"[API error] {resp.status_code}: {resp.text}")
+        err = resp.json().get("error", {})
+        # error 2207052: Instagram がメディアURLを取得できない → 再アップロードしてリトライ
+        if err.get("error_subcode") == 2207052 and "res.cloudinary.com" in image_url:
+            print(f"  [auto-fix] Cloudinary URL取得失敗。再アップロードしてリトライ...")
+            new_url = _reupload_cloudinary(image_url)
+            params["image_url"] = new_url
+            resp2 = requests.post(url, params=params, timeout=30)
+            if not resp2.ok:
+                print(f"[API error retry] {resp2.status_code}: {resp2.text}")
+            resp2.raise_for_status()
+            return resp2.json()["id"], new_url
     resp.raise_for_status()
-    return resp.json()["id"]
+    return resp.json()["id"], image_url
 
 
 def create_carousel_container(
@@ -246,16 +295,23 @@ def _call_instagram_api(data: dict) -> str:
 
     photo_urls = [normalize_url(u, crop=(i > 0)) for i, u in enumerate(data.get("photo_urls", []))]
     if len(photo_urls) == 1:
-        cid = create_media_container(token, account_id, photo_urls[0], caption, location_id=location_id)
+        cid, used_url = create_media_container(token, account_id, photo_urls[0], caption, location_id=location_id)
+        if used_url != photo_urls[0]:
+            data["photo_urls"] = [used_url]
         wait_for_container(token, cid)
         return publish_container(token, account_id, cid)
 
     children = []
-    for url in photo_urls[:10]:
-        cid = create_media_container(token, account_id, url, is_carousel_item=True)
+    used_urls = []
+    for orig_url in photo_urls[:10]:
+        cid, used_url = create_media_container(token, account_id, orig_url, is_carousel_item=True)
         wait_for_container(token, cid, max_wait=30)
         children.append(cid)
+        used_urls.append(used_url)
         time.sleep(1)
+    # 再アップロードが発生した場合はphoto_urlsを更新して次回以降もそのURLを使う
+    if used_urls != photo_urls[:10]:
+        data["photo_urls"] = used_urls
     carousel_id = create_carousel_container(token, account_id, children, caption, location_id=location_id)
     wait_for_container(token, carousel_id)
     return publish_container(token, account_id, carousel_id)
