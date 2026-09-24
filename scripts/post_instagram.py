@@ -224,8 +224,38 @@ def _build_rid_set(directory: Path) -> set[str]:
     return rids
 
 
+DAILY_POST_LIMIT = 1  # 1日の最大投稿件数
+
+
+def _count_posted_today() -> int:
+    """本日 JST に posted/ へ移動済みの通常投稿件数を返す（週次まとめを除く）。"""
+    today = datetime.now(JST).strftime("%Y-%m-%d")
+    count = 0
+    if not POSTED_DIR.exists():
+        return 0
+    for p in POSTED_DIR.glob("*.json"):
+        try:
+            d = json.loads(p.read_text(encoding="utf-8-sig"))
+            if d.get("status") != "posted":
+                continue
+            if d.get("restaurant_id") == "summary":
+                continue
+            if (d.get("posted_at") or "")[:10] == today:
+                count += 1
+        except Exception:
+            pass
+    return count
+
+
 def pick_queue() -> Path | None:
     now = datetime.now(JST)
+
+    # 本日の投稿上限チェック
+    posted_today = _count_posted_today()
+    if posted_today >= DAILY_POST_LIMIT:
+        print(f"[SKIP] 本日投稿済み {posted_today} 件 / 上限 {DAILY_POST_LIMIT} 件。スキップ。")
+        return None
+
     posted_rids     = _build_rid_set(POSTED_DIR)
     in_progress_rids = _build_rid_set(IN_PROGRESS_DIR)
     files = sorted([
