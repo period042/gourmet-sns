@@ -6,14 +6,16 @@
   "area": "板橋、新板橋",
   "photo_urls": [
     "https://res.cloudinary.com/dviztyljm/image/upload/v1787320879/gourmet/pfrhhozjx47x1ogysck3.jpg",
-    "https://res.cloudinary.com/dviztyljm/image/upload/v1787320879/gourmet/yhunpjpkp1nq5zwtwmbe.heic",
-    "https://res.cloudinary.com/dviztyljm/image/upload/v1787320881/gourmet/e6dpwm679jbfykukebqa.heic",
-    "https://res.cloudinary.com/dviztyljm/image/upload/v1787320882/gourmet/qz5jvphwpdkcuthu1y8e.heic"
+    "https://res.cloudinary.com/dviztyljm/image/upload/f_jpg,c_fill,ar_1:1,g_auto/v1787320879/gourmet/yhunpjpkp1nq5zwtwmbe.jpg",
+    "https://res.cloudinary.com/dviztyljm/image/upload/v1790317887/gourmet/e6dpwm679jbfykukebqa_r1790317887.jpg",
+    "https://res.cloudinary.com/dviztyljm/image/upload/f_jpg,c_fill,ar_1:1,g_auto/v1787320882/gourmet/qz5jvphwpdkcuthu1y8e.jpg"
   ],
   "caption": "",
   "created_at": "2026-08-21T23:01:23.998544",
-  "status": "approved",
+  "status": "posted",
   "overlay_source_path": "C:\\Users\\hmorimot\\iCloudPhotos\\Photos\\IMG_1051.HEIC",
   "scheduled_at": "2026-09-25T12:05:00+09:00",
-  "locked_at": "2026-09-25T15:31:05.133379+09:00"
+  "locked_at": "2026-09-25T15:31:05.133379+09:00",
+  "ig_post_id": "18637124818001386",
+  "posted_at": "2026-09-25T15:32:02.704891+09:00"
 }
