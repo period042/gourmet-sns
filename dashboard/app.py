@@ -811,9 +811,10 @@ def overlay_preview(rid: str):
         hook_text = hook_text_param if hook_text_param else r.get("hook_text", "")
         bullets = [b for b in bullets_param.split("|") if b.strip()]
         yellow_word = request.args.get("yellow_word", r.get("yellow_word", ""))
+        layout = request.args.get("layout", "top")
         out_path  = create_overlay(str(path), area, catchphrase, preview_dir,
                                    bullets=bullets, target_copy=hook_text,
-                                   yellow_word=yellow_word)
+                                   yellow_word=yellow_word, layout=layout)
         return send_file(out_path, mimetype="image/jpeg")
     except Exception as e:
         abort(500)
@@ -882,9 +883,10 @@ def approve(rid: str):
         bullets     = [b for b in (r.get("bullets") or []) if b.strip()]
         hook_text   = r.get("hook_text", "")
         yellow_word = r.get("yellow_word", "")
+        layout      = body.get("layout", "top")
         overlay_path = create_overlay(resolve_path(selected[0]["path"]), area, catchphrase,
                                       bullets=bullets, target_copy=hook_text,
-                                      yellow_word=yellow_word)
+                                      yellow_word=yellow_word, layout=layout)
     except Exception as e:
         return jsonify({"ok": False, "error": f"オーバーレイ生成失敗: {e}"}), 500
 

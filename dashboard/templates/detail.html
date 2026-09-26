@@ -213,6 +213,19 @@ header h1 { font-size: 17px; flex: 1; }
         </div>
       </div>
       <div class="field">
+        <label>レイアウト</label>
+        <div style="display:flex;gap:20px;align-items:center;padding:6px 0">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
+            <input type="radio" name="layout" value="top" checked onchange="schedulePreviewRefresh()">
+            上（デフォルト）
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px">
+            <input type="radio" name="layout" value="bottom" onchange="schedulePreviewRefresh()">
+            下（エリア上部・フック＋コピー下部）
+          </label>
+        </div>
+      </div>
+      <div class="field">
         <label>サブコピー <small>（チェックリスト3点）</small></label>
         <div style="display:flex;flex-direction:column;gap:6px" id="bullets-wrap">
           <input type="text" id="bullet0" value="{{ r.bullets[0] if r.bullets and r.bullets|length > 0 else '' }}" placeholder="例: 天ぷらの衣が絶妙">
@@ -478,11 +491,13 @@ async function generateOverlayPreview() {
   const hookText = document.getElementById('hook_text').value;
   const bullets = [0,1,2].map(i => document.getElementById('bullet'+i).value).filter(v => v);
   const yellowWord = document.getElementById('yellow_word').value;
+  const layout = document.querySelector('input[name="layout"]:checked')?.value || 'top';
   const params = new URLSearchParams({
     filename: fn, catchphrase, area,
     hook_text: hookText,
     bullets: bullets.join('|'),
     yellow_word: yellowWord,
+    layout,
   });
   const url = `/api/restaurant/${RID}/overlay_preview?${params}`;
 
@@ -625,6 +640,7 @@ async function approve() {
     body: JSON.stringify({
       selected_photos: selectedPhotos,
       catchphrase: document.getElementById('catchphrase').value,
+      layout: document.querySelector('input[name="layout"]:checked')?.value || 'top',
     })
   });
   const j = await res.json();
