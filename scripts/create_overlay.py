@@ -270,7 +270,7 @@ def create_overlay(
     # ── 下部グラデーション（チェックリスト背景のみ・写真全体は暗くしない）──
     grad = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     gd   = ImageDraw.Draw(grad)
-    gs   = int(H * 0.53)
+    gs   = int(H * 0.45)
     for i in range(H - gs):
         t = i / (H - gs)
         gd.rectangle([(0, gs + i), (W, gs + i + 1)],
@@ -308,19 +308,17 @@ def create_overlay(
         save_txt, font=f_top, fill=(*BLACK, 255),
     )
 
-    # ── メインコピー（左寄せ・最大2行）──
+    # ── メインコピー：行を事前計算（下部配置のため）──
     LEFT  = 24
-    CY    = BAR_Y + BAR_H + 16
     MAX_W = W - LEFT * 2
 
-    # フォントサイズ自動縮小（最大2行に収める）
     for sz in (SZ_MAIN, 104, 88, 74, 62):
         f_main = _load_font(sz)
         lines  = _wrap_text(draw, catchphrase, f_main, MAX_W)
         if len(lines) <= 2:
             break
 
-    # 黄色語の決定 - catchphrase 全体での絶対位置を記録（折り返し跨ぎに対応）
+    # 黄色語の決定
     if yellow_word and yellow_word in catchphrase:
         ypart = yellow_word
     else:
@@ -329,11 +327,60 @@ def create_overlay(
     yabs_start = catchphrase.find(ypart) if ypart else -1
     yabs_end   = yabs_start + len(ypart) if yabs_start >= 0 else -1
 
+    # ── 駅名バッジ（右上・角丸ダーク＋ピンアイコン）──
+    if badge_txt:
+        BP     = 18
+        PIN_H  = SZ_STATION
+        PIN_W  = int(SZ_STATION * 0.60)
+        GAP    = 10
+        d_tmp  = ImageDraw.Draw(canvas)
+        txt_w  = _tw(d_tmp, badge_txt, f_sta)
+        txt_h  = _th(d_tmp, badge_txt, f_sta)
+        bw     = PIN_W + GAP + txt_w + BP * 2
+        bh     = txt_h + BP * 2
+        bx     = W - bw - 22
+        by_b   = BAR_Y  # 右上（保存バーと同じ高さ）
+
+        badge_l = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(badge_l).rounded_rectangle(
+            [(bx, by_b), (bx + bw, by_b + bh)],
+            radius=14, fill=(*BADGE_BG, 220),
+        )
+        canvas.alpha_composite(badge_l)
+
+        pin_cx = bx + BP + PIN_W // 2
+        pin_cy = by_b + bh // 2
+        _draw_pin_icon(canvas, pin_cx, pin_cy, PIN_H, YELLOW)
+
+        tx = bx + BP + PIN_W + GAP
+        ty = by_b + (bh - txt_h) // 2
+        _shadow(canvas, (tx, ty), badge_txt, f_sta, opacity=80, blur=6)
+        _draw_t(canvas, (tx, ty), badge_txt, f_sta, WHITE, stroke=3)
+
+    # ── チェックリスト（中段・✓ を黄色、テキストを白）──
+    if bullets:
+        bx  = 28
+        by  = int(H * 0.52)
+        ck  = "✓  "
+        for b in bullets[:3]:
+            full = f"✓  {b}"
+            bh   = _th(ImageDraw.Draw(canvas), full, f_sub)
+            ck_w = _tw(ImageDraw.Draw(canvas), ck, f_sub)
+            _shadow(canvas, (bx, by), full, f_sub, opacity=100, blur=6)
+            _draw_t(canvas, (bx, by), ck, f_sub, YELLOW, stroke=5)
+            _draw_t(canvas, (bx + ck_w, by), b, f_sub, WHITE, stroke=5)
+            by += bh + 14
+
+    # ── メインコピー（下部・左寄せ・最大2行）──
+    BOTTOM_MARGIN = 40
+    line_hs = [_th(draw, line, f_main) + 14 for line in lines[:2]]
+    total_cp_h = sum(line_hs) - 14
+    CY = H - BOTTOM_MARGIN - total_cp_h
+
     char_offset = 0
     for line in lines[:2]:
         lh = _th(draw, line, f_main)
 
-        # 行内での黄色範囲（絶対位置→相対位置に変換、行を跨いでも正しく適用）
         ys = max(0, yabs_start - char_offset)
         ye = min(len(line), yabs_end - char_offset)
 
@@ -348,14 +395,12 @@ def create_overlay(
 
         char_offset += len(line)
 
-        # シャドウ先行描画
         cx = LEFT
         for seg_t, _ in segs:
             if seg_t:
                 _shadow(canvas, (cx, CY), seg_t, f_main)
             cx += _tw(ImageDraw.Draw(canvas), seg_t, f_main)
 
-        # 縁取り+テキスト
         cx = LEFT
         for seg_t, col in segs:
             if seg_t:
@@ -363,52 +408,6 @@ def create_overlay(
                 cx += _tw(ImageDraw.Draw(canvas), seg_t, f_main)
 
         CY += lh + 14
-
-    # ── チェックリスト（✓ を黄色、テキストを白）──
-    if bullets:
-        bx  = 28
-        by  = max(CY + 50, int(H * 0.615))
-        ck  = "✓  "
-        for b in bullets[:3]:
-            full = f"✓  {b}"
-            bh   = _th(ImageDraw.Draw(canvas), full, f_sub)
-            ck_w = _tw(ImageDraw.Draw(canvas), ck, f_sub)
-            _shadow(canvas, (bx, by), full, f_sub, opacity=100, blur=6)
-            _draw_t(canvas, (bx, by), ck, f_sub, YELLOW, stroke=5)
-            _draw_t(canvas, (bx + ck_w, by), b, f_sub, WHITE, stroke=5)
-            by += bh + 14
-
-    # ── 駅名バッジ（右下・角丸ダーク＋ピンアイコン）──
-    if badge_txt:
-        BP     = 18
-        PIN_H  = SZ_STATION                  # ピン全体の高さ ≈ フォントサイズ
-        PIN_W  = int(SZ_STATION * 0.60)      # ピン描画幅
-        GAP    = 10
-        d_tmp  = ImageDraw.Draw(canvas)
-        txt_w  = _tw(d_tmp, badge_txt, f_sta)
-        txt_h  = _th(d_tmp, badge_txt, f_sta)
-        bw     = PIN_W + GAP + txt_w + BP * 2
-        bh     = txt_h + BP * 2
-        bx     = W - bw - 22
-        by_b   = H - bh - 22
-
-        badge_l = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        ImageDraw.Draw(badge_l).rounded_rectangle(
-            [(bx, by_b), (bx + bw, by_b + bh)],
-            radius=14, fill=(*BADGE_BG, 220),
-        )
-        canvas.alpha_composite(badge_l)
-
-        # ピンアイコン（黄色）
-        pin_cx = bx + BP + PIN_W // 2
-        pin_cy = by_b + bh // 2
-        _draw_pin_icon(canvas, pin_cx, pin_cy, PIN_H, YELLOW)
-
-        # テキスト
-        tx = bx + BP + PIN_W + GAP
-        ty = by_b + (bh - txt_h) // 2
-        _shadow(canvas, (tx, ty), badge_txt, f_sta, opacity=80, blur=6)
-        _draw_t(canvas, (tx, ty), badge_txt, f_sta, WHITE, stroke=3)
 
     canvas.convert("RGB").save(str(out_path), "JPEG", quality=93)
     return str(out_path)
