@@ -1249,13 +1249,7 @@
       "status": "pending"
     },
     "IMG_2856.HEIC": {
-      "status": "pending",
-      "name": "焼肉29テラス 渋谷南口店",
-      "area": "渋谷、神泉/焼肉、ホルモン、冷麺",
-      "generated_posts": {
-        "instagram": "",
-        "x": ""
-      }
+      "status": "approved"
     },
     "IMG_2914.HEIC": {
       "status": "approved",
@@ -1290,9 +1284,7 @@
       "status": "approved"
     },
     "IMG_3103.HEIC": {
-      "name": "壱ノ宮",
-      "status": "pending",
-      "area": "十条駅"
+      "status": "approved"
     },
     "IMG_3114.HEIC": {
       "status": "pending"
@@ -1308,23 +1300,13 @@
       "area": "浜金谷駅"
     },
     "IMG_3296.HEIC": {
-      "name": "OSTERIA CHOUZETSU TOKYO",
-      "status": "pending",
-      "area": "赤坂駅"
+      "status": "approved"
     },
     "IMG_3311.HEIC": {
-      "name": "立呑みアーニー",
-      "status": "pending",
-      "area": "池袋駅"
+      "status": "approved"
     },
     "IMG_3323.HEIC": {
-      "status": "pending",
-      "name": "うしごろ 貫 恵比寿本店",
-      "area": "恵比寿、代官山、中目黒/焼肉、ホルモン、日本料理",
-      "generated_posts": {
-        "instagram": "",
-        "x": ""
-      }
+      "status": "approved"
     },
     "IMG_3350.HEIC": {
       "name": "大衆イタリアン酒場 ばくりこ",
