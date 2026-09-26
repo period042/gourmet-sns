@@ -353,11 +353,6 @@ def create_overlay(
             segs = [(line, WHITE)]
         char_offset += len(line)
         cx = LEFT
-        for seg_t, _ in segs:
-            if seg_t:
-                _shadow(canvas, (cx, CY), seg_t, f_main)
-            cx += _tw(ImageDraw.Draw(canvas), seg_t, f_main)
-        cx = LEFT
         for seg_t, col in segs:
             if seg_t:
                 _draw_t(canvas, (cx, CY), seg_t, f_main, col, stroke=8)
@@ -377,7 +372,6 @@ def create_overlay(
             full = f"✓  {b}"
             bh_b = _th(ImageDraw.Draw(canvas), full, f_sub)
             ck_w = _tw(ImageDraw.Draw(canvas), ck, f_sub)
-            _shadow(canvas, (bx, by), full, f_sub, opacity=100, blur=6)
             _draw_t(canvas, (bx, by), ck, f_sub, YELLOW, stroke=5)
             _draw_t(canvas, (bx + ck_w, by), b, f_sub, WHITE, stroke=5)
             by += bh_b + 14
@@ -407,7 +401,6 @@ def create_overlay(
         _draw_pin_icon(canvas, pin_cx, pin_cy, PIN_H, YELLOW)
         tx = bx + BP + PIN_W + GAP
         ty = by_b + (bh - txt_h) // 2
-        _shadow(canvas, (tx, ty), badge_txt, f_sta, opacity=80, blur=6)
         _draw_t(canvas, (tx, ty), badge_txt, f_sta, WHITE, stroke=3)
 
     canvas.convert("RGB").save(str(out_path), "JPEG", quality=93)
