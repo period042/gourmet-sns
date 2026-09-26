@@ -268,15 +268,7 @@ def create_overlay(
 
     W, H = img.size  # 1080×1080
 
-    # ── 下部グラデーション（チェックリスト背景のみ・写真全体は暗くしない）──
-    grad = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    gd   = ImageDraw.Draw(grad)
-    gs   = int(H * 0.45)
-    for i in range(H - gs):
-        t = i / (H - gs)
-        gd.rectangle([(0, gs + i), (W, gs + i + 1)],
-                     fill=(0, 0, 0, int(190 * (t ** 1.1))))
-    canvas = Image.alpha_composite(img.convert("RGBA"), grad)
+    canvas = img.convert("RGBA")
 
     # ── フォントサイズ（画像幅の 11〜13%）──
     SZ_MAIN    = 124                       # 11.5% of 1080
