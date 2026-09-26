@@ -244,6 +244,7 @@ def create_overlay(
     target_copy: str = "",
     yellow_word: str = "",
     bullets: list | None = None,
+    layout: str = "top",      # "top": フック・コピー上部  "bottom": フック・コピー下部・エリア上部
 ) -> str:
     import pillow_heif
     pillow_heif.register_heif_opener()
@@ -290,56 +291,110 @@ def create_overlay(
 
     draw = ImageDraw.Draw(canvas)
 
-    # ── 保存訴求バー（左上・黄色）──
     BAR_Y  = 16
     BAR_H  = 58
     BAR_PX = 20
-    bar_w  = _tw(draw, save_txt, f_top) + BAR_PX * 2
+    LEFT   = 24
+    MAX_W  = W - LEFT * 2
 
-    bar_layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    ImageDraw.Draw(bar_layer).rectangle(
-        [(0, BAR_Y), (bar_w, BAR_Y + BAR_H)], fill=(*YELLOW, 255)
-    )
-    canvas.alpha_composite(bar_layer)
-
-    draw = ImageDraw.Draw(canvas)
-    draw.text(
-        (BAR_PX, BAR_Y + (BAR_H - SZ_TOP) // 2 - 2),
-        save_txt, font=f_top, fill=(*BLACK, 255),
-    )
-
-    # ── メインコピー：行を事前計算（下部配置のため）──
-    LEFT  = 24
-    MAX_W = W - LEFT * 2
-
+    # ── キャッチコピー：行・高さを事前計算 ──
     for sz in (SZ_MAIN, 104, 88, 74, 62):
         f_main = _load_font(sz)
         lines  = _wrap_text(draw, catchphrase, f_main, MAX_W)
         if len(lines) <= 2:
             break
 
-    # 黄色語の決定
     if yellow_word and yellow_word in catchphrase:
         ypart = yellow_word
     else:
         _, ypart = _split_yellow(catchphrase)
-
     yabs_start = catchphrase.find(ypart) if ypart else -1
     yabs_end   = yabs_start + len(ypart) if yabs_start >= 0 else -1
 
-    # ── 駅名バッジ（右上・角丸ダーク＋ピンアイコン）──
+    line_hs    = [_th(draw, line, f_main) + 14 for line in lines[:2]]
+    total_cp_h = sum(line_hs) - 14
+
+    # ── layout による位置決定 ──
+    BOTTOM_MARGIN = 40
+    if layout == "bottom":
+        cp_y      = H - BOTTOM_MARGIN - total_cp_h   # コピー: 下部
+        hook_y    = cp_y - BAR_H - 16                # フック: コピー直上
+        badge_y   = BAR_Y                            # エリア: 右上
+        bullets_y = int(H * 0.42)                    # チェック: 中段上
+    else:  # "top"
+        hook_y    = BAR_Y                            # フック: 左上
+        cp_y      = BAR_Y + BAR_H + 16              # コピー: フック直下
+        badge_y   = None                             # エリア: 右下（高さ確定後）
+        bullets_y = None                             # チェック: コピー直下（確定後）
+
+    # ── フック（保存訴求バー）──
+    bar_w = _tw(draw, save_txt, f_top) + BAR_PX * 2
+    bar_layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(bar_layer).rectangle(
+        [(0, hook_y), (bar_w, hook_y + BAR_H)], fill=(*YELLOW, 255)
+    )
+    canvas.alpha_composite(bar_layer)
+    draw = ImageDraw.Draw(canvas)
+    draw.text(
+        (BAR_PX, hook_y + (BAR_H - SZ_TOP) // 2 - 2),
+        save_txt, font=f_top, fill=(*BLACK, 255),
+    )
+
+    # ── メインコピー（左寄せ・最大2行）──
+    CY = cp_y
+    char_offset = 0
+    for line in lines[:2]:
+        lh = _th(draw, line, f_main)
+        ys = max(0, yabs_start - char_offset)
+        ye = min(len(line), yabs_end - char_offset)
+        if ypart and 0 <= ys < ye:
+            segs = [(line[:ys], WHITE), (line[ys:ye], YELLOW), (line[ye:], WHITE)]
+        else:
+            segs = [(line, WHITE)]
+        char_offset += len(line)
+        cx = LEFT
+        for seg_t, _ in segs:
+            if seg_t:
+                _shadow(canvas, (cx, CY), seg_t, f_main)
+            cx += _tw(ImageDraw.Draw(canvas), seg_t, f_main)
+        cx = LEFT
+        for seg_t, col in segs:
+            if seg_t:
+                _draw_t(canvas, (cx, CY), seg_t, f_main, col, stroke=8)
+                cx += _tw(ImageDraw.Draw(canvas), seg_t, f_main)
+        CY += lh + 14
+
+    # top の場合: コピー描画後に bullets_y / badge_y を確定
+    if layout == "top":
+        bullets_y = max(CY + 50, int(H * 0.615))
+
+    # ── チェックリスト（✓ を黄色、テキストを白）──
+    if bullets:
+        bx = 28
+        by = bullets_y
+        ck = "✓  "
+        for b in bullets[:3]:
+            full = f"✓  {b}"
+            bh_b = _th(ImageDraw.Draw(canvas), full, f_sub)
+            ck_w = _tw(ImageDraw.Draw(canvas), ck, f_sub)
+            _shadow(canvas, (bx, by), full, f_sub, opacity=100, blur=6)
+            _draw_t(canvas, (bx, by), ck, f_sub, YELLOW, stroke=5)
+            _draw_t(canvas, (bx + ck_w, by), b, f_sub, WHITE, stroke=5)
+            by += bh_b + 14
+
+    # ── 駅名バッジ（layout="top": 右下 / "bottom": 右上）──
     if badge_txt:
-        BP     = 18
-        PIN_H  = SZ_STATION
-        PIN_W  = int(SZ_STATION * 0.60)
-        GAP    = 10
-        d_tmp  = ImageDraw.Draw(canvas)
-        txt_w  = _tw(d_tmp, badge_txt, f_sta)
-        txt_h  = _th(d_tmp, badge_txt, f_sta)
-        bw     = PIN_W + GAP + txt_w + BP * 2
-        bh     = txt_h + BP * 2
-        bx     = W - bw - 22
-        by_b   = BAR_Y  # 右上（保存バーと同じ高さ）
+        BP    = 18
+        PIN_H = SZ_STATION
+        PIN_W = int(SZ_STATION * 0.60)
+        GAP   = 10
+        d_tmp = ImageDraw.Draw(canvas)
+        txt_w = _tw(d_tmp, badge_txt, f_sta)
+        txt_h = _th(d_tmp, badge_txt, f_sta)
+        bw    = PIN_W + GAP + txt_w + BP * 2
+        bh    = txt_h + BP * 2
+        bx    = W - bw - 22
+        by_b  = BAR_Y if layout == "bottom" else H - bh - 22
 
         badge_l = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         ImageDraw.Draw(badge_l).rounded_rectangle(
@@ -347,67 +402,13 @@ def create_overlay(
             radius=14, fill=(*BADGE_BG, 220),
         )
         canvas.alpha_composite(badge_l)
-
         pin_cx = bx + BP + PIN_W // 2
         pin_cy = by_b + bh // 2
         _draw_pin_icon(canvas, pin_cx, pin_cy, PIN_H, YELLOW)
-
         tx = bx + BP + PIN_W + GAP
         ty = by_b + (bh - txt_h) // 2
         _shadow(canvas, (tx, ty), badge_txt, f_sta, opacity=80, blur=6)
         _draw_t(canvas, (tx, ty), badge_txt, f_sta, WHITE, stroke=3)
-
-    # ── チェックリスト（中段・✓ を黄色、テキストを白）──
-    if bullets:
-        bx  = 28
-        by  = int(H * 0.52)
-        ck  = "✓  "
-        for b in bullets[:3]:
-            full = f"✓  {b}"
-            bh   = _th(ImageDraw.Draw(canvas), full, f_sub)
-            ck_w = _tw(ImageDraw.Draw(canvas), ck, f_sub)
-            _shadow(canvas, (bx, by), full, f_sub, opacity=100, blur=6)
-            _draw_t(canvas, (bx, by), ck, f_sub, YELLOW, stroke=5)
-            _draw_t(canvas, (bx + ck_w, by), b, f_sub, WHITE, stroke=5)
-            by += bh + 14
-
-    # ── メインコピー（下部・左寄せ・最大2行）──
-    BOTTOM_MARGIN = 40
-    line_hs = [_th(draw, line, f_main) + 14 for line in lines[:2]]
-    total_cp_h = sum(line_hs) - 14
-    CY = H - BOTTOM_MARGIN - total_cp_h
-
-    char_offset = 0
-    for line in lines[:2]:
-        lh = _th(draw, line, f_main)
-
-        ys = max(0, yabs_start - char_offset)
-        ye = min(len(line), yabs_end - char_offset)
-
-        if ypart and 0 <= ys < ye:
-            segs = [
-                (line[:ys],   WHITE),
-                (line[ys:ye], YELLOW),
-                (line[ye:],   WHITE),
-            ]
-        else:
-            segs = [(line, WHITE)]
-
-        char_offset += len(line)
-
-        cx = LEFT
-        for seg_t, _ in segs:
-            if seg_t:
-                _shadow(canvas, (cx, CY), seg_t, f_main)
-            cx += _tw(ImageDraw.Draw(canvas), seg_t, f_main)
-
-        cx = LEFT
-        for seg_t, col in segs:
-            if seg_t:
-                _draw_t(canvas, (cx, CY), seg_t, f_main, col, stroke=8)
-                cx += _tw(ImageDraw.Draw(canvas), seg_t, f_main)
-
-        CY += lh + 14
 
     canvas.convert("RGB").save(str(out_path), "JPEG", quality=93)
     return str(out_path)
