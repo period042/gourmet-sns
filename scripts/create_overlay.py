@@ -9,7 +9,7 @@
 import os
 import re
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance, ImageOps
 
 OVERLAID_DIR = Path(__file__).parent.parent / "overlaid"
 OUTPUT_SIZE  = (1080, 1080)
@@ -259,7 +259,7 @@ def create_overlay(
     badge_txt = station  # ピンアイコンは描画で付与するのでテキストはstation名のみ
 
     # ── 写真補正 ──
-    img = Image.open(photo_path).convert("RGB")
+    img = ImageOps.exif_transpose(Image.open(photo_path)).convert("RGB")
     img = _fit_square(img)
     img = ImageEnhance.Brightness(img).enhance(1.10)
     img = ImageEnhance.Contrast(img).enhance(1.10)
