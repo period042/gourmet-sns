@@ -34,6 +34,9 @@ def load_posted_week() -> list[dict]:
         try:
             with open(path, encoding='utf-8') as f:
                 d = json.load(f)
+            # 前回のまとめを含めると、その1枚目の写真が再掲されてしまう
+            if d.get('restaurant_id') == 'summary':
+                continue
             posted_at_str = d.get('posted_at') or d.get('scheduled_at', '')
             if not posted_at_str:
                 continue
