@@ -293,7 +293,8 @@ def pick_queue() -> Path | None:
 
             sched = data.get("scheduled_at")
             if sched:
-                sched_dt = datetime.fromisoformat(sched)
+                # "2026/10/01 12:05:00" 形式でキュー全体が停止した事故の再発防止
+                sched_dt = datetime.fromisoformat(sched.replace("/", "-"))
                 if sched_dt.tzinfo is None:
                     sched_dt = sched_dt.replace(tzinfo=JST)
                 if sched_dt > now + timedelta(minutes=15):
