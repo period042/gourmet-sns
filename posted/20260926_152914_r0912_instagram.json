@@ -17,5 +17,5 @@
   "overlay_source_path": "C:\\Users\\hmorimot\\iCloudPhotos\\Photos\\IMG_2730.HEIC",
   "scheduled_at": "2026-10-22T12:05:00+09:00",
   "locked_at": "2026-10-22T15:30:09.303972+09:00",
-  "error": "400 Client Error: Bad Request for url: https://graph.instagram.com/v22.0/28190971523873170/media?access_token=IGAAN8py5Hya5BZAFlrX1ZAwaUJPTWxwYWQwbUgtX294NDM4WXlvU0hpT0czdUg3a1dWdEZAIR29tZA0tiSWZAlSU1BUzJ5Vlh5NE1HNmQ4YjBVLS14SEY0UDE3eUl1TVVwbEV5QldHUV9Nejlad08waDZAFU3FmQXR2U3E0WVV3VzhaawZDZD&image_url=https%3A%2F%2Fres.cloudinary.com%2Fdviztyljm%2Fimage%2Fupload%2Fv1790406974%2Fgourmet%2Fqaovwwx9s3sjemm4ed3d.jpg&is_carousel_item=true"
+  "error": "400 Client Error: Bad Request for url: https://graph.instagram.com/v22.0/28190971523873170/media?access_token=***&image_url=https%3A%2F%2Fres.cloudinary.com%2Fdviztyljm%2Fimage%2Fupload%2Fv1790406974%2Fgourmet%2Fqaovwwx9s3sjemm4ed3d.jpg&is_carousel_item=true"
 }

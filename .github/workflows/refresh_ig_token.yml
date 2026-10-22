@@ -23,7 +23,8 @@ jobs:
           SHORT_TOKEN: ${{ inputs.short_lived_token }}
           IG_APP_ID: ${{ secrets.IG_APP_ID }}
           IG_APP_SECRET: ${{ secrets.IG_APP_SECRET }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN は Secrets を書き換えられないため、secrets:write 付き PAT を優先
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: |
           python3 << 'PYEOF'
           import os, json, urllib.request, urllib.error, urllib.parse, subprocess, datetime, base64, sys

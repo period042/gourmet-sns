@@ -628,9 +628,11 @@ def phase2a_post():
         #     data["th_post_id"] = th_id
 
     except Exception as e:
-        print(f"[FAIL] Instagram API: {e}")
+        # 公開リポジトリにコミットされるため、URL内のトークンを伏せる
+        err = re.sub(r"access_token=[^&\s]+", "access_token=***", str(e))
+        print(f"[FAIL] Instagram API: {err}")
         data["status"] = "failed"
-        data["error"]  = str(e)
+        data["error"]  = err
 
     # ig_post_id を in_progress/ に書き戻す（この後 workflow が commit+push する）
     ip_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")

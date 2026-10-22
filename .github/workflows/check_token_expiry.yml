@@ -19,7 +19,8 @@ jobs:
         env:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN は Secrets を書き換えられないため、secrets:write 付き PAT を優先
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         run: |
           python3 << 'PYEOF'
           import os, json, urllib.request, urllib.error, base64, datetime, subprocess, sys
@@ -67,7 +68,7 @@ jobs:
 
           def check_ig_valid(token):
               """Instagram tokenが有効か確認。(valid: bool, code: int|None)"""
-              ok, result = api_get(f"https://graph.facebook.com/v22.0/me?access_token={token}")
+              ok, result = api_get(f"https://graph.instagram.com/v22.0/me?access_token={token}")
               if ok:
                   return True, None
               return False, result
